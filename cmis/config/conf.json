@@ -2,6 +2,7 @@
     "system_name":"C-MIS",
     "dashboard":"admin",
     "theme":"cmis",
+    "session_name":"cmis_session",
     "database":{
         "host":"localhost",
         "username":"root",

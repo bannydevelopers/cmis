@@ -1,3 +1,3 @@
 <?php 
 
-echo find_template('home', ['msg'=>'I\'m home, dude!']);
+echo helper::find_template('home', ['msg'=>'I\'m home, dude!']);

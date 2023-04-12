@@ -1,3 +1,3 @@
 <?php 
 
-echo find_template('staff', ['staff'=>[],'msg'=>'I\'m sales, dude!']);
+echo helper::find_template('staff', ['users'=>[],'msg'=>'I\'m sales, dude!']);
