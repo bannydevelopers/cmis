@@ -1,0 +1,11 @@
+{
+    "name":"Accounts",
+    "icon":"dollar",
+    "nav":[
+        {"name":"Expences","href":"Expences/"},
+        {"name":"Debts","href":"Debts/"},
+        {"name":"Revenues","href":"Revenues/"},
+        {"name":"Business partners","href":"Business_partners/"},
+        {"name":"Banks","href":"Banks/"}
+    ]
+}

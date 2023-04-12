@@ -1,0 +1,13 @@
+{
+    "system_name":"C-MIS",
+    "dashboard":"admin",
+    "theme":"cmis",
+    "database":{
+        "host":"localhost",
+        "username":"root",
+        "password":"root",
+        "db_name":"cmis_main",
+        "driver":"mysql"
+    },
+    "modules":["Sales","Store","HR","Projects","Accounts","Settings"]
+}

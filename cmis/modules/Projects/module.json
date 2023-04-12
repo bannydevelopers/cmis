@@ -1,0 +1,11 @@
+{
+    "name":"Technical projects",
+    "icon":"user-shield",
+    "nav":[
+        {"name":"Projects","href":"Projects/"},
+        {"name":"Activities","href":"Activities/"},
+        {"name":"Resources","href":"Resources/"},
+        {"name":"Project report","href":"Project_report/"}
+      
+    ]
+}

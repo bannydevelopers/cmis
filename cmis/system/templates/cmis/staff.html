@@ -1,0 +1,210 @@
+
+          <div class="container mx-auto grid px-6">
+            <h2
+              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+            >
+              User list
+            </h2>
+            <h4
+              class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
+            >
+              Manage users
+            </h4>
+            <div class="w-full overflow-hidden rounded-lg shadow-md">
+              <div class="w-full overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    >
+                      <th class="px-4 py-3">Name</th>
+                      <th class="px-4 py-3">Phone #</th>
+                      <th class="px-4 py-3">Role</th>
+                      <th class="px-4 py-3">Date registered</th>
+                      <th class="px-4 py-3">registered by</th>
+                      <th class="px-4 py-3">Status</th>
+                      <th class="px-4 py-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                  >
+                    <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center text-sm">
+                          <!-- Avatar with inset shadow -->
+                          <div
+                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                          >
+                            <img
+                              class="object-cover w-full h-full rounded-full"
+                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                              alt=""
+                              loading="lazy"
+                            />
+                            <div
+                              class="absolute inset-0 rounded-full shadow-inner"
+                              aria-hidden="true"
+                            ></div>
+                          </div>
+                          <div>
+                            <p class="font-semibold">Hans Burger</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                              Developer
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        0656631106
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        Admin
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        6/10/2020
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        System
+                      </td>
+                      <td class="px-4 py-3 text-xs">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" value="" class="sr-only peer" checked>
+                          <div class="w-9 h-5 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                        </label>  
+                      </td>
+                      <td class="px-4 py-3">
+                        <div class="flex items-center space-x-4 text-sm">   
+                          <a href="profile"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            aria-label="View">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                              <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                              <g id="SVGRepo_iconCarrier"> <title>eye</title> <path d="M0 16q0.064 0.128 0.16 0.352t0.48 0.928 0.832 1.344 1.248 1.536 1.664 1.696 2.144 1.568 2.624 1.344 3.136 0.896 3.712 0.352 3.712-0.352 3.168-0.928 2.592-1.312 2.144-1.6 1.664-1.632 1.248-1.6 0.832-1.312 0.48-0.928l0.16-0.352q-0.032-0.128-0.16-0.352t-0.48-0.896-0.832-1.344-1.248-1.568-1.664-1.664-2.144-1.568-2.624-1.344-3.136-0.896-3.712-0.352-3.712 0.352-3.168 0.896-2.592 1.344-2.144 1.568-1.664 1.664-1.248 1.568-0.832 1.344-0.48 0.928zM10.016 16q0-2.464 1.728-4.224t4.256-1.76 4.256 1.76 1.76 4.224-1.76 4.256-4.256 1.76-4.256-1.76-1.728-4.256zM12 16q0 1.664 1.184 2.848t2.816 1.152 2.816-1.152 1.184-2.848-1.184-2.816-2.816-1.184-2.816 1.184l2.816 2.816h-4z"/> </g>
+                              </svg>       
+                            </a>
+                          <button onclick="del()"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            aria-label="Delete"
+                          >
+                            <svg
+                              class="w-5 h-5"
+                              aria-hidden="true"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center text-sm">
+                          <!-- Avatar with inset shadow -->
+                          <div
+                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                          >
+                            <img
+                              class="object-cover w-full h-full rounded-full"
+                              src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                              alt=""
+                              loading="lazy"
+                            />
+                            <div
+                              class="absolute inset-0 rounded-full shadow-inner"
+                              aria-hidden="true"
+                            ></div>
+                          </div>
+                          <div>
+                            <p class="font-semibold">Wenzel Dashington</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                              Hr
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        0656631107
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        Admin
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        6/10/2020
+                      </td>
+                      <td class="px-4 py-3 text-sm">
+                        Hans Burger
+                      </td>
+                      <td class="px-4 py-3 text-xs">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" value="" class="sr-only peer">
+                          <div class="w-9 h-5 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                        </label> 
+                      </td>
+                      <td class="px-4 py-3">
+                        <div class="flex items-center space-x-4 text-sm">      
+                          <button
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            aria-label="View">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                              <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                              <g id="SVGRepo_iconCarrier"> <title>eye</title> <path d="M0 16q0.064 0.128 0.16 0.352t0.48 0.928 0.832 1.344 1.248 1.536 1.664 1.696 2.144 1.568 2.624 1.344 3.136 0.896 3.712 0.352 3.712-0.352 3.168-0.928 2.592-1.312 2.144-1.6 1.664-1.632 1.248-1.6 0.832-1.312 0.48-0.928l0.16-0.352q-0.032-0.128-0.16-0.352t-0.48-0.896-0.832-1.344-1.248-1.568-1.664-1.664-2.144-1.568-2.624-1.344-3.136-0.896-3.712-0.352-3.712 0.352-3.168 0.896-2.592 1.344-2.144 1.568-1.664 1.664-1.248 1.568-0.832 1.344-0.48 0.928zM10.016 16q0-2.464 1.728-4.224t4.256-1.76 4.256 1.76 1.76 4.224-1.76 4.256-4.256 1.76-4.256-1.76-1.728-4.256zM12 16q0 1.664 1.184 2.848t2.816 1.152 2.816-1.152 1.184-2.848-1.184-2.816-2.816-1.184-2.816 1.184l2.816 2.816h-4z"/> </g>
+                              </svg>       
+                          </button>
+                          <button onclick="del()"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            aria-label="Delete"
+                          >
+                            <svg
+                              class="w-5 h-5"
+                              aria-hidden="true"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+          </div>
+    
+    <script src="../assets/js/sweetalert.min.js"></script>
+    <script>
+      const del = () => swal("Sure! want to delete?", {
+        buttons: {
+          cancel: "Cancel!",
+          catch: {
+            text: "Delete!",
+            value: "delete",
+          }
+        },
+      })
+      .then((value) => {
+        switch (value) {
+          case "delete":
+            swal("Done!", "User deleted!", "success");
+            break;
+        }
+      });
+    </script>
+
