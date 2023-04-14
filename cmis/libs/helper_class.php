@@ -10,7 +10,7 @@ class helper{
         return self::$instance;
     }
     public function save_user($user_data){
-        $db = db::get_connection(storage::init()->system_config->db_configs);
+        $db = db::get_connection(storage::init()->system_config->database);
         $ret = ['status'=>'unknown', 'details'=>'not set', 'user_id'=>0];
         $data = [];
         // Some fields are optional
@@ -46,6 +46,18 @@ class helper{
         }
         return null;
     }
+    public function set_session_user($user_info){
+        $conf = storage::init()->system_config;
+        if(!is_array($user_info)) return false;
+        $_SESSION[$conf->session_name]['user'] = $user_info;
+        if(is_array($_SESSION[$conf->session_name]['user'])) return true;
+        else return false;
+    }
+    public function end_user_session(){
+        $conf = storage::init()->system_config;
+        $_SESSION[$conf->session_name]['user'] = null;
+        unset($_SESSION[$conf->session_name]['user']);
+    }
     public function get_user_permissions($role){
         $db = db::get_connection(storage::init()->system_config->database);
         $whr = "permission_id IN SELECT role_id FROM role_permission_list WHERE role_id = {$role}";
@@ -63,6 +75,35 @@ class helper{
         $permission = $this->get_user_permissions($this->get_session_user('system_role'));
         return in_array($reference, $permission) ? true : false;
     }
+    public function login_user($login_info){
+        $db = db::get_connection(storage::init()->system_config->database);
+        $obj = new static();
+        $whr = 'password = :password AND (phone_number = :pnumber OR email = :email)';
+        if(intval($login_info['login'])){
+            $login = $obj::format_phone_number($login_info['login']);
+        }
+        else $login = $obj::format_email($login_info['login']);
+        if(!$login) return false;
+        $pass = $obj::create_hash($login_info['password']);
+        $user = $db->select('user')
+                    ->where($whr, ['password'=>$pass, 'pnumber'=>$login, 'email'=>$login])
+                    ->limit(1)->fetch();
+        if(!$db->error() && isset($user['password'])){
+            return $obj->set_session_user($user);
+        }
+        return false;
+    }
+    public function check_user_session(){
+        $obj = new static();
+        $user = $obj->get_session_user();
+        if($user == null) return false;
+        else return true;
+    }
+    public static function create_hash($plain_text){
+        $plain_txt = md5(str_rot13($plain_text));
+        $ret = hash('sha512', md5($plain_txt));
+        return md5(str_rot13($ret));
+    }
     public static function format_time($time, $format = 'Y-m-d H:i:s'){
         $timestamp = strtotime($time);
         return date($format, $timestamp);
@@ -78,6 +119,7 @@ class helper{
         $registry = storage::init();
         //$dirs = scandir(__DIR__);
         $dirs = storage::init()->system_config->modules;
+        $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
         $nav = [
                     [
                         'name'=>'Dashboard', 
@@ -94,13 +136,24 @@ class helper{
                 $info->nav = null;
             }
             $nav[] = [
-                'href'=>str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}/$dir"),
+                'href'=>str_replace('//','/', "/{$home}/$dir"),
                 'icon'=>$info->icon,
                 'name'=>$info->name,
                 'children'=>$info->nav
             ];
         }
-    
+        $storage = storage::init();
+        extract($data);
+        $pdata = self::get_sub_template($template_name, $data);
+        ob_start();
+        $site_name = $storage->system_config->system_name;
+        $page_title = "Dashboard &raquo; {$template_name}";
+        $root = realpath(__DIR__.'/../system/templates/')."/{$storage->system_config->theme}";
+        $base = trim("{$storage->request_dir}/cmis/system/assets/",'/');
+        include $root.'/index.html';
+    }
+    public static function get_sub_template($template_name, $data = []){
+
         $storage = storage::init();
         extract($data);
         ob_start();
@@ -108,10 +161,6 @@ class helper{
         $base = trim("{$storage->request_dir}/cmis/system/assets/",'/');
         if(is_readable($root."/{$template_name}.html")) include $root."/{$template_name}.html";
         else echo '<h1>Template not found</h1>';
-        $pdata = ob_get_clean();
-        ob_start();
-        $site_name = $storage->system_config->system_name;
-        $page_title = "Dashboard &raquo; {$template_name}";
-        include $root.'/index.html';
+        return ob_get_clean();
     }
 }
