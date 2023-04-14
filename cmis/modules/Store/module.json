@@ -2,9 +2,9 @@
     "name":"Store",
     "icon":"store-alt",
     "nav":[
-        {"name":"products","href":"products/"},
+        {"name":"Products","href":"Products/"},
         {"name":"Tools","href":"Tools/"},
-        {"name":"Stores","href":"stores/"}
+        {"name":"Stores","href":"Stores/"}
    
     ]
 }

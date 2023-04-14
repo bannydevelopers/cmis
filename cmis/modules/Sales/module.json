@@ -2,10 +2,10 @@
     "name":"Sales",
     "icon":"shopping-cart",
     "nav":[
-        {"name":"Customers","href":"customers/"},
-        {"name":"Invoice","href":"invoice/"},
-        {"name":"Purchase order","href":"purchase_order/"},
-        {"name":"Products","href":"products/"},
-        {"name":"Suppliers","href":"suppliers/"}
+        {"name":"Customers","href":"Customers/"},
+        {"name":"Invoice","href":"Invoice/"},
+        {"name":"Purchase order","href":"Purchase_order/"},
+        {"name":"Products","href":"Products/"},
+        {"name":"Suppliers","href":"Suppliers/"}
     ]
 }
