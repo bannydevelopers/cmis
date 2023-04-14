@@ -1,0 +1,21 @@
+{
+  "name": "cmis",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i cmis/system/assets/css/tailwind.css -o cmis/system/assets/css/tailwind.output.css --watch",
+    "format": "npx prettier --write ./cmis/system/templates/**/*.html"
+  },
+  "author": "rupia",
+  "license": "MIT",
+  "keywords": [
+    "tailwind",
+    "cmis"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "prettier-plugin-tailwindcss": "^0.2.6",
+    "tailwindcss": "^3.3.1"
+  }
+}

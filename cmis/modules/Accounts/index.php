@@ -1,8 +1,8 @@
 <?php 
-$children = ["Expences","Debts","Revenues","Business_partners","Banks"];
+$children = ['Expenses','Debts'];
 $req = storage::init()->request;
 if(!isset($req[2])){
-    echo helper::find_template('Accounts', []);
+    echo helper::find_template('accounts', []);
 }
 else{
     if(in_array($req[2], $children)){

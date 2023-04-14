@@ -1,3 +1,1 @@
-<?php 
-
-echo helper::find_template('Debts', []);
+hello

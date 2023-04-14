@@ -42,12 +42,10 @@ class user{
         }
         return (object)$ret;
     }
-    public function get_user($reference){
+    public function get_user($reference,$createria){
 
     }
-    public function get_users($createria){
 
-    }
     public function get_user_roles($user_id){
 
     }
