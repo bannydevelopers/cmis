@@ -1,10 +1,72 @@
 
+<link href="css/flowbite.min.css" rel="stylesheet" />
           <div class="container mx-auto grid px-6">
             <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
               Staff management
             </h2>
+            <!-- Modal toggle -->
+            <div>
+              <button 
+              data-modal-target="add-staff-modal" data-modal-toggle="add-staff-modal" 
+              class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+              Add staff
+              </button>
+            </div>
+
+            <!-- Main modal -->
+            <div id="add-staff-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-staff-modal">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="px-6 py-6 lg:px-8">
+                          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add staff </h3>
+                          <form class="space-y-6" action="">
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-2" for="grid-first-name">
+                                  First Name
+                                </label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" id="grid-first-name" type="text" placeholder="Jas">
+                              </div>
+                              <div class="w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-2" for="grid-last-name">
+                                  Last Name
+                                </label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" id="grid-last-name" type="text" placeholder="Rup">
+                              </div>
+                            </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-2" for="grid-surname">
+                                  Surname
+                                </label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" id="grid-surname" type="text" placeholder="Kat">
+                              </div>
+                              <div class="w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-2" for="grid-phone">
+                                  Phone
+                                </label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" id="grid-phone" type="text" placeholder="07 ** *** **">
+                              </div>
+                            </div>
+                            <div>
+                                <label for="email" 
+                                class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-2"> Email</label>
+                                <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="staffname@company.com" required>
+                            </div>
+                            <button type="submit" class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <br />
             <div class="w-full overflow-hidden rounded-lg shadow-md">
               <div class="w-full overflow-x-auto">
                 <table class="w-full">
@@ -71,12 +133,18 @@
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">   
                           <a href="profile"
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                             aria-label="View">
                             <i class="fa-solid fa-eye fa-lg"></i>      
-                            </a>
+                          </a>
+                          <button 
+                            class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            aria-label="Edit"
+                          >
+                          <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                          </button>
                           <button onclick="del()"
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                            class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                             aria-label="Delete"
                           >
                           <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
@@ -104,7 +172,7 @@
                             ></div>
                           </div>
                           <div>
-                            <p class="font-semibold">Hans Burger</p>
+                            <p class="font-semibold">Jas Burger</p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
                               Developer
                             </p>
@@ -136,6 +204,12 @@
                             aria-label="View">
                             <i class="fa-solid fa-eye fa-lg"></i>       
                         </a>
+                        <button 
+                          class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                          aria-label="Edit"
+                        >
+                        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </button>
                           <button onclick="del()"
                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                             aria-label="Delete"
@@ -153,7 +227,8 @@
             </div>
           </div>
     
-    <script src="../assets/js/sweetalert.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/flowbite.min.js"></script>
     <script>
       const del = () => swal("Sure! want to delete?", {
         buttons: {
