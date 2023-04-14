@@ -1,10 +1,11 @@
 <?php
 
-//define('EXEC_START', microtime(true));
+define('EXEC_START', microtime(true));
 // System time zone
 date_default_timezone_set('Africa/Dar_es_Salaam');
-
-require "vendor/autoload.php";
+// Session globalization
+session_start();
+//require "vendor/autoload.php";
 /*$robo = 'robot@example.com';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;*/

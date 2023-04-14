@@ -1,6 +1,19 @@
  <?php 
 $registry = storage::init();
-
+$helper = helper::init();
+if(isset($_POST['login']) && isset($_POST['password'])){
+    $helper->login_user($_POST);
+}
+if(isset($_GET['logout'])){
+    // Unset session
+    $helper->end_user_session();
+    // Remove query string
+    $url = strtok($_SERVER["REQUEST_URI"], '?');
+    header("Location: {$url}");
+}
+if(!$helper->check_user_session()){
+    die($helper::get_sub_template('login'));
+}
 if(isset($registry->request[1])){
     if(is_readable(__DIR__."/{$registry->request[1]}/index.php")){
         include __DIR__."/{$registry->request[1]}/index.php";

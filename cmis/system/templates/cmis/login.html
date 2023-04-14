@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CMIS</title>
-    <link rel="stylesheet" href="css/tailwind.output.css" />
-    <script src="js/toggle-dark-mode-check.js"></script>
+    <link rel="stylesheet" href="/<?=$base?>/css/tailwind.output.css" />
+    <script src="/<?=$base?>/js/toggle-dark-mode-check.js"></script>
     <script
-      src="js/alpine.min.js"
+      src="/<?=$base?>/js/alpine.min.js"
       defer
     ></script>
-    <script src="js/init-alpine.js"></script>
+    <script src="/<?=$base?>/js/init-alpine.js"></script>
   </head>
   <body>
     <div
@@ -19,7 +19,7 @@
       <div
         class="mx-auto h-full max-w-md flex-1 overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800"
       >
-        <form action="./blank.html" class="flex flex-col overflow-y-auto">
+        <form class="flex flex-col overflow-y-auto" method="post">
           <div class="w-full text-center py-4">
             <h1 class="text-2xl font-bold text-gray-700 dark:text-gray-200">CMIS</h1>
           </div>
@@ -31,11 +31,11 @@
                 Login
               </h1>
               <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Email</span>
+                <span class="text-gray-700 dark:text-gray-400">Email or Phone number</span>
                 <div class="mt-2.5">
                   <input
-                    type="email"
-                    name="email"
+                    type="text"
+                    name="login"
                     id="email"
                     autocomplete="off"
                     placeholder="Enter email address"
