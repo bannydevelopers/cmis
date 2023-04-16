@@ -1,5 +1,5 @@
 <?php 
-$children = ["Projects","Activities","Resources","Salary","Contracts"];
+$children = ["Projects","Activities","Resources","Project_report"];
 $req = storage::init()->request;
 if(!isset($req[2])){
     echo helper::find_template('Projects', []);
