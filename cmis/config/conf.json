@@ -10,5 +10,15 @@
         "db_name":"cmis_main",
         "driver":"mysql"
     },
-    "modules":["Sales","Store","HR","Projects","Accounts","Settings"]
+    "modules":["Sales","Store","HR","Projects","Accounts","Settings"],
+    "phpmailer":{
+        "sender":"noreply@cmis.co",
+        "host":"mail.jamboexpedition.com",
+        "username":"mailsender@jamboexpedition.com",
+        "password":"MS@jambo.1"
+    },
+    "nextsms":{
+        "sender":"NEXTSMS",
+        "token":"YmFubnk6QmFzZWFAQkNM"
+    }
 }
