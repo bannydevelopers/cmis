@@ -1,3 +1,3 @@
 <?php 
 
-echo helper::find_template('staff', []);
+echo helper::find_template('Staff', []);
