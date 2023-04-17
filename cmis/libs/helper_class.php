@@ -152,9 +152,107 @@ class helper{
         $base = trim("{$storage->request_dir}/cmis/system/assets/",'/');
         include $root.'/index.html';
     }
-    public static function get_sub_template($template_name, $data = []){
+    public static function send_email($opts){
+        require realpath(__DIR__.'/../../')."/vendor/autoload.php";
+        //use PHPMailer\PHPMailer\PHPMailer;
+        //use PHPMailer\PHPMailer\Exception;
 
+        $developmentMode = false;
+        $config = (array)storage::init()->system_config->phpmailer;
+        $config['sender_name'] = isset($config['sender_name']) ? @$config['sender_name'] : '';
+        $opts['recipient_name'] = isset($opts['recipient_name']) ? $opts['recipient_name'] : '';
+        
+        $mailer = new PHPMailer\PHPMailer\PHPMailer($developmentMode);
+        try {
+            $mailer->SMTPDebug = intval($developmentMode);
+            $mailer->isSMTP();
+            if ($developmentMode) {
+                $mailer->SMTPOptions = [
+                    'ssl'=> [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    ]
+                ];
+            }
+            $mailer->Host = $config['host'];
+            $mailer->SMTPAuth = true;
+            $mailer->Username = $config['username'];
+            $mailer->Password = $config['password'];
+            $mailer->SMTPSecure = 'tls';
+            $mailer->Port = 587;
+            $mailer->setFrom($config['sender'], $config['sender_name']);
+            $mailer->addAddress($opts['recipient'], $opts['recipient_name']);
+            $mailer->isHTML(true);
+            $mailer->Subject = $opts['subject'];
+            $mailer->Body = $opts['body'];
+            $ok = $mailer->send();
+            $mailer->ClearAllRecipients();
+            if($ok) return 'mail_send_ok';
+            else return $mailer->ErrorInfo;
+        } 
+        catch (Exception $e) {
+            return $mailer->ErrorInfo;
+        }
+    }
+    public static function send_sms($opts){
+
+        $curl = curl_init();
+        $config = storage::init()->system_config->nextsms;
+        $reference = self::create_hash(microtime(true));
+        if(!is_array($opts['recipients'])) $opts['recipients'] = [$opts['recipients']];
+        $reqPayload = [
+            "from" => $config->sender,
+            "to" => $opts['recipients'],
+            "text" => $opts['body'],
+            "reference" => $reference,
+        ];
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://messaging-service.co.tz/api/sms/v1/text/single',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => json_encode($reqPayload),
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: Basic {$config->token}",
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $res = json_decode($response);
+        //var_dump($res);
+        if(isset($res->messages) && isset($res->messages->to) && isset($res->messages->to->id)) return $reference;
+        else return false;
+        /*{
+            "messages":[
+                {
+                    "to":"255757569016","status":
+                    {
+                        "groupId":105,
+                        "groupName":"PENDING",
+                        "id":7,
+                        "name":"PENDING_ENROUTE",
+                        "description":"Message sent to next instance"
+                    },
+                    "messageId":"8250397020021226786",
+                    "smsCount":3
+                }
+            ]
+        }*/
+    }
+    public static function get_sub_template($template_name, $data = []){
         $storage = storage::init();
+        $home = str_replace('//','/', "/{$storage->request_dir}/{$storage->request[0]}");
+
         extract($data);
         ob_start();
         $root = realpath(__DIR__.'/../system/templates/')."/{$storage->system_config->theme}";
@@ -163,4 +261,5 @@ class helper{
         else echo '<h1>Template not found</h1>';
         return ob_get_clean();
     }
+
 }
