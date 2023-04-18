@@ -4,6 +4,7 @@ $helper = helper::init();
 $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
 if(isset($_POST['login']) && isset($_POST['password'])){
     $helper->login_user($_POST);
+    if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
 }
 if(isset($_GET['logout'])){
     // Unset session
@@ -59,7 +60,8 @@ if(isset($registry->request[1]) && $registry->request[1] == 'forgot_password'){
     die($helper::get_sub_template('forgot-password',['msg'=>$msg]));
 }
 if(!$helper->check_user_session()){
-    die($helper::get_sub_template('login'));
+    $msg = isset($msg) ? $msg : '';
+    die($helper::get_sub_template('login',['error'=>$msg]));
 }
 if(isset($registry->request[1])){
     if(is_readable(__DIR__."/{$registry->request[1]}/index.php")){

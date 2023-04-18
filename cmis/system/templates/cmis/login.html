@@ -30,6 +30,16 @@
               >
                 Login
               </h1>
+              <?php if($error){ ?>
+                <div x-data="{ open: true }" x-show="open" class="flex justify-between items-center relative bg-red-100 dark:bg-opacity-20 text-red-700 dark:text-red-400 py-2 px-3 rounded mb-4">
+                  <div><?= $error ?>
+                  </div>
+                  <button type="button" @click="open = false">
+                    <span class="font-bold px-1">X</span>
+                  </button>
+                </div>
+              <?php } ?>
+              
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Email or Phone number</span>
                 <div class="mt-2.5">
