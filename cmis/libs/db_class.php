@@ -1,6 +1,6 @@
 <?php 
 class db{
-    // 
+    // Internal properties
     private static $instance = null;
     private static $conn = null;
     private $driver;
@@ -49,6 +49,12 @@ class db{
         return $this->bind_data();
         //return $ret ? $this->guess_return_value($qry, $ret) : null;
     }
+    /*
+    *** Start select query ***
+    @params = $table, $columns
+    return this instance object
+    chainable
+    */
     public function select($table, $columns = '*'){
         self::$qry = "SELECT $columns FROM $table";
         return $this;
