@@ -116,14 +116,15 @@ class helper{
         return filter_var($email, FILTER_SANITIZE_EMAIL);
     }
     public static function find_template($template_name, $data = []){
-        $registry = storage::init();
+        $storage = storage::init();
+        extract($data);
         //$dirs = scandir(__DIR__);
         $dirs = storage::init()->system_config->modules;
-        $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
+        $home = str_replace('//','/', "/{$storage->request_dir}/{$storage->request[0]}");
         $nav = [
                     [
                         'name'=>'Dashboard', 
-                        'href'=>str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}/"),
+                        'href'=>str_replace('//','/', "/{$storage->request_dir}/{$storage->request[0]}/"),
                         'icon'=>'home'
                     ]
                 ];
@@ -142,8 +143,6 @@ class helper{
                 'children'=>$info->nav
             ];
         }
-        $storage = storage::init();
-        extract($data);
         $pdata = self::get_sub_template($template_name, $data);
         ob_start();
         $site_name = $storage->system_config->system_name;
