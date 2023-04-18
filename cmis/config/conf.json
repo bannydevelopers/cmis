@@ -10,7 +10,7 @@
         "db_name":"cmis_main",
         "driver":"mysql"
     },
-    "modules":["Sales","Store","HR","Projects","Accounts","Settings"],
+    "modules":["HR","Sales","Store","Projects","Accounts","Settings"],
     "phpmailer":{
         "sender":"noreply@cmis.co",
         "host":"mail.jamboexpedition.com",

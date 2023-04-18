@@ -2,6 +2,12 @@
 $registry = storage::init();
 $helper = helper::init();
 $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
+$db = db::get_connection(storage::init()->system_config->database);
+$msgs = [
+    'password_changed'=>'Password changed successful'
+];
+if(isset($_GET['msg']) && isset($msgs[$_GET['msg']])) $msg = $msgs[$_GET['msg']];
+
 if(isset($_POST['login']) && isset($_POST['password'])){
     $helper->login_user($_POST);
     if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
@@ -16,10 +22,48 @@ if(isset($_GET['logout'])){
 if(isset($registry->request[1]) && $registry->request[1] == 'forgot_password'){
     if(isset($_GET['recover'])){
         // verify token and let go
+        $token = addslashes($_GET['recover']);
+        if(isset($_POST['password1'])){
+            if($_POST['password1'] == $_POST['password2']){
+                $user = $db->select('user','user_id')
+                   ->where(['activation_token'=>$token])
+                   ->limit(1)
+                   ->fetch();
+                if($user){
+                    $password = helper::create_hash($_POST['password1']);
+                    $k = $db->update('user', ['activation_token'=>null,'password'=>$password])
+                            ->where(['user_id'=>$user['user_id']])
+                            ->commit();
+                    if($k->rowCount()){
+                        header("Location: {$home}?msg=password_changed");
+                    }
+                    else {
+                        die($helper::get_sub_template('login', ['error'=>'Password change failed']));
+                    }
+                }
+                else{
+                    $msg = 'Token invalid or expired';
+                    die($helper::get_sub_template('change-password', ['error'=>$msg]));
+                }
+            }
+            else{
+                $msg = 'Passwords do not match';
+                die($helper::get_sub_template('change-password', ['error'=>$msg]));
+            } 
+        }
+        $user = $db->select('user')
+                   ->where(['activation_token'=>$token])
+                   ->limit(1)
+                   ->fetch();
+        if($user){
+            die($helper::get_sub_template('change-password',['error'=>'']));
+        }
+        else{
+            die($helper::get_sub_template('forgot-password',['error'=>'Token verification failed!']));
+        }
     }
     $msg = '';
     if(isset($_POST['login'])){
-        $db = db::get_connection(storage::init()->system_config->database);
         $user = $db->select('user')
                     ->where(['email'=>helper::format_email($_POST['login'])])
                     ->or(['phone_number'=>helper::format_phone_number($_POST['login'])])
