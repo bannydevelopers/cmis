@@ -1,6 +1,15 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
 
+if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
+    $data = [
+        'designation_name'=>addslashes($_POST['designation_name']),
+        'designation_detail'=>addslashes($_POST['designation_details'])
+    ];
+    $k = $db->insert('designation', $data);
+    if(intval($k)) $msg = 'Designation added successful';
+    else  $msg = 'Designation add failed';
+}
 if(isset($_POST['first_name'])){
     $role = $db->select('designation_role','role_id')
                ->where(['designation_id'=>intval($_POST['designation'])])
