@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 14, 2023 at 12:36 PM
+-- Generation Time: Apr 19, 2023 at 09:36 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -36,7 +36,7 @@ CREATE TABLE `activities` (
   `Project_id` int NOT NULL,
   `staff_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE `activities_resource` (
   `quantity` int NOT NULL,
   `Activity_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `bank` (
   `bank_id` int NOT NULL,
   `bank_name` text NOT NULL,
   `bank_logo` text NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE `business_partiner` (
   `phone_number` int NOT NULL,
   `details` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE `customer` (
   `tin_number` int NOT NULL,
   `VRN_number` varchar(15) NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `debts` (
   `party_type` enum('business_partner','customer','supplier','staff') NOT NULL,
   `dept_type` enum('loan','lend') NOT NULL,
   `party_id` int NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ CREATE TABLE `delivery_note` (
   `Customer_id` int NOT NULL,
   `Purchase_order_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,36 @@ CREATE TABLE `designation` (
   `designation_name` text NOT NULL,
   `designation_detail` text NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `designation`
+--
+
+INSERT INTO `designation` (`designation_id`, `designation_name`, `designation_detail`, `created_time`) VALUES
+(1, 'Finance Manager', 'Mtunza pesa', '2023-04-18 12:54:56'),
+(2, 'Head of Technical', 'Technical supervisor', '2023-04-18 15:10:51'),
+(3, 'Technical director', 'Technical director', '2023-04-18 15:10:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designation_role`
+--
+
+CREATE TABLE `designation_role` (
+  `dr_id` int NOT NULL,
+  `designation_id` int NOT NULL,
+  `role_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `designation_role`
+--
+
+INSERT INTO `designation_role` (`dr_id`, `designation_id`, `role_id`) VALUES
+(1, 1, 1),
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -153,7 +182,7 @@ CREATE TABLE `expenses` (
   `purchased_by` int NOT NULL,
   `approved_by` int NOT NULL,
   `approval_date` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -164,13 +193,13 @@ CREATE TABLE `expenses` (
 CREATE TABLE `invoice` (
   `Invoice_id` int NOT NULL,
   `date` datetime NOT NULL,
-  `type` enum('profoma','tax') NOT NULL,
+  `type` enum('profoma','tax') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ref_number` int NOT NULL,
   `amount` int NOT NULL,
   `expire_date` date NOT NULL,
   `Customer_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -185,7 +214,7 @@ CREATE TABLE `invoice_item` (
   `Product_id` int NOT NULL,
   `Invoice_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -202,7 +231,7 @@ CREATE TABLE `leave_application` (
   `application_date` datetime NOT NULL,
   `response_date` datetime DEFAULT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -215,7 +244,7 @@ CREATE TABLE `leave_schedule` (
   `date` date NOT NULL,
   `staff_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -230,7 +259,7 @@ CREATE TABLE `payroll` (
   `working_hours` datetime NOT NULL,
   `payment_amount` int NOT NULL,
   `create_date` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -242,7 +271,7 @@ CREATE TABLE `permission` (
   `permission_id` int NOT NULL,
   `permission_name` text NOT NULL,
   `legend` text NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -257,7 +286,7 @@ CREATE TABLE `petty_cash_expenses` (
   `amount` int NOT NULL,
   `Expenses_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -276,7 +305,7 @@ CREATE TABLE `product` (
   `Supplier_id` int NOT NULL,
   `Store_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -293,7 +322,7 @@ CREATE TABLE `project` (
   `burget` int NOT NULL,
   `Staff_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -308,7 +337,7 @@ CREATE TABLE `purchase_order` (
   `total` int NOT NULL,
   `Supplier_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -323,7 +352,7 @@ CREATE TABLE `receipt` (
   `Purchase_order_id` int NOT NULL,
   `Invoice_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -337,7 +366,7 @@ CREATE TABLE `report` (
   `details` varchar(20) NOT NULL,
   `Activities_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -353,7 +382,7 @@ CREATE TABLE `request` (
   `approver_id` int NOT NULL,
   `approval` varchar(10) NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -369,7 +398,7 @@ CREATE TABLE `revenue` (
   `Receipt_id` int NOT NULL,
   `Debt_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -381,7 +410,17 @@ CREATE TABLE `role` (
   `role_id` int NOT NULL,
   `name` varchar(20) NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`role_id`, `name`, `created_time`) VALUES
+(1, 'Accounts', '2023-04-18 13:12:23'),
+(2, 'Technicians', '2023-04-18 13:12:23'),
+(3, 'Root', '2023-04-18 15:09:53'),
+(4, 'Administrator', '2023-04-18 15:09:53');
 
 -- --------------------------------------------------------
 
@@ -393,7 +432,7 @@ CREATE TABLE `role_permission_list` (
   `role_id` int NOT NULL,
   `permission_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -403,9 +442,9 @@ CREATE TABLE `role_permission_list` (
 
 CREATE TABLE `staff` (
   `staff_id` int NOT NULL,
-  `bank_id` varchar(30) DEFAULT NULL,
+  `bank_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `bank_account_number` text,
-  `registration_number` varchar(12) NOT NULL,
+  `registration_number` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `residence_address` text NOT NULL,
   `designation` int NOT NULL,
   `user_reference` int NOT NULL,
@@ -413,9 +452,20 @@ CREATE TABLE `staff` (
   `employment_length` int NOT NULL,
   `employment_status` enum('active','terminated_by_office','ended','terminated_user') NOT NULL,
   `employment_last_renewal` datetime DEFAULT NULL,
-  `employment_termination_date` datetime DEFAULT NULL,
-  `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+  `employment_termination_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `bank_id`, `bank_account_number`, `registration_number`, `residence_address`, `designation`, `user_reference`, `date_employed`, `employment_length`, `employment_status`, `employment_last_renewal`, `employment_termination_date`) VALUES
+(1, NULL, NULL, 'TX89Y', 'Samora avenue,\r\nPosta', 1, 2, '2023-04-18 12:09:21', 2, 'active', NULL, NULL),
+(2, NULL, NULL, 'TYG90876', 'Makongo juu, Dar es Salaam', 1, 4, '2023-04-12 00:00:00', 2, 'active', NULL, NULL),
+(3, NULL, NULL, 'TYG90876X', 'Makongo chini, Dar es Salaam', 3, 0, '2023-04-17 00:00:00', 2, 'active', NULL, NULL),
+(4, NULL, NULL, 'TYG90876X', 'Makongo chini, Dar es Salaam', 3, 0, '2023-04-17 00:00:00', 2, 'active', NULL, NULL),
+(5, NULL, NULL, 'TYG90876X', 'Makongo chini, Dar es Salaam', 2, 7, '2023-04-17 00:00:00', 2, 'active', NULL, NULL),
+(6, NULL, NULL, 'TYG90876U', 'Samora evenue', 1, 8, '2023-04-17 00:00:00', 2, 'active', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -429,7 +479,7 @@ CREATE TABLE `store` (
   `location` varchar(15) NOT NULL,
   `Staff_id` int NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -444,7 +494,7 @@ CREATE TABLE `supplier` (
   `email` varchar(20) NOT NULL,
   `details` varchar(45) NOT NULL,
   `create_date` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -456,22 +506,27 @@ CREATE TABLE `user` (
   `user_id` int NOT NULL,
   `first_name` varchar(10) NOT NULL,
   `middle_name` varchar(30) NOT NULL,
-  `last_name` varchar(20) NOT NULL,
+  `last_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `system_role` varchar(10) NOT NULL,
-  `status` enum('activate','inactivate','delete') NOT NULL,
+  `status` enum('active','inactive','deleted') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `phone_number` bigint NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(32) NOT NULL,
+  `activation_token` text,
   `created_by` char(20) NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `system_role`, `status`, `phone_number`, `email`, `password`, `created_by`, `created_time`) VALUES
-(1, 'Abie', 'Coder', 'Msitu', '2', 'activate', 255719203040, 'abie@banny.co.tz', 'bb6e6099865758b6a7760c445f03d5af', '0', '2023-04-14 09:43:25');
+INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `system_role`, `status`, `phone_number`, `email`, `password`, `activation_token`, `created_by`, `created_time`) VALUES
+(1, 'Root', 'Coder', 'User', '2', 'active', 255713824487, 'wizdontz@gmail.com', '734fcec7bede8606e68a4969441882fb', NULL, '0', '2023-04-14 09:43:25'),
+(2, 'Abie', 'Coder', 'Msitu', '2', 'active', 255757569016, 'baraka.mghumba@banny.co.tz', '734fcec7bede8606e68a4969441882fb', NULL, '1', '2023-04-14 09:43:25'),
+(4, 'Jasper', 'Katunzi', 'Ashomile', '1', 'active', 255757569016, 'adam@banny.co.tz', '40169fdc910b51504066f52fe47d2d5c', NULL, '1', '2023-04-18 19:09:08'),
+(7, 'Adam', 'Sikonge', 'Kijabu', '2', 'active', 255757569016, 'adam@banny.co.tz', 'a6acd7215e8c416cb93fdae95a5bfae0', NULL, '1', '2023-04-18 19:46:28'),
+(8, 'Banny', 'Jumbo', 'Developer', '1', 'active', 255713824486, 'password@banny.co.tz', '0c4889c5fbfab87158b707b43065f842', NULL, '1', '2023-04-18 19:49:16');
 
 --
 -- Indexes for dumped tables
@@ -529,6 +584,12 @@ ALTER TABLE `delivery_note`
 --
 ALTER TABLE `designation`
   ADD PRIMARY KEY (`designation_id`);
+
+--
+-- Indexes for table `designation_role`
+--
+ALTER TABLE `designation_role`
+  ADD PRIMARY KEY (`dr_id`);
 
 --
 -- Indexes for table `expenses`
@@ -722,7 +783,13 @@ ALTER TABLE `delivery_note`
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
-  MODIFY `designation_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `designation_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `designation_role`
+--
+ALTER TABLE `designation_role`
+  MODIFY `dr_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `expenses`
@@ -818,13 +885,13 @@ ALTER TABLE `revenue`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `staff_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `store`
@@ -842,7 +909,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

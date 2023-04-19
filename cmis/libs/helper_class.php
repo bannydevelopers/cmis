@@ -40,9 +40,9 @@ class helper{
     public function get_session_user($index = null){
         $conf = storage::init()->system_config;
         $user = isset($_SESSION[$conf->session_name]) ? $_SESSION[$conf->session_name] : null;
-        if($user){
-            if($index == null) return $user;
-            elseif(isset($user[$index])) return $user[$index];
+        if($user && isset($user['user'])){
+            if($index == null) return $user['user'];
+            elseif(isset($user['user'][$index])) return $user['user'][$index];
         }
         return null;
     }
@@ -89,6 +89,8 @@ class helper{
                     ->where($whr, ['password'=>$pass, 'pnumber'=>$login, 'email'=>$login])
                     ->limit(1)->fetch();
         if(!$db->error() && isset($user['password'])){
+            unset($user['password']);
+            unset($user['activation_token']);
             return $obj->set_session_user($user);
         }
         return false;
@@ -144,6 +146,7 @@ class helper{
             ];
         }
         $pdata = self::get_sub_template($template_name, $data);
+        $user = self::init()->get_session_user();
         ob_start();
         $site_name = $storage->system_config->system_name;
         $page_title = "Dashboard &raquo; {$template_name}";
