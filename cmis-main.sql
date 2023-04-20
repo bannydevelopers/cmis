@@ -36,7 +36,7 @@ CREATE TABLE `activities` (
   `Project_id` int(11) NOT NULL,
   `staff_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,11 @@ CREATE TABLE `activities_resource` (
   `quantity` int(11) NOT NULL,
   `Activity_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -62,7 +66,11 @@ CREATE TABLE `bank` (
   `bank_id` int(11) NOT NULL,
   `bank_name` text NOT NULL,
   `bank_logo` text NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -76,7 +84,11 @@ CREATE TABLE `business_partiner` (
   `phone_number` int(11) NOT NULL,
   `details` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -92,7 +104,11 @@ CREATE TABLE `customer` (
   `tin_number` int(11) NOT NULL,
   `VRN_number` varchar(15) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -107,8 +123,13 @@ CREATE TABLE `debts` (
   `amount` int(11) NOT NULL,
   `party_type` enum('business_partner','customer','supplier','staff') NOT NULL,
   `dept_type` enum('loan','lend') NOT NULL,
+<<<<<<< HEAD:cmis-main.sql
   `party_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+  `party_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -123,7 +144,11 @@ CREATE TABLE `delivery_note` (
   `Customer_id` int(11) NOT NULL,
   `Purchase_order_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -132,11 +157,19 @@ CREATE TABLE `delivery_note` (
 --
 
 CREATE TABLE `designation` (
+<<<<<<< HEAD:cmis-main.sql
   `designation_id` int(11) NOT NULL,
   `designation_name` varchar(60) NOT NULL,
   `designation_detail` text DEFAULT NULL,
   `created_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+  `designation_id` int NOT NULL,
+  `designation_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `designation_detail` text,
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 --
 -- Dumping data for table `designation`
@@ -172,10 +205,17 @@ INSERT INTO `designation` (`designation_id`, `designation_name`, `designation_de
 --
 
 CREATE TABLE `designation_role` (
+<<<<<<< HEAD:cmis-main.sql
   `dr_id` int(11) NOT NULL,
   `designation_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+  `dr_id` int NOT NULL,
+  `designation_id` int NOT NULL,
+  `role_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 --
 -- Dumping data for table `designation_role`
@@ -200,7 +240,11 @@ CREATE TABLE `expenses` (
   `purchased_by` int(11) NOT NULL,
   `approved_by` int(11) NOT NULL,
   `approval_date` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -211,13 +255,23 @@ CREATE TABLE `expenses` (
 CREATE TABLE `invoice` (
   `Invoice_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
+<<<<<<< HEAD:cmis-main.sql
   `type` enum('profoma','tax') NOT NULL,
   `ref_number` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
+=======
+  `type` enum('profoma','tax') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `ref_number` int NOT NULL,
+  `amount` int NOT NULL,
+>>>>>>> parent of be3b60a (db):cmis_main.sql
   `expire_date` date NOT NULL,
   `Customer_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -232,7 +286,11 @@ CREATE TABLE `invoice_item` (
   `Product_id` int(11) NOT NULL,
   `Invoice_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -241,9 +299,15 @@ CREATE TABLE `invoice_item` (
 --
 
 CREATE TABLE `leave_application` (
+<<<<<<< HEAD:cmis-main.sql
   `leave_application_id` int(11) NOT NULL,
   `staff_id` int(11) NOT NULL,
   `leave_description` varchar(150) NOT NULL,
+=======
+  `leave_application_id` int NOT NULL,
+  `staff_id` int NOT NULL,
+  `leave_description` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+>>>>>>> parent of be3b60a (db):cmis_main.sql
   `approval` varchar(10) NOT NULL,
   `remark` varchar(45) NOT NULL,
   `leave_start_date` datetime NOT NULL,
@@ -252,6 +316,7 @@ CREATE TABLE `leave_application` (
   `application_date` datetime NOT NULL,
   `responsibility_asignee` int(11) NOT NULL,
   `asignee_response_date` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -264,6 +329,9 @@ CREATE TABLE `leave_list` (
   `leave_id` int(10) NOT NULL,
   `leave_type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -276,7 +344,11 @@ CREATE TABLE `leave_schedule` (
   `date` date NOT NULL,
   `staff_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -291,7 +363,11 @@ CREATE TABLE `payroll` (
   `working_hours` datetime NOT NULL,
   `payment_amount` int(11) NOT NULL,
   `create_date` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -303,7 +379,11 @@ CREATE TABLE `permission` (
   `permission_id` int(11) NOT NULL,
   `permission_name` text NOT NULL,
   `legend` text NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -318,7 +398,11 @@ CREATE TABLE `petty_cash_expenses` (
   `amount` int(11) NOT NULL,
   `Expenses_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -337,7 +421,11 @@ CREATE TABLE `product` (
   `Supplier_id` int(11) NOT NULL,
   `Store_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -354,7 +442,11 @@ CREATE TABLE `project` (
   `burget` int(11) NOT NULL,
   `Staff_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -369,7 +461,11 @@ CREATE TABLE `purchase_order` (
   `total` int(11) NOT NULL,
   `Supplier_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -384,7 +480,11 @@ CREATE TABLE `receipt` (
   `Purchase_order_id` int(11) NOT NULL,
   `Invoice_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -398,7 +498,11 @@ CREATE TABLE `report` (
   `details` varchar(20) NOT NULL,
   `Activities_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -414,7 +518,11 @@ CREATE TABLE `request` (
   `approver_id` int(11) NOT NULL,
   `approval` varchar(10) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -430,7 +538,11 @@ CREATE TABLE `revenue` (
   `Receipt_id` int(11) NOT NULL,
   `Debt_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -442,7 +554,11 @@ CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 --
 -- Dumping data for table `role`
@@ -464,7 +580,11 @@ CREATE TABLE `role_permission_list` (
   `role_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -473,10 +593,17 @@ CREATE TABLE `role_permission_list` (
 --
 
 CREATE TABLE `staff` (
+<<<<<<< HEAD:cmis-main.sql
   `staff_id` int(11) NOT NULL,
   `bank_id` varchar(30) DEFAULT NULL,
   `bank_account_number` text DEFAULT NULL,
   `registration_number` varchar(12) NOT NULL,
+=======
+  `staff_id` int NOT NULL,
+  `bank_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `bank_account_number` text,
+  `registration_number` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+>>>>>>> parent of be3b60a (db):cmis_main.sql
   `residence_address` text NOT NULL,
   `designation` int(11) NOT NULL,
   `user_reference` int(11) NOT NULL,
@@ -485,7 +612,11 @@ CREATE TABLE `staff` (
   `employment_status` enum('active','terminated_by_office','ended','terminated_user') NOT NULL,
   `employment_last_renewal` datetime DEFAULT NULL,
   `employment_termination_date` datetime DEFAULT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 --
 -- Dumping data for table `staff`
@@ -513,7 +644,11 @@ CREATE TABLE `store` (
   `location` varchar(15) NOT NULL,
   `Staff_id` int(11) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -528,7 +663,11 @@ CREATE TABLE `supplier` (
   `email` varchar(20) NOT NULL,
   `details` varchar(45) NOT NULL,
   `create_date` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 -- --------------------------------------------------------
 
@@ -540,16 +679,25 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `first_name` varchar(10) NOT NULL,
   `middle_name` varchar(30) NOT NULL,
-  `last_name` varchar(20) NOT NULL,
+  `last_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `system_role` varchar(10) NOT NULL,
+<<<<<<< HEAD:cmis-main.sql
   `status` enum('active','inactive','deleted') NOT NULL,
   `phone_number` bigint(20) NOT NULL,
+=======
+  `status` enum('active','inactive','deleted') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `phone_number` bigint NOT NULL,
+>>>>>>> parent of be3b60a (db):cmis_main.sql
   `email` varchar(30) NOT NULL,
   `password` varchar(32) NOT NULL,
   `activation_token` text DEFAULT NULL,
   `created_by` char(20) NOT NULL,
   `created_time` datetime NOT NULL
+<<<<<<< HEAD:cmis-main.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> parent of be3b60a (db):cmis_main.sql
 
 --
 -- Dumping data for table `user`
