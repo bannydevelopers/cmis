@@ -1,44 +1,29 @@
-<?php
+<?php 
 
-define('EXEC_START', microtime(true));
-// System time zone
-date_default_timezone_set('Africa/Dar_es_Salaam');
-// Session globalization
-session_start();
-//require "vendor/autoload.php";
-/*$robo = 'robot@example.com';
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;*/
-include realpath(__DIR__).'/cmis/index.php';
-/*die;
-$developmentMode = true;
-$mailer = new PHPMailer($developmentMode);
-try {
-    $mailer->SMTPDebug = 2;
-    $mailer->isSMTP();
-    if ($developmentMode) {
-    $mailer->SMTPOptions = [
-        'ssl'=> [
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-        ]
-    ];
+spl_autoload_register(
+    function ($class_name){
+        $cls = __DIR__."/libs/{$class_name}_class.php";
+        if(is_readable($cls)) include $cls;
     }
-    $mailer->Host = 'mail.example.com';
-    $mailer->SMTPAuth = true;
-    $mailer->Username = 'robot@example.com';
-    $mailer->Password = 'password';
-    $mailer->SMTPSecure = 'tls';
-    $mailer->Port = 587;
-    $mailer->setFrom('robot@example.com', 'Name of sender');
-    $mailer->addAddress('joe@example.com', 'Name of recipient');
-    $mailer->isHTML(true);
-    $mailer->Subject = 'PHPMailer Test';
-    $mailer->Body = 'This is a <b>SAMPLE<b> email sent through <b>PHPMailer<b>';
-    $mailer->send();
-    $mailer->ClearAllRecipients();
-    echo "MAIL HAS BEEN SENT SUCCESSFULLY";
-} catch (Exception $e) {
-    echo "EMAIL SENDING FAILED. INFO: " . $mailer->ErrorInfo;
-}*/
+);
+// System configs
+$storage = storage::init();
+$conf_data = file_get_contents(__DIR__.'/config/conf.json');
+$storage->system_config = json_decode($conf_data, false);
+unset($conf_data); // Reclaim memmory
+
+// Replace \ with / to standardize
+$docroot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+$install_dir = str_replace('\\', '/', realpath(__DIR__.'/../'));
+$request = str_replace($docroot, '', $install_dir); // Find real requested url
+$storage->request_dir = trim($request, '/');
+
+// Reduce request to our file structure
+$req = str_replace($request, '', str_replace($_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI'])); 
+
+$req_parts = explode('/', trim($req,'/?'));
+$storage->request = $req_parts;
+$config = storage::init()->system_config;
+//var_dump('<pre>',$req_parts);die;
+if($req_parts[0] == $config->dashboard) include __DIR__.'/modules/dashboard.php';
+else include __DIR__.'/modules/portal/index.php';
