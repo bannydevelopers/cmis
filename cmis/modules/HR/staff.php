@@ -39,8 +39,8 @@ if(isset($_POST['first_name'])){
         'employment_status'=>'active'
     ];
     $k = $db->insert('staff',$staff);
-    if($k) $msg = 'Staff created';
-    else $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
+    if(!$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
+    else $msg = 'Staff created'; 
     //var_dump('<pre>',$db->error());
 }
 $designation = $db->select('designation')->fetchALL();
