@@ -1,9 +1,0 @@
-{
-    "name":"Human Resources",
-    "icon":"users-cog",
-    "nav":[
-        {"name":"Staff","href":"Staff/"},
-        {"name":"Leave","href":"Leave/"},
-        {"name":"Contracts","href":"Contracts/"}
-    ]
-}
