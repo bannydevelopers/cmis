@@ -2,6 +2,8 @@
     "name":"Accounts",
     "icon":"dollar",
     "nav":[
+        {"name":"Payroll","href":"Payroll/"},
+        {"name":"Salary","href":"Salary/"},
         {"name":"Expenses","href":"Expenses/"},
         {"name":"Debts","href":"Debts/"},
         {"name":"Revenues","href":"Revenues/"},

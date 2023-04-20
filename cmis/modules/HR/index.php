@@ -1,5 +1,5 @@
 <?php 
-$children = ["Staff","Leave","Payroll","Salary","Contracts"];
+$children = ["Staff","Leave","Contracts"];
 $req = storage::init()->request;
 if(!isset($req[2])){
     $data = []; // coming...

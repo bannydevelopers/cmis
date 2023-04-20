@@ -40,6 +40,7 @@ if(isset($_POST['first_name'])){
     ];
     $k = $db->insert('staff',$staff);
     if($k) $msg = 'Staff created';
+    else $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
     //var_dump('<pre>',$db->error());
 }
 $designation = $db->select('designation','designation_id,designation_name')->fetchALL();
