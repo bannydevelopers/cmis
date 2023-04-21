@@ -21,6 +21,9 @@
         "can_add_contracts",
         "can_edit_contracts",
         "can_delete_contracts",
-        "can_view_contracts"
+        "can_view_contracts",
+
+        "can_add_designation",
+        "can_delete_designation"
     ]
 }

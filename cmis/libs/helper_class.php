@@ -60,16 +60,17 @@ class helper{
     }
     public function get_user_permissions($role){
         $db = db::get_connection(storage::init()->system_config->database);
-        $whr = "permission_id IN SELECT role_id FROM role_permission_list WHERE role_id = {$role}";
-        $permission = $db->select('permision','permission_name')->where($whr)->fetchAll();
+        
+        $whr = " permission_id IN (SELECT permission_id FROM `role_permission_list` WHERE role_id = {$role})";
+        $permission = $db->select('permission','permission_name')->where($whr)->fetchAll();
         if($permission) {
             $return = [];
-            foreach($permission as $k=>$v){
-                $return[] = $v;
+            foreach($permission as $v){
+                $return[] = $v['permission_name'];
             }
             return $return;
         }
-        else return null;
+        else return [];
     }
     public function user_can($reference){
         $permission = $this->get_user_permissions($this->get_session_user('system_role'));
@@ -91,13 +92,6 @@ class helper{
         if(!$db->error() && isset($user['password'])){
             unset($user['password']);
             unset($user['activation_token']);
-//SELECT permission_name FROM permission WHERE 
-//in (SELECT permission_id FROM `role_permission_list` WHERE role_id = 1);
-            $whr = " permission_id IN (SELECT permission_id FROM `role_permission_list` WHERE role_id = {$user['system_role']})";
-            $permission = $db->select('permission','permission_name')
-                             ->where($whr)
-                             ->fetchAll();
-            $user['permissions'] = array_values($permission);
             return $obj->set_session_user($user);
         }
         return false;
@@ -126,6 +120,7 @@ class helper{
     }
     public static function find_template($template_name, $data = []){
         $storage = storage::init();
+        $that = new static();
         extract($data);
         //$dirs = scandir(__DIR__);
         $dirs = storage::init()->system_config->modules;
@@ -137,14 +132,20 @@ class helper{
                         'icon'=>'home'
                     ]
                 ];
+        $user_permission = $that->get_user_permissions($that->get_session_user('system_role'));
+        //var_dump($user_permission);
         foreach($dirs as $dir){
             $jfile = realpath(__DIR__.'/../')."/modules/{$dir}/module.json";
-            //die($jfile);
+            // Check existance and permission before continuing...
             if(!is_readable($jfile)) continue;
             $info = json_decode(file_get_contents($jfile));
             if(!isset($info->nav) or !is_array($info->nav)){
                 $info->nav = null;
             }
+            if(!isset($info->permissions)) continue;
+            //print_r(array_intersect($info->permissions, $user_permission));
+            $got_any_permission = (bool) array_intersect($info->permissions, $user_permission);
+            if(!$got_any_permission) continue;
             $nav[] = [
                 'href'=>str_replace('//','/', "/{$home}/$dir"),
                 'icon'=>$info->icon,
