@@ -40,14 +40,10 @@ if(isset($_POST['first_name'])){
         'employment_status'=>'active'
     ];
     $k = $db->insert('staff',$staff);
-<<<<<<< HEAD
     if(!$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
     else {
         $msg = 'Staff created'; 
     }
-=======
-    if($k) $msg = 'Staff created';
->>>>>>> 27b799bb6fee06bdf7f53b044280315d65dca7a6
     //var_dump('<pre>',$db->error());
 }
 $designation = $db->select('designation','designation_id,designation_name')->fetchALL();
@@ -61,4 +57,4 @@ $staff = $db->select('staff')
             ->order_by('user_id', 'desc')
             ->fetchAll();
 //var_dump('<pre>',$staff);
-echo helper::find_template('Staff', ['designation'=>$designation, 'staff'=>$staff]);
+echo helper::find_template('Staff', ['designation'=>$designation, 'staff'=>$staff,'msg'=>$msg]);

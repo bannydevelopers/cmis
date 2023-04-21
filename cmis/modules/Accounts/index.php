@@ -1,6 +1,8 @@
 <?php 
 $children = ["Payroll","Salary",'Expenses','Debts',"Revenues","Business_partners","Banks"];
 $req = storage::init()->request;
+
+$db = db::get_connection(storage::init()->system_config->database);
 if(!isset($req[2])){
     echo helper::find_template('Accounts', []);
 }

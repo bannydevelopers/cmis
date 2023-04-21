@@ -91,6 +91,13 @@ class helper{
         if(!$db->error() && isset($user['password'])){
             unset($user['password']);
             unset($user['activation_token']);
+//SELECT permission_name FROM permission WHERE 
+//in (SELECT permission_id FROM `role_permission_list` WHERE role_id = 1);
+            $whr = " permission_id IN (SELECT permission_id FROM `role_permission_list` WHERE role_id = {$user['system_role']})";
+            $permission = $db->select('permission','permission_name')
+                             ->where($whr)
+                             ->fetchAll();
+            $user['permissions'] = array_values($permission);
             return $obj->set_session_user($user);
         }
         return false;
