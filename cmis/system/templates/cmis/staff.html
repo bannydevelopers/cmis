@@ -8,17 +8,17 @@
   <div>
     <button 
     data-modal-target="add-staff-modal" data-modal-toggle="add-staff-modal" 
-    class="float-right mr-2 mb-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+    class="float-right mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
     Add staff
     </button>
     <button 
       data-modal-target="add-designation-modal" data-modal-toggle="add-designation-modal" 
-      class="float-right mr-2 mb-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      class="float-right mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
       Add designation
     </button>
   </div>
   <!-- Designation modal -->
-  <div id="add-designation-modal" tabindex="-1" aria-hidden="true" class="backdrop-blur-sm fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div id="add-designation-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full-h-full">
     <div class="relative w-full max-w-lg max-h-full items-center">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -30,19 +30,24 @@
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add designation </h3>
               <form class="space-y-6" method="POST">
                 <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full px-3">
+                  <div class="w-1/2 px-3">
                     <label for="designation_name">Designation name </label>
                     <input id="designation_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Designation" name="designation_name" required>
                   </div>
-                  <div class="w-full p-3">
-                    <label for="designation_name">Designation details </label>
-                    <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Details" name="designation_details"></textarea>
+                  <div class="w-1/2 px-3">
+                    <label for="designation_details">Designation details </label>
+                    <input id="designation_details" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Details" name="designation_details" required>
                   </div>
                 </div>
                 <div class="pb-8">
                   <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
                 </div>
               </form>
+              <div>
+                <?php foreach($designation as $x) { ?>
+                  <div><?php print("{$x['designation_name']}")?></div>
+                <?php } ?>
+              </div>
             </div>
         </div>
     </div>
@@ -95,7 +100,7 @@
                   </div>
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3"> 
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="date" type="date" max="<?= date('Y-m-d'); ?>" name="date_employed">
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" max="<?= date('Y-m-d'); ?>" name="date_employed">
                     </div>
                   </div>
                   <div class="pb-8">
@@ -149,7 +154,9 @@
                 <div>
                   <p class="font-semibold"><?=$x['first_name'] . " " . $x['middle_name'] . " " . $x['last_name']?></p>
                   <p class="text-xs text-gray-600 dark:text-gray-400">
-                    <?=$x['first_name']?>
+                    <?php foreach($designation as $y) { ?>
+                      <?php $y['designation_id'] == $x['designation'] ? print($y['designation_name']) : print(""); ?>
+                    <?php } ?>
                   </p>
                 </div>
               </div>
@@ -168,7 +175,7 @@
             </td>
             <td class="px-4 py-3 text-xs">
               <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
+                <input type="checkbox" value="<?php if($x['status']=='active') {echo 'inactive';} else {echo 'active';} ?>" onclick="activateFn(this.value)" class="activateBtn sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
                 <div class="w-9 h-5 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
               </label>  
             </td>
@@ -185,7 +192,7 @@
                 >
                 <i class="fa-solid fa-pen-to-square fa-lg"></i>
                 </button>
-                <button onclick="del()"
+                <button onclick="del()" 
                   class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                   aria-label="Delete"
                 >
@@ -205,6 +212,10 @@
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
+  function activateFn(activateValue) {
+    console.log(activateValue);
+  };
+
   const del = () => swal("Sure! want to delete?", {
     buttons: {
       cancel: "Cancel!",
@@ -222,4 +233,5 @@
     }
   });
 </script>
+
 

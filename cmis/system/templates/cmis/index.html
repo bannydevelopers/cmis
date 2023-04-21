@@ -350,7 +350,7 @@
                         href="<?=$home?>/Profile"
                       >
                       <i class="fa-regular fa-user mr-3 h-4 w-4"></i>
-                        <span>Profile</span>
+                        <span>Profile (<?=$user['first_name']?>)</span>
                       </a>
                     </li>
                     <li class="flex">
@@ -371,6 +371,8 @@
         <main class="h-full overflow-y-auto pb-16">
           <div class="container mx-auto grid px-6">
             <?php print_r($pdata)?>
+            
+            
           </div>
         </main>
       </div>

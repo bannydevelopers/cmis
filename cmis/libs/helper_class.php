@@ -260,7 +260,7 @@ class helper{
         $root = realpath(__DIR__.'/../system/templates/')."/{$storage->system_config->theme}";
         $base = trim("{$storage->request_dir}/cmis/system/assets/",'/');
         if(is_readable($root."/{$template_name}.html")) include $root."/{$template_name}.html";
-        else echo '<h1>Template not found</h1>';
+        else include $root."/404.html";
         return ob_get_clean();
     }
 

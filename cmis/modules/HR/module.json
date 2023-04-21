@@ -4,8 +4,6 @@
     "nav":[
         {"name":"Staff","href":"Staff/"},
         {"name":"Leave","href":"Leave/"},
-        {"name":"Payroll","href":"Payroll/"},
-        {"name":"Salary","href":"Salary/"},
         {"name":"Contracts","href":"Contracts/"}
     ]
 }
