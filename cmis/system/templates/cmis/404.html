@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html x-data="data()" lang="en">
-  <head>
-    <base href="/<?=$base?>/"/>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CMIS</title>
-    <link rel="stylesheet" href="css/tailwind.output.css" />
-    <script
-      src="js/alpine.min.js"
-      defer
-    ></script>
-    <script src="js/init-alpine.js"></script>
-  </head>
-  <body>
-    <div
-      class="flex h-screen bg-gray-50 dark:bg-gray-900"
-      :class="{ 'overflow-hidden': isSideMenuOpen}"
-    >
-      <!-- Mobile sidebar -->
-      <!-- Backdrop -->
-      <div
-        x-show="isSideMenuOpen"
-        x-transition:enter="transition ease-in-out duration-150"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in-out duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
-      ></div>
-      
-      <div class="flex flex-1 flex-col">
-        <header class="z-10 bg-white py-4 shadow-md dark:bg-gray-800">
-          <div
-            class="container mx-auto flex h-full items-center justify-between px-6 text-purple-600 dark:text-purple-300"
-          >
-            <ul class="flex flex-shrink-0">
-              <!-- Theme toggler -->
-              <li class="flex">
-                <div>
-                  <a
-                    class="pr-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-                    href="#"
-                  >
-                    CMIS
-                  </a>
-                </div>
-              </li>
-            </ul>
-            
-            <!-- Search input were here -->
-            <ul class="flex flex-shrink-0 items-center space-x-6">
-              <!-- Theme toggler -->
-              <li class="flex">
-                <img src="img/sun.png" alt="" class="sun cursor-pointer w-6">
-                <img src="img/moon.png" alt="" class="moon cursor-pointer w-6">
-              </li>
-            </ul>
-          </div>
-        </header>
-        <main class="h-full overflow-y-auto pb-16">
+
           <div class="container mx-auto flex flex-col items-center px-6">
             <svg
               class="mt-8 h-12 w-12 text-purple-200"
@@ -86,10 +25,4 @@
               .
             </p>
           </div>
-        </main>
-      </div>
-    </div>
-    
-    <script src="js/toggle-dark-mode.js"></script>
-  </body>
-</html>
+

@@ -1,53 +1,126 @@
-<div class="white content" style="border-radius: 6px;box-shadow: 0 0 5px #999;">
-    <div class="flex">
-        <h3 class="border-bottom-white" style="padding-bottom: 1em;">System permission for roles</h3>
-        <button class="shrink green">Asign permission</button>&nbsp;
-        <button class="shrink">Add Role</button>
-    </div>
-    <ul class="tabbed">
-    <?php $legends = array_keys($roles);
-    foreach($legends as $role){ ?>
-        <li>
-            <label for="<?=md5($role)?>" style="padding: 0 1em;"><?=$role?></label>
-            <input type="checkbox" id="<?=md5($role)?>">
-            <ul>
-                <?php foreach($roles[$role] as $legend=>$permission){?>
-                    <li>
-                        <div><strong><?=$legend?></strong></div>
-                        <?php foreach($permission as $v){?>
-                            <div><span data-icon="&#xf058;"><?=$v['permission_name']?></span></div>
-                        <?php }?>
-                        <hr>
-                    </li>
-                <?php }?>
-            </ul>
-        </li>
-    <?php }?>
-    </ul>
-    
-</div>
-<style>
-    .tabbed hr{
-        border: 1px solid #eee;
-    }
-    .tabbed strong{
-        font-weight: bold;
-        font-size: 103%;
-        padding-bottom: .4em;
-    }
-    .tabbed{
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .tabbed li{
-        padding: .4em;
-    }
-    .tabbed li > input,.tabbed li > label{
-        display: inline-block;
-    }
-    .tabbed li ul{
-        font-size: 90%;
-        padding: 1em;
-        border-top: 1px solid #ddd;
-    }
-</style>
+<h4 class="font-semibold text-xl text-gray-700 dark:text-gray-200 py-3 mb-2">Pamisshion List</h4>
+              <div class="">
+                <!-- Role card -->
+                <div class="flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                  <div class="divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+                      <div class="">
+                        <h6 class="text-gray-700 dark:text-gray-200 py-3">HR</h6>
+                        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can add ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can add ..
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ... Can delete ... Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ... Can delete ... Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ... Can delete ... Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="">
+                        <h6 class="text-gray-700 dark:text-gray-200 py-3">HR</h6>
+                        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can add ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can add ..
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ... Can delete ... Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ... Can delete ... Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ... Can delete ... Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                          <div class="flex justify-between mb-2 gap-2">
+                            <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                              <input checked type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                              Can delete ...
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
