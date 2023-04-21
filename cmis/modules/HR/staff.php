@@ -14,6 +14,7 @@ if(isset($_POST['first_name'])){
     $role = $db->select('designation_role','role_id')
                ->where(['designation_id'=>intval($_POST['designation'])])
                ->fetch();
+    
     $user = [
         'first_name'=>addslashes($_POST['first_name']), 
         'middle_name'=>addslashes($_POST['middle_name']), 
@@ -40,7 +41,9 @@ if(isset($_POST['first_name'])){
     ];
     $k = $db->insert('staff',$staff);
     if(!$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
-    else $msg = 'Staff created'; 
+    else {
+        $msg = 'Staff created'; 
+    }
     //var_dump('<pre>',$db->error());
 }
 $designation = $db->select('designation')->fetchALL();
