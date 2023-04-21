@@ -1,6 +1,7 @@
  <?php 
 $registry = storage::init();
 $helper = helper::init();
+
 $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
 $db = db::get_connection(storage::init()->system_config->database);
 $msgs = [
@@ -107,6 +108,10 @@ if(!$helper->check_user_session()){
     $msg = isset($msg) ? $msg : '';
     die($helper::get_sub_template('login',['error'=>$msg]));
 }
+
+$session_user = $helper->get_session_user();
+$user_permission = $helper->get_user_permissions($session_user['system_role']);
+
 if(isset($registry->request[1])){
     if(is_readable(__DIR__."/{$registry->request[1]}/index.php")){
         include __DIR__."/{$registry->request[1]}/index.php";

@@ -2,8 +2,28 @@
     "name":"Human Resources",
     "icon":"users-cog",
     "nav":[
-        {"name":"Staff","href":"Staff/"},
-        {"name":"Leave","href":"Leave/"},
-        {"name":"Contracts","href":"Contracts/"}
+        {"name":"Staff","href":"Staff/", "permission":"can_view_staff"},
+        {"name":"Leave","href":"Leave/","permission":"can_view_leave"},
+        {"name":"Contracts","href":"Contracts/","permission":"can_view_contracts"}
+    ],
+    "permissions":[
+        "can_add_staff",
+        "can_edit_staff",
+        "can_delete_staff",
+        "can_view_staff",
+
+        "can_add_leave",
+        "can_edit_leave",
+        "can_delete_leave",
+        "can_view_leave",
+        "can_approve_leave",
+        
+        "can_add_contracts",
+        "can_edit_contracts",
+        "can_delete_contracts",
+        "can_view_contracts",
+
+        "can_add_designation",
+        "can_delete_designation"
     ]
 }
