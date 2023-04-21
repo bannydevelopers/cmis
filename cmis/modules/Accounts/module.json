@@ -1,6 +1,6 @@
 {
     "name":"Accounts",
-    "icon":"dollar",
+    "icon":"fa-solid fa-money-bills",
     "nav":[
         {"name":"Payroll","href":"Payroll/"},
         {"name":"Salary","href":"Salary/"},
