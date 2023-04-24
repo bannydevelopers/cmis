@@ -7,17 +7,18 @@ $roles = $db->select('role_permission_list')
 
 $role_tree = [];
 foreach($roles as $role){
-if(!isset($role_tree[$role['name']])) {
-    $role_tree[$role['name']] = [];
+    if(!isset($role_tree[$role['name']])) {
+        $role_tree[$role['name']] = [];
+    }
+    if(!isset($role_tree[$role['name']][$role['legend']])) {
+        $role_tree[$role['name']][$role['legend']] = [];
+    }
+    $role_tree[$role['name']][$role['legend']][] = [
+        'role_id'=>$role['role_id'],
+        'permission_id'=>$role['permission_id'],
+        'permission_name'=>$role['permission_name']
+    ];
 }
-if(!isset($role_tree[$role['name']][$role['legend']])) {
-    $role_tree[$role['name']][$role['legend']] = [];
-}
-$role_tree[$role['name']][$role['legend']][] = [
-    'role_id'=>$role['role_id'],
-    'permission_id'=>$role['permission_id'],
-    'permission_name'=>$role['permission_name']
-];
-}
+$designations = $db->select('designation','designation_id,designation_name')->fetchAll();
 
-echo helper::find_template('roles', ['roles' => $role_tree]);
+echo helper::find_template('User_permission', ['roles' => $role_tree,'designations'=>$designations]);
