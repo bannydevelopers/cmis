@@ -22,11 +22,12 @@ $staff = $db->select('staff')
             ->fetchAll();
 
 $k = $db->insert('product', $data);
+//var_dump($db->error());
 if(intval($k)) $msg = 'product added successful';
     else  $msg = 'product add failed';
 }
 $product = $db->select('product','product_id,name')->fetchALL();
         
     //var_dump('<pre>',$product);
-    echo helper::find_template('products', ['product'=>$product, 'db'=>$db]);
+    echo helper::find_template('products', ['product'=>$product,'db'=>$db]);
         

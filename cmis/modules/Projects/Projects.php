@@ -11,7 +11,7 @@ if(isset($_POST['project_name'])){
         'project_burget'=>addslashes($_POST['project_burget']),
         'project_manager'=>addslashes($_POST['project_manager']),
         ];
-   
+        //var_dump($db->error());
 $user = $db->select('user','user_id,user_name')->fetchALL();
 $store = $db->select('store','store_id,store_name')->fetchALL();
 $staff = $db->select('staff')
