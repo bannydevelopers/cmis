@@ -1,6 +1,97 @@
 
-    <h2
-      class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-    >
-    Payroll
-    </h2>
+<h2
+  class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+>
+Payroll
+</h2>
+<!-- Modal toggle -->
+
+
+<!-- Main modal -->
+<br />
+<div class="w-full overflow-hidden rounded-lg shadow-md">
+  <div class="w-full overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr
+          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+        >
+          <th class="px-4 py-3">Employee Name</th>
+          <th class="px-4 py-3">Gross Salary</th>
+          <th class="px-4 py-3">Payee(15%)</th>
+          <th class="px-4 py-3">NSSF(5%)</th>
+          <th class="px-4 py-3">Heselb (6%)</th>
+          <th class="px-4 py-3">Bonus</th>
+          <th class="px-4 py-3">Net Salary</th>
+          <th class="px-4 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody
+        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+      >
+        <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <td class="px-4 py-3">
+            <div class="flex items-center text-sm">
+              <div>
+                <p class="font-semibold">Princess Fiona </p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            3,000,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            450,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            150,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            180,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            50,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            2,270,000
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center space-x-4 text-sm">   
+              <button 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                aria-label="Edit"
+              >
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+  
+<script src="js/sweetalert.min.js"></script>
+<script src="js/flowbite.min.js"></script>
+<script>
+const del = () => swal("Sure! want to delete?", {
+  buttons: {
+    cancel: "Cancel!",
+    catch: {
+      text: "Delete!",
+      value: "delete",
+    }
+  },
+})
+.then((value) => {
+  switch (value) {
+    case "delete":
+      swal("Done!", "User deleted!", "success");
+      break;
+  }
+});
+</script>
+
+

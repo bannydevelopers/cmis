@@ -4,3 +4,131 @@
     >
     Business partners
     </h2>
+ 
+    <!-- Modal toggle -->
+    <div>
+      <button 
+      data-modal-target="add-business-partner-modal" data-modal-toggle="add-business-partner-modal" 
+      class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      Add Business Partner
+      </button>
+    </div>
+    
+    <!-- Main modal -->
+    <div id="add-business-partner-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+        <div class="relative w-full max-w-4xl max-h-full items-center">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-business-partner-modal">
+                  <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                  <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Business Partner </h3>
+                  <form class="space-y-6" action="" method="POST">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                        <label for="Business_Partner_namet">Business Partner name </label>
+                        <input id="Business_Partner_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text"  name="business Partner Name" placeholder="Business partner names">
+                      </div>
+                      <div class="w-full sm:w-1/3 px-3 my-2 mob:my-0">
+                        <label for="phone_number">Phone Number </label>
+                        <input id="phone_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="phone" placeholder="business partner Phone Number" required>
+                      </div>
+                    </div>
+                    <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                      <label for="text">Details </label>
+                      <textarea id="phone_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="business partner details" required></textarea>
+                    </div>
+                    <div class="pb-8">
+                      <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <br />
+    <div class="w-full overflow-hidden rounded-lg shadow-md">
+      <div class="w-full overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr
+              class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+            >
+              <th class="px-4 py-3">Business Partner name</th>
+              <th class="px-4 py-3">Phone Number</th>
+              <th class="px-4 py-3">Details</th>
+              <th class="px-4 py-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody
+            class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+          >
+            <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <td class="px-4 py-3">
+                <div class="flex items-center text-sm">
+                  <div>
+                    <p class="font-semibold">Xyz Company ltd </p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-sm">
+                +255 745 565 324
+              </td>
+              <td class="px-4 py-3 text-sm">
+                Xyz company ltd, Dar es salaam Tanzania <br>
+                info@xyz.co.tz
+              </td>
+              <td class="px-4 py-3">
+                <div class="flex items-center space-x-4 text-sm">   
+                  <a href="profile"
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                    aria-label="View">
+                    <i class="fa-solid fa-eye fa-lg"></i>      
+                  </a>
+                  <button 
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                    aria-label="Edit"
+                  >
+                  <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                  </button>
+                  <button onclick="del()"
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                    aria-label="Delete"
+                  >
+                  <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+      
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/flowbite.min.js"></script>
+    <script>
+    const del = () => swal("Sure! want to delete?", {
+      buttons: {
+        cancel: "Cancel!",
+        catch: {
+          text: "Delete!",
+          value: "delete",
+        }
+      },
+    })
+    .then((value) => {
+      switch (value) {
+        case "delete":
+          swal("Done!", "User deleted!", "success");
+          break;
+      }
+    });
+    </script>
+    
+    
+    
