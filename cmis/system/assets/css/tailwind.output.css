@@ -2528,6 +2528,10 @@ video {
     width: auto;
   }
 
+  .sm\:w-4\/5 {
+    width: 80%;
+  }
+
   .sm\:max-w-xl {
     max-width: 36rem;
   }
