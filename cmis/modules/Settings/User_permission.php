@@ -20,5 +20,24 @@ foreach($roles as $role){
     ];
 }
 $designations = $db->select('designation','designation_id,designation_name')->fetchAll();
+$permission = $db->select('permission')->fetchAll();
+$perm_tree = [];
+foreach($permission as $perm){
+    if(!isset($perm_tree[$perm['legend']])) {
+        $perm_tree[$perm['legend']] = [];
+    }
+    $perm_tree[$perm['legend']][] = [
+        'permission_id'=>$perm['permission_id'],
+        'permission_name'=>$perm['permission_name']
+    ];
+}
+//var_dump('<pre>',$perm_tree);
 
-echo helper::find_template('User_permission', ['roles' => $role_tree,'designations'=>$designations]);
+echo helper::find_template(
+    'User_permission', 
+    [
+        'roles' => $role_tree,
+        'designations'=>$designations, 
+        'permission'=>$permission
+    ]
+);
