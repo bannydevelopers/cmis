@@ -1,56 +1,86 @@
-<div class="white content" style="border-radius: 6px;box-shadow: 0 0 5px #999;">
-    <div class="flex">
-        <h3 class="border-bottom-white" style="padding-bottom: 1em;">System permission for roles</h3>
-        <button class="shrink green">Asign permission</button>&nbsp;
-        <button class="shrink">Add Role</button>
-    </div>
-    <ul class="tabbed">
-    <?php $legends = array_keys($roles);
-    foreach($legends as $role){ ?>
-        <li>
-            <label for="<?=md5($role)?>" style="padding: 0 1em;"><?=$role?></label>
-            <input type="checkbox" id="<?=md5($role)?>">
-            <ul>
-                <?php foreach($roles[$role] as $legend=>$permission){?>
-                    <li>
-                        <div><strong><?=$legend?></strong></div>
-                        <?php foreach($permission as $v){?>
-                            <div><span data-icon="&#xf058;"><?=$v['permission_name']?></span></div>
-                        <?php }?>
-                        <hr>
-                    </li>
-                <?php }?>
-            </ul>
-        </li>
-    <?php }?>
-    </ul>
-    
+<div class="overflow-auto">
+  <div class="relative w-full max-w-4xl max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="add-role-modal">
+            <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+              <span class="sr-only">Close modal</span>
+          </button>
+          <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+            <form class="space-y-6" action="" method="POST">
+              <!-- Table -->
+              <div>
+                <div class="mb-4 text-lg font-medium text-gray-900 dark:text-white">
+                  Permissions list
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="min-w-full">
+                    <tbody class="bg-white divide-y divide-gray-300 dark:divide-gray-600 dark:bg-gray-800">
+                      <tr class="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 ease-in-out">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">Administrator Access </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          <div class="flex items-start">
+                            <label class="">
+                              <input onClick="toggleCheckbox(this)" type="checkbox" class="mr-3 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
+                              All
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          
+                        </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          
+                        </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          
+                        </td>
+                      </tr>
+                      <tr class="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 ease-in-out">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">User Management</td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          <div class="flex items-start">
+                            <label class="">
+                              <input type="checkbox" name="item[]" name="item[]" class="mr-3 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
+                              Veiw
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          <div class="flex items-start">
+                            <label class="">
+                              <input type="checkbox" name="item[]" class="mr-3 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
+                              Write
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          <div class="flex items-start">
+                            <label class="">
+                              <input type="checkbox" name="item[]" class="mr-3 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
+                              Edit
+                            </label>
+                          </div>
+                        </td>
+                        <td class="text-sm px-6 py-3 whitespace-nowrap">
+                          <div class="flex items-start">
+                            <label class="">
+                              <input type="checkbox" name="item[]" class="mr-3 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
+                              Delete
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- / Table -->
+              <div class="pb-8 text-center gap-x-4">
+                <button type="submit" class="mx-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Submit</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
 </div>
-<style>
-    .flex{
-        display: flex;
-    }
-    .tabbed hr{
-        border: 1px solid #eee;
-    }
-    .tabbed strong{
-        font-weight: bold;
-        font-size: 103%;
-        padding-bottom: .4em;
-    }
-    .tabbed{
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .tabbed li{
-        padding: .4em;
-    }
-    .tabbed li > input,.tabbed li > label{
-        display: inline-block;
-    }
-    .tabbed li ul{
-        font-size: 90%;
-        padding: 1em;
-        border-top: 1px solid #ddd;
-    }
-</style>

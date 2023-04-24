@@ -2,10 +2,32 @@
     "name":"Settings",
     "icon":"cog",
     "nav":[
-        {"name":"System config","href":"System_config/"},
-        {"name":"System backup","href":"System_backup/"},
-        {"name":"Payment gateway","href":"Payment_gateway/"}
+        {"name":"System config","href":"System_config/","permission":"can_view_System_config"},
+        {"name":"System backup","href":"System_backup/","permission":"can_view_System_backup"},
+        {"name":"Payment gateway","href":"Payment_gateway/","permission":"can_view_Payment_gateway"}
        
       
-    ]
-}
+    ],
+
+    "permissions":[
+         "can_view_user",
+         "can_activate_user",
+         "can_deactivate_user",
+         
+         "can_add_system_backup",
+         "can_delete_system_backup",
+         "can_view_system_backup",
+         "can_edit_system_backup",
+
+         "can_add_payment_gateway",
+         "can_edit_payment_gateway",
+         "can_delete_payment_gateway",
+         "can_view_system_backup",
+
+         "can_add_system_configuration",
+         "can_edit_system_configuration",
+         "can_delete_system_configuration"
+ 
+        
+     ]
+ }

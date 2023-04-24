@@ -2,9 +2,25 @@
     "name":"Store",
     "icon":"store-alt",
     "nav":[
-        {"name":"Products","href":"Products/"},
-        {"name":"Tools","href":"Tools/"},
-        {"name":"Stores","href":"Stores/"}
+        {"name":"Products","href":"Products/","permission":"can_view_Products"},
+        {"name":"Tools","href":"Tools/","permission":"can_view_Tools"},
+        {"name":"Stores","href":"Stores/","permission":"can_view_Stores"}
    
-    ]
-}
+    ],
+
+    "permissions":[
+        "can_add_products",
+        "can_edit_products",
+        "can_delete_products",
+        "can_view_products",
+ 
+        "can_add_tools",
+        "can_edit_tools",
+        "can_delete_tools",
+        "can_view_tools",
+         
+        "can_add_stores",
+        "can_edit_stores",
+        "can_view_stores"
+  ]
+ }

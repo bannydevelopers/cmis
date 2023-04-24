@@ -112,9 +112,40 @@
       </div>
   </div> 
   <br />
+
+  <div>
+    <!-- Error alert -->
+    <!-- <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-700 rounded-lg bg-red-100 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+      <span>
+        <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+      </span>
+      <div class="ml-3 text-sm font-medium">
+        <?=$msg?>
+      </div> 
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div> -->
+    <!--/ Error alert -->
+    <?php if($msg){ ?>
+    <!-- Success alert -->
+    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+      <span>
+        <i class="fa-solid fa-circle-info fa-lg"></i>
+      </span>
+      <div class="ml-3 text-sm font-medium">
+        <?=$msg?>
+      </div> 
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+    <!--/ Success alert -->
+    <?php } ?>
+  </div>
+
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
-        <br>
       <table class="w-full">
         <thead>
           <tr
@@ -181,7 +212,7 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
-                <a href="profile"
+                <a href="<?=$home?>/Profile"
                   class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                   aria-label="View">
                   <i class="fa-solid fa-eye fa-lg"></i>      
@@ -228,10 +259,14 @@
   .then((value) => {
     switch (value) {
       case "delete":
-        swal("Done!", "User deleted!", "success");
+        swal("Done!", "User deleted!", myFunction);
         break;
     }
   });
+  function myFunction(name) {
+    return "success";
+  }
+  const call = () => "success";
 </script>
 
 
