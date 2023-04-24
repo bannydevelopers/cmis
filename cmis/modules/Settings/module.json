@@ -2,9 +2,9 @@
     "name":"Settings",
     "icon":"cog",
     "nav":[
-        {"name":"System config","href":"System_config/"},
-        {"name":"System backup","href":"System_backup/"},
-        {"name":"Payment gateway","href":"Payment_gateway/"}
+        {"name":"System config","href":"System_config/","permission":"can_view_System_config"},
+        {"name":"System backup","href":"System_backup/","permission":"can_view_System_backup"},
+        {"name":"Payment gateway","href":"Payment_gateway/","permission":"can_view_Payment_gateway"}
        
       
     ],
