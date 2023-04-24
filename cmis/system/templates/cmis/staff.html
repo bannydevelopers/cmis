@@ -112,9 +112,29 @@
       </div>
   </div> 
   <br />
+  <div>
+    <div x-data="{ open: true }" x-show="open" class="flex justify-between items-center relative bg-red-100 dark:bg-opacity-20 text-red-700 dark:text-red-400 py-2 px-3 rounded mb-4">
+      <div>
+        Error occured
+      </div>
+      <button type="button" @click="open = false">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+    <div id="alert-3" class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+      <i class="fa-solid fa-circle-info fa-xl"></i>
+      <span class="sr-only">Info</span>
+      <div class="ml-3 text-sm font-medium">
+        A simple info alert with an. Give it a click if you like.
+      </div>
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+    <?=$msg?>
+  </div>
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
-        <br>
       <table class="w-full">
         <thead>
           <tr
@@ -181,7 +201,7 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
-                <a href="profile"
+                <a href="<?=$home?>/Profile"
                   class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                   aria-label="View">
                   <i class="fa-solid fa-eye fa-lg"></i>      
