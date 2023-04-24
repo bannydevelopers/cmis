@@ -20,4 +20,4 @@ $role_tree[$role['name']][$role['legend']][] = [
 ];
 }
 
-echo helper::find_template('User_permission', ['roles' => $role_tree]);
+echo helper::find_template('roles', ['roles' => $role_tree]);

@@ -10,6 +10,7 @@ if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
         $k = $db->insert('designation', $data);
         if(intval($k)) $msg = 'Designation added successful';
         else  $msg = 'Designation add failed';
+        //$k = $db->insert('role', ['name'=>str_replace(' ', '_', $data['designation_name'])]);
     }
     else $msg = 'You do not have permission for the action';
 }
