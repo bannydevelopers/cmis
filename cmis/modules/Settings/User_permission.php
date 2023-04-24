@@ -20,24 +20,38 @@ foreach($roles as $role){
     ];
 }
 $designations = $db->select('designation','designation_id,designation_name')->fetchAll();
-$permission = $db->select('permission')->fetchAll();
-$perm_tree = [];
-foreach($permission as $perm){
-    if(!isset($perm_tree[$perm['legend']])) {
-        $perm_tree[$perm['legend']] = [];
+if(isset($_POST['get_permission'])){
+    $permission = $db->select('permission')
+                    ->fetchAll();
+    $perm_tree = [];
+    foreach($permission as $perm){
+        if(!isset($perm_tree[$perm['legend']])) {
+            $perm_tree[$perm['legend']] = [];
+        }
+        $checked = false;
+        if(isset($role_tree[$_POST['get_permission']])){
+            if(isset($role_tree[$_POST['get_permission']][$perm['legend']])){
+                foreach($role_tree[$_POST['get_permission']][$perm['legend']] as $p){
+                    if($p['permission_id'] == $perm['permission_id']){
+                        $checked = true;
+                        continue;
+                    }
+                }
+            }
+        }
+        $perm_tree[$perm['legend']][] = [
+            'permission_id'=>$perm['permission_id'],
+            'permission_name'=>$perm['permission_name'],
+            'checked'=>$checked
+        ];
     }
-    $perm_tree[$perm['legend']][] = [
-        'permission_id'=>$perm['permission_id'],
-        'permission_name'=>$perm['permission_name']
-    ];
+    die(helper::get_sub_template('user_permission_edit',['permission'=>$perm_tree]));
 }
-//var_dump('<pre>',$perm_tree);
 
 echo helper::find_template(
     'User_permission', 
     [
         'roles' => $role_tree,
-        'designations'=>$designations, 
-        'permission'=>$permission
+        'designations'=>$designations
     ]
 );
