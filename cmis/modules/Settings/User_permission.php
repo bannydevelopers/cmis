@@ -45,7 +45,7 @@ if(isset($_POST['get_permission'])){
             'checked'=>$checked
         ];
     }
-    die(helper::get_sub_template('user_permission_edit',['permission'=>$perm_tree]));
+    die(helper::get_sub_template('user_permission_edit', ['permission'=>$perm_tree]));
 }
 
 echo helper::find_template(
