@@ -3,6 +3,7 @@ $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['ajax_del_staff'])){
+    $ok = false;
     if($helper->user_can('can_delete_staff')){
         $staff_id = intval($_POST['ajax_del_staff']);
         $staff = $db->select('staff', 'user.user_id,user.first_name,user.middle_name,user.last_name')
@@ -14,13 +15,15 @@ if(isset($_POST['ajax_del_staff'])){
             if(!$db->error() && $k) {
                 $k = $db->delete('user')->where(['user_id'=>$staff['user_id']])->commit();
                 $msg = 'Staff deleted succesfully';
+                $ok = true;
             }
             else $msg = 'Delete failed';
         }
         else $msg = 'Staff does not exist';
     }
     else $msg = 'Permission denied';
-    die(json_encode(['status'=>'success','msg'=>$msg,'staff'=>$staff]));
+    $status = $ok ? 'success' : 'fail';
+    die(json_encode(['status'=>$status,'msg'=>$msg,'staff'=>$staff]));
 }
 if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
     if($helper->user_can('can_add_designation')){
