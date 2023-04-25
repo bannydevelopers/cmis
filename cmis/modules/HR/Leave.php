@@ -2,8 +2,7 @@
 
 $db = db::get_connection(storage::init()->system_config->database);
 $my = helper::init()->get_session_user();
-$me = $db->select('staff')->where(['staff_id'=>$my['user_id']])->fetch();
-
+$me = $db->select('staff')->where(['user_reference'=>$my['user_id']])->fetch();
 $msg = '';
 if(isset($_POST['leave_type'])){
     //'leave_application''staff_id', 'leave_description', 'approval', 'remark', 
@@ -22,7 +21,12 @@ if(isset($_POST['leave_type'])){
     else $msg = 'Leave application failed';
     //'asignee_response_date'
 }
-$leave = $db->select('leave_application')->fetchAll();
+$leave = $db->select('leave_application', 'leave_application.*,user.first_name,user.last_name,user.middle_name')
+            ->join('staff','staff.staff_id=leave_application.staff_id','left') // It's here to link other tables
+            ->join('user','user_id=user_reference','left')
+            ->where("leave_application.staff_id != {$me['staff_id']}")
+            ->fetchAll();
+            //var_dump('<pre>',$leave);
 $assignee = $db->select('user')
                ->where("system_role='{$my['system_role']}' AND user_id != '{$my['user_id']}'")
                ->fetchAll();

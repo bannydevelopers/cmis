@@ -79,7 +79,7 @@
           <th class="px-4 py-3">Leave type</th>
           <th class="px-4 py-3">Leave length</th>
           <th class="px-4 py-3">Date applied</th>
-          <th class="px-4 py-3">Aproval</th>
+          <th class="px-4 py-3">Status</th>
           <th class="px-4 py-3">Remark</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
@@ -87,32 +87,33 @@
       <tbody
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
+      <?php foreach($leave as $appl){?>
         <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
               <div>
-                <p class="font-semibold">Princess Fiona </p>
+                <p class="font-semibold"><?=$appl['first_name']?> <?=$appl['middle_name']?> <?=$appl['last_name']?></p>
               </div>
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
-            Emergency
+            <?=$appl['leave_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            14
+            <?=$appl['leave_length']?> Days
           </td>
           <td class="px-4 py-3 text-sm">
-            6/10/2020
+            <?=helper::format_time($appl['application_date'], 'd M, Y @ H:i')?>
           </td>
           <td class="px-4 py-3 text-sm">
             <span
               class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
             >
-              Pending
+            <?=$appl['leave_status']?>
             </span>
           </td>
           <td class="px-4 py-3 text-sm">
-            ---
+            <?=$appl['remarks']?>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
@@ -136,7 +137,7 @@
             </div>
           </td>
         </tr>
-        
+      <?php }?>
       </tbody>
     </table>
   </div>
