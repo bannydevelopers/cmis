@@ -339,14 +339,16 @@
   </div>`;
 
   async function delStaff(values) {
-    const statusData = {
+    /*const statusData = {
       id: values.id,
       ajax_del_staff: "del_staff" 
-    }
-    console.log("tr-"+statusData.id);
-    console.log(statusData);
+    }*/
+    let statusData = new FormData();
+    statusData.append('ajax_del_staff', values.id);
+    //console.log("tr-"+statusData.id);
+    //console.log(statusData);
 
-    let url = '';
+    let url = '<?=$request_uri?>';
     let obj = {
       method: "POST", 
       body: statusData,
@@ -361,7 +363,7 @@
     })
     .then(data => {
       console.log(data);
-      document.getElementById("tr-"+statusData.id).remove();
+      //document.getElementById("tr-"+statusData.id).remove();
       document.getElementById("message").innerHTML = successMessage;
     })
     .catch(error => {
