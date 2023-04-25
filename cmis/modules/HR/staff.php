@@ -1,6 +1,23 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
+$request = $_SERVER['REQUEST_URI'];
+if(isset($_POST['ajax_del_staff'])){
+    $staff_id = intval($_POST['ajax_del_staff']);
+    $staff = $db->select('staff', 'user.user_id,user.first_name,user.middle_name,user.last_name')
+                ->join('user', 'user_id=user_reference')
+                ->where(['staff_id'=>$staff_id])
+                ->fetch();
+    if($staff){
+        $k = $db->delete('staff')->where(['staff_id'=>$staff_id])->commit();
+        if(!$db->error() && $k) {
+            $k = $db->delete('user')->where(['user_id'=>$staff['user_id']])->commit();
+            $msg = 'Staff deleted succesfully';
+        }
+        else $msg = 'Delete failed';
+        die(json_encode(['status'=>'success','msg'=>$msg,'staff'=>$staff]));
+    }
+}
 if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
     if($helper->user_can('can_add_designation')){
         $data = [
@@ -63,6 +80,7 @@ $staff = $db->select('staff')
             ->fetchAll();
 //var_dump('<pre>',$staff);
 if($helper->user_can('can_view_staff')){
-    echo helper::find_template('Staff', ['designation'=>$designation, 'staff'=>$staff,'msg'=>$msg]);
+    $data = ['designation'=>$designation, 'staff'=>$staff,'msg'=>$msg, 'request_uri'=>$request];
+    echo helper::find_template('Staff', $data);
 }
 else echo helper::find_template('permission_denied');
