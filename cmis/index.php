@@ -19,6 +19,7 @@ $request = str_replace($docroot, '', $install_dir); // Find real requested url
 $storage->request_dir = trim($request, '/');
 
 // Reduce request to our file structure
+if(!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = ''; // Some kidos complain it does not exist
 $req = str_replace($request, '', str_replace($_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI'])); 
 
 $req_parts = explode('/', trim($req,'/?'));

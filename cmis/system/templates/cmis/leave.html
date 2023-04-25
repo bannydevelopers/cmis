@@ -35,25 +35,26 @@
                   </div>
                   <div class="w-full sm:w-1/3 px-3 my-2 mob:my-0">
                     <label for="leave_start">Leave start </label>
-                    <input id="leave_start" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="leave_start">
+                    <input id="leave_start" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="leave_start" required>
                   </div>
                   <div class="w-full sm:w-1/3 px-3 my-2 mob:my-0">
                     <label for="leave_length">Leave lenght (days) </label>
-                    <input id="leave_length" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Leave days" required>
+                    <input name="leave_length" min="1" id="leave_length" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Leave days" required>
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label for="leave_assignee">Responsible assignee </label>
-                    <select id="leave_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation">
-                      <option value="anual">Jasper Rupia Polycatus</option>
-                      <option value="anual">Wilfred john Doe</option>
-                      <option value="anual">Fio Jane Doe</option>
+                    <select id="leave_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="responsility_assignee">
+                      <option value="0">Anyone</option>
+                      <?php foreach($assignee as $user){?>
+                      <option value="<?=$user['user_id']?>"><?=$user['first_name']?> <?=$user['last_name']?></option>
+                      <?php }?>
                     </select>
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label for="leave_description">Leave description </label>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Leave escription" required>
+                    <input name="leave_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Leave escription">
                   </div>
                 </div>
                 <div class="pb-8">
@@ -78,7 +79,7 @@
           <th class="px-4 py-3">Leave type</th>
           <th class="px-4 py-3">Leave length</th>
           <th class="px-4 py-3">Date applied</th>
-          <th class="px-4 py-3">Aproval</th>
+          <th class="px-4 py-3">Status</th>
           <th class="px-4 py-3">Remark</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
@@ -86,32 +87,33 @@
       <tbody
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
+      <?php foreach($leave as $appl){?>
         <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
               <div>
-                <p class="font-semibold">Princess Fiona </p>
+                <p class="font-semibold"><?=$appl['first_name']?> <?=$appl['middle_name']?> <?=$appl['last_name']?></p>
               </div>
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
-            Emergency
+            <?=$appl['leave_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            14
+            <?=$appl['leave_length']?> Days
           </td>
           <td class="px-4 py-3 text-sm">
-            6/10/2020
+            <?=helper::format_time($appl['application_date'], 'd M, Y @ H:i')?>
           </td>
           <td class="px-4 py-3 text-sm">
             <span
               class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
             >
-              Pending
+            <?=$appl['leave_status']?>
             </span>
           </td>
           <td class="px-4 py-3 text-sm">
-            ---
+            <?=$appl['remarks']?>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
@@ -135,7 +137,7 @@
             </div>
           </td>
         </tr>
-        
+      <?php }?>
       </tbody>
     </table>
   </div>

@@ -78,7 +78,7 @@
                       <!-- Permissions -->
                       <div class="flex justify-between mb-2 gap-2">
                         <label class="text-ellipsis overflow-hidden ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                          <input checked type="checkbox" value="" name="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                          <input checked readonly type="checkbox" value="" name="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                           <?=$v['permission_name']?>
                         </label> 
                       </div>
@@ -107,16 +107,21 @@
                                 <!-- Role -->
                                 <div class=" text-gray-800 dark:text-gray-200">
                                   <div class="pt-2 ml-5">
-                                    <?php foreach($roles[$role] as $legend=>$permission){?>
+                                    <?php foreach($permissions as $sublegend=>$permission){?>
                                       <!-- Legend -->
                                       <div>
-                                        <h6 class="text-gray-700 dark:text-gray-200 py-2"><?=$legend?></h6>
+                                        <h4 class="text-gray-700 dark:text-gray-200 py-2">
+                                          <label class="text-ellipsis overflow-hidden ml-2 text-sm font-large text-gray-900 dark:text-gray-300">
+                                            <input onchange="update_boxes()" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <?=$sublegend?>
+                                          </label>
+                                        </h4>
                                         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                                          <?php foreach($permission as $v){?>
+                                          <?php foreach($permission as $k=>$v){?>
                                           <!-- Permissions -->
                                           <div class="flex justify-between mb-2 gap-2">
                                             <label class="text-ellipsis overflow-hidden ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                              <input checked type="checkbox" value="" name="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                              <input<?=(in_array($v,$roles[$role][$legend]))?' checked':''?> type="checkbox"  value="<?=$v['permission_id']?>" name="perms[<?=$role?>][]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                               <?=$v['permission_name']?>
                                             </label> 
                                           </div>
@@ -153,3 +158,10 @@
 </div>
 
 <script src="js/flowbite.min.js"></script>
+<script>
+  function update_boxes(){
+    const kidos = window.event.target.parentNode.parentNode.nextElementSibling;
+    let checks = kidos.querySelectorAll('input[type=checkbox]');
+    [...checks].forEach(elem=>{elem.checked = window.event.target.checked});
+  }
+</script>
