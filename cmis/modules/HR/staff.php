@@ -37,6 +37,7 @@ if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
 }
 if(isset($_POST['first_name'])){
     if($helper->user_can('can_add_staff')){
+        $token = helper::create_hash(time());
         $role = $db->select('designation_role','role_id')
                 ->where(['designation_id'=>intval($_POST['designation'])])
                 ->fetch();
@@ -49,8 +50,8 @@ if(isset($_POST['first_name'])){
             'status'=>'active', 
             'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
             'email'=>helper::format_email($_POST['email']), 
-            'password'=>helper::create_hash(time()), 
-            'activation_token'=>null, 
+            'password'=>md5($token), 
+            'activation_token'=>$token, 
             'created_by'=>helper::init()->get_session_user('user_id'), 
             'created_time'=>date('Y-m-d H:i:s')
         ];
