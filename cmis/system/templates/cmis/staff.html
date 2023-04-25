@@ -17,7 +17,7 @@
       Add designation
     </button>
   </div>
-  <!-- Designation modal -->
+  <!-- Add designation modal -->
   <div id="add-designation-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full-h-full">
     <div class="relative w-full max-w-lg max-h-full items-center">
         <!-- Modal content -->
@@ -52,7 +52,7 @@
         </div>
     </div>
   </div> 
-  <!-- Main modal -->
+  <!-- Add staff modal -->
   <div id="add-staff-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
       <div class="relative w-full max-w-4xl max-h-full items-center">
           <!-- Modal content -->
@@ -111,42 +111,90 @@
           </div>
       </div>
   </div> 
+  <!-- Edit staff modal -->
+  <div id="edit-staff-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+      <div class="relative w-full max-w-4xl max-h-full items-center">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+              <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-staff-modal">
+                <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                <span class="sr-only">Close modal</span>
+              </button>
+              <div class="px-6 py-6 lg:px-8">
+                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Edit staff </h3>
+                <form class="space-y-6" method="POST">
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
+                      <label> First name
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="First name" name="first_name" required>
+                      </label>
+                    </div>
+                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                      <label> Middle name
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Middle name" name="middle_name">
+                      </label>
+                    </div>
+                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                      <label> Last name
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Last name" name="last_name" required>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <label> Email address
+                        <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Email address" name="email" required>
+                      </label>
+                    </div>
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <label> Phone number
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}" name="phone_number">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                      <label> Designation
+                        <select id="designation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation">
+                          <?php foreach($designation as $x) { ?>
+                            <option value="<?=$x['designation_id']?>"><?=$x['designation_name']?></option>
+                          <?php } ?>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                      <label> Registration number
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Registration number" name="registration_number" required>
+                      </label>
+                    </div>
+                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                      <label> Residence address
+                       <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address" name="residence_address">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/2 px-3"> 
+                      <label> Date
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" max="<?= date('Y-m-d'); ?>" name="date_employed">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pb-8">
+                    <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Submit</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div> 
   <br />
 
-  <div>
-    <!-- Error alert -->
-    <!-- <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-700 rounded-lg bg-red-100 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
-      <span>
-        <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-      </span>
-      <div class="ml-3 text-sm font-medium">
-        <?=$msg?>
-      </div> 
-      <button type="button" @click="open = false" class="ml-auto -mx-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
-        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-      </button>
-    </div> -->
-    <!--/ Error alert -->
-    <?php if($msg){ ?>
-    <!-- Success alert -->
-    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
-      <span>
-        <i class="fa-solid fa-circle-info fa-lg"></i>
-      </span>
-      <div class="ml-3 text-sm font-medium">
-        <?=$msg?>
-      </div> 
-      <button type="button" @click="open = false" class="ml-auto -mx-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
-        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-      </button>
-    </div>
-    <!--/ Success alert -->
-    <?php } ?>
-  </div>
+  <div id="message"></div>
 
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
-      <table class="w-full">
+      <table id="staffTable" class="w-full">
         <thead>
           <tr
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
@@ -164,7 +212,7 @@
           class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
         >
         <?php foreach($staff as $x) { ?>
-          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <tr id="tr-<?=$x['staff_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
             <td class="px-4 py-3">
               <div class="flex items-center text-sm">
                 <!-- Avatar with inset shadow -->
@@ -206,7 +254,7 @@
             </td>
             <td class="px-4 py-3 text-xs">
               <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" value="<?php if($x['status']=='active') {echo 'inactive';} else {echo 'active';} ?>" onclick="activateFn(this.value)" class="activateBtn sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
+                <input id="checkbox-<?=$x['staff_id']?>" type="checkbox" onclick="activateStaff(this)" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
                 <div class="w-9 h-5 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
               </label>  
             </td>
@@ -217,18 +265,18 @@
                   aria-label="View">
                   <i class="fa-solid fa-eye fa-lg"></i>      
                 </a>
-                <button 
+                <button id="editstaff-<?=$x['staff_id']?>" onclick="editStaff(this)" data-modal-target="edit-staff-modal" data-modal-toggle="edit-staff-modal" 
                   class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                   aria-label="Edit"
                 >
                 <i class="fa-solid fa-pen-to-square fa-lg"></i>
                 </button>
-                <button onclick="del()" 
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                <a id="<?=$x['staff_id']?>" onclick="delStaff(this)"
+                  class="deleteStaff flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                   aria-label="Delete"
                 >
                 <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-                </button>
+              </a>
               </div>
             </td>
           </tr>
@@ -243,30 +291,137 @@
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
-  function activateFn(activateValue) {
-    console.log(activateValue);
-  };
 
-  const del = () => swal("Sure! want to delete?", {
-    buttons: {
-      cancel: "Cancel!",
-      catch: {
-        text: "Delete!",
-        value: "delete",
-      }
-    },
-  })
-  .then((value) => {
-    switch (value) {
-      case "delete":
-        swal("Done!", "User deleted!", myFunction);
-        break;
+  var errorMessage = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-700 rounded-lg bg-red-100 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      There is a prob
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>`;
+
+  var successMessage = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>`;
+
+  async function delStaff(values) {
+    const statusData = {
+      id: values.id,
+      ajax_del_staff: "del_staff" 
     }
-  });
-  function myFunction(name) {
-    return "success";
+    console.log("tr-"+statusData.id);
+    console.log(statusData);
+
+    let url = '';
+    let obj = {
+      method: "POST", 
+      body: statusData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        //document.getElementById("id").innerHTML = '<h1>Error';
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      document.getElementById("tr-"+statusData.id).remove();
+      document.getElementById("message").innerHTML = successMessage;
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = errorMessage;
+      console.error('There was a problem:', error);
+    });
   }
-  const call = () => "success";
+
+
+  async function activateStaff(values) {
+    var staffId = values.id.split('-');
+    if (values.checked) {
+      var status = 'active';
+    };
+    if (!values.checked) {
+      var status = 'inactive';
+    };
+    const statusData = {
+      id: staffId[1],
+      status: status,
+      ajax_activate_staff: 'activate_staff'
+    }
+    console.log(statusData);
+
+    let url = '';
+    let obj = {
+      method: "POST", 
+      body: statusData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        //document.getElementById("id").innerHTML = '<h1>Error';
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      document.getElementById("message").innerHTML = successMessage;
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = errorMessage;
+      console.error('There was a problem:', error);
+    });
+  }
+
+
+  async function editStaff(values) {
+    var staffId = values.id.split('-');
+    const staffData = {
+      id: staffId[1],
+      status: status,
+      ajax_edit_staff: 'edit_staff'
+    }
+    console.log(staffData);
+
+    let url = '';
+    let obj = {
+      method: "POST", 
+      body: staffData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        //document.getElementById("id").innerHTML = '<h1>Error';
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      document.getElementById("message").innerHTML = successMessage;
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = errorMessage;
+      console.error('There was a problem with response:', error);
+    });
+  }
 </script>
 
 
