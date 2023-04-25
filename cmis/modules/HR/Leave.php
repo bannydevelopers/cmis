@@ -4,6 +4,7 @@ $db = db::get_connection(storage::init()->system_config->database);
 $my = helper::init()->get_session_user();
 $me = $db->select('staff')->where(['staff_id'=>$my['user_id']])->fetch();
 
+$msg = '';
 if(isset($_POST['leave_type'])){
     //'leave_application''staff_id', 'leave_description', 'approval', 'remark', 
     //'leave_start_date', 'leave_end_date', 'response_date', 'application_date', 
@@ -17,12 +18,12 @@ if(isset($_POST['leave_type'])){
         'responsibility_asignee'=>intval($_POST['responsility_assignee'])
     ];
     $k = $db->insert('leave_application', $data);
-    if($k) echo 'Ta da';
-    else var_dump($db->error());
+    if($k) $msg = 'Leave application is a success';
+    else $msg = 'Leave application failed';
     //'asignee_response_date'
 }
 $leave = $db->select('leave_application')->fetchAll();
 $assignee = $db->select('user')
                ->where("system_role='{$my['system_role']}' AND user_id != '{$my['user_id']}'")
                ->fetchAll();
-echo helper::find_template('leave', ['assignee'=>$assignee,'leave'=>$leave]);
+echo helper::find_template('leave', ['assignee'=>$assignee,'leave'=>$leave,'msg'=>$msg]);
