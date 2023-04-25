@@ -305,7 +305,6 @@
     
   </div>
     
-<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
 
@@ -334,14 +333,11 @@
   </div>`;
 
   async function delStaff(values) {
-    /*const statusData = {
-      id: values.id,
-      ajax_del_staff: "del_staff" 
-    }*/
+
     let statusData = new FormData();
     statusData.append('ajax_del_staff', values.id);
-    //console.log("tr-"+statusData.id);
-    //console.log(statusData);
+    console.log(values.id);
+    console.log(statusData);
 
     let url = '<?=$request_uri?>';
     let obj = {
@@ -358,8 +354,20 @@
     })
     .then(data => {
       console.log(data);
-      //document.getElementById("tr-"+statusData.id).remove();
-      document.getElementById("message").innerHTML = successMessage;
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+` for staff `+data.staff.first_name+`.
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-3 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        document.getElementById("tr-"+statusData.id).remove();
+      }
     })
     .catch(error => {
       document.getElementById("message").innerHTML = errorMessage;
@@ -397,7 +405,11 @@
       return response.json();
     })
     .then(data => {
-      console.log(data);
+      //console.log(data);
+      //console.log(data.status);
+      //console.log(data.msg);
+      //console.log(data.staff);
+      //console.log(data);
       document.getElementById("message").innerHTML = successMessage;
     })
     .catch(error => {
