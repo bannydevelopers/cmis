@@ -4,7 +4,7 @@
 >
   Leaves
 </h2>
-<!-- Modal toggle -->
+<!-- Apply leave modal toggle -->
 <div>
   <button 
   data-modal-target="add-leave-modal" data-modal-toggle="add-leave-modal" 
@@ -13,11 +13,11 @@
   </button>
 </div>
 
-<!-- Main modal -->
+<!-- Apply leave modal -->
 <div id="add-leave-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-leave-modal">
               <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
                 <span class="sr-only">Close modal</span>
@@ -35,25 +35,26 @@
                   </div>
                   <div class="w-full sm:w-1/3 px-3 my-2 mob:my-0">
                     <label for="leave_start">Leave start </label>
-                    <input id="leave_start" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="leave_start">
+                    <input id="leave_start" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="leave_start" required>
                   </div>
                   <div class="w-full sm:w-1/3 px-3 my-2 mob:my-0">
                     <label for="leave_length">Leave lenght (days) </label>
-                    <input id="leave_length" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Leave days" required>
+                    <input name="leave_length" min="1" id="leave_length" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Leave days" required>
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label for="leave_assignee">Responsible assignee </label>
-                    <select id="leave_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation">
-                      <option value="anual">Jasper Rupia Polycatus</option>
-                      <option value="anual">Wilfred john Doe</option>
-                      <option value="anual">Fio Jane Doe</option>
+                    <select id="leave_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="responsility_assignee">
+                      <option value="0">Anyone</option>
+                      <?php foreach($assignee as $user){?>
+                      <option value="<?=$user['user_id']?>"><?=$user['first_name']?> <?=$user['last_name']?></option>
+                      <?php }?>
                     </select>
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label for="leave_description">Leave description </label>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Leave escription" required>
+                    <input name="leave_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Leave escription">
                   </div>
                 </div>
                 <div class="pb-8">
@@ -64,9 +65,23 @@
         </div>
     </div>
 </div> 
-<!--/ Main modal -->
+<!--/ Apply leave modal -->
 
 <br />
+<?php if($msg) {?>
+  <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php } ?>
+
 <div class="w-full overflow-hidden rounded-lg shadow-md">
   <div class="w-full overflow-x-auto">
     <table class="w-full">
@@ -78,7 +93,7 @@
           <th class="px-4 py-3">Leave type</th>
           <th class="px-4 py-3">Leave length</th>
           <th class="px-4 py-3">Date applied</th>
-          <th class="px-4 py-3">Aproval</th>
+          <th class="px-4 py-3">Status</th>
           <th class="px-4 py-3">Remark</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
@@ -86,47 +101,43 @@
       <tbody
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
+      <?php foreach($leave as $appl){?>
         <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
               <div>
-                <p class="font-semibold">Princess Fiona </p>
+                <p class="font-semibold"><?=$appl['first_name']?> <?=$appl['middle_name']?> <?=$appl['last_name']?></p>
               </div>
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
-            Emergency
+            <?=$appl['leave_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            14
+            <?=$appl['leave_length']?> Days
           </td>
           <td class="px-4 py-3 text-sm">
-            6/10/2020
+            <?=helper::format_time($appl['application_date'], 'd M, Y @ H:i')?>
           </td>
           <td class="px-4 py-3 text-sm">
             <span
               class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
             >
-              Pending
+            <?=$appl['leave_status']?>
             </span>
           </td>
           <td class="px-4 py-3 text-sm">
-            ---
+            <?=$appl['remarks']?>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
-              <a href="profile"
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                aria-label="View">
-                <i class="fa-solid fa-eye fa-lg"></i>      
-              </a>
               <button 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                aria-label="Edit"
+                aria-label="Applove"
               >
               <i class="fa-solid fa-pen-to-square fa-lg"></i>
               </button>
-              <button onclick="del()"
+              <button 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                 aria-label="Delete"
               >
@@ -135,32 +146,16 @@
             </div>
           </td>
         </tr>
-        
+      <?php }?>
       </tbody>
     </table>
   </div>
   
 </div>
   
-<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
-const del = () => swal("Sure! want to delete?", {
-  buttons: {
-    cancel: "Cancel!",
-    catch: {
-      text: "Delete!",
-      value: "delete",
-    }
-  },
-})
-.then((value) => {
-  switch (value) {
-    case "delete":
-      swal("Done!", "User deleted!", "success");
-      break;
-  }
-});
+
 </script>
 
 
