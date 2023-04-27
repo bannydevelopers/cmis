@@ -107,7 +107,7 @@
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
       <?php foreach($customer as $cus){?>
-        <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <tr id="tr-<?=$cus['customer_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
               <div>
