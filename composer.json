@@ -1,6 +1,7 @@
 {
     "require": {
         "phpmailer/phpmailer": "^6.8",
-        "components/font-awesome": "*"
+        "components/font-awesome": "*",
+        "ckeditor/ckeditor":"4.*"
     }
 }
