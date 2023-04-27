@@ -2,17 +2,17 @@
     "name":"Store",
     "icon":"store-alt",
     "nav":[
-        {"name":"Products","href":"Products/","permission":"can_view_Products"},
-        {"name":"Tools","href":"Tools/","permission":"can_view_Tools"},
-        {"name":"Stores","href":"Stores/","permission":"can_view_Stores"}
+        {"name":"Dispensing","href":"Dispensing/","permission":"can_view_dispense"},
+        {"name":"Tools","href":"Tools/","permission":"can_view_tools"},
+        {"name":"Stores","href":"Stores/","permission":"can_view_stores"}
    
     ],
 
     "permissions":[
-        "can_add_products",
-        "can_edit_products",
-        "can_delete_products",
-        "can_view_products",
+        "can_add_dispense",
+        "can_edit_dispense",
+        "can_delete_dispense",
+        "can_view_dispense",
  
         "can_add_tools",
         "can_edit_tools",
