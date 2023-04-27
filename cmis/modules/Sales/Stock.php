@@ -3,9 +3,6 @@
 $db = db::get_connection(storage::init()->system_config->database);
 $ok = false;
 $msg = '';
-
-$request = $_SERVER['REQUEST_URI'];
-
 if(isset($_POST['customer_name'])){
     $data = [
         'customer_name'=>$_POST['customer_name'], 
@@ -24,5 +21,4 @@ if(isset($_POST['customer_name'])){
     else $msg = 'Error adding customer';
 }
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
-$data = ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
-echo helper::find_template('Customers', $data);
+echo helper::find_template('Stock', ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok]);

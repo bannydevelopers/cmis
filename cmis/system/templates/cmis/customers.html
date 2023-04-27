@@ -163,6 +163,7 @@
                     <h3 class="mb-4 text-xl font-medium">Edit customer </h3>
                     <form class="space-y-6" method="POST">
                       <div class="flex flex-wrap -mx-3 mb-6">
+                        <input name="customer_id" type="hidden" value="<?=$cus['customer_id']?>">
                         <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                           <label>Customer name
                             <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" value="<?=$cus['customer_name']?>" placeholder="Name" required>
@@ -170,7 +171,7 @@
                         </div>
                         <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                           <label>Phone number
-                            <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" value="<?=$cus['phone_number']?>" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
+                            <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" value="<?=$cus['phone_number']?>" placeholder="Phone: 0*********">
                           </label>
                         </div>
                       </div>
@@ -218,10 +219,6 @@
 <script src="js/flowbite.min.js"></script>
 <script>
   async function delCustomer(values) {
-    if (!confirm("Sure you want to delete customer?")) {
-      return false;
-    }
-    
     delCustomerBtn = document.getElementById(values.id);
     delCustomerBtn.disabled = true;
     delCustomerBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'

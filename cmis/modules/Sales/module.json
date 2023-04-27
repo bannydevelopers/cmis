@@ -2,6 +2,7 @@
     "name":"Sales",
     "icon":"shopping-cart",
     "nav":[
+        {"name":"Stock","href":"Stock/","permission":"can_view_stock"},
         {"name":"Customers","href":"Customers/","permission":"can_view_customers"},
         {"name":"Invoice","href":"Invoice/","permission":"can_view_invoice"},
         {"name":"Purchase order","href":"Purchase_order/","permission":"can_view_purchase_order"},
@@ -10,6 +11,11 @@
     ],
 
    "permissions":[
+        "can_add_stock",
+        "can_edit_stock",
+        "can_delete_stock",
+        "can_view_stock",
+        
         "can_add_customers",
         "can_edit_customers",
         "can_delete_customers",
