@@ -327,6 +327,10 @@
 <script>
 
   async function delStaff(values) {
+    if (!confirm("Sure you want to delete staff?")) {
+      return false;
+    }
+    
     delStaffBtn = document.getElementById(values.id);
     delStaffBtn.disabled = true;
     delStaffBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
