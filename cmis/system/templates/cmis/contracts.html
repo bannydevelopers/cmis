@@ -64,7 +64,7 @@
         </ul>
       </div>
     </div>
-    <script src="../../modules/HR/ckeditor/ckeditor.js"></script>
+    <script src="../../../../vendor/ckeditor/ckeditor/ckeditor.js"></script>
     <script>
       const editor = document.getElementById('page_content');
       if(editor){
@@ -72,27 +72,12 @@
         CKEDITOR.config.height = '400';
         CKEDITOR.config.width = '100%';
         CKEDITOR.config.baseHref = '/';
-        CKEDITOR.config.format_tags = 'div;p;h1;h2;h3;section;';
-        CKEDITOR.config.filebrowserBrowseUrl = '/app/system/themes/fancy/images/index.html';
+        //CKEDITOR.config.format_tags = 'div;p;h1;h2;h3;section;';
+        CKEDITOR.config.filebrowserBrowseUrl = '/';
         CKEDITOR.config.filebrowserUploadUrl = '/ajax/uploader';
         CKEDITOR.config.contentCss = 'app/system/themes/fancy/css/editor.css';
         CKEDITOR.replace( 
-            'page_content', 
-            {
-                toolbarGroups:[
-                    { name: 'clipboard',   groups: [ 'mode', 'clipboard', 'undo' ] },
-                    { name: 'editing',     groups: [ 'find', 'selection' ] },
-                    { name: 'links' },
-                    { name: 'insert' },
-                    { name: 'forms' },
-                    { name: 'tools' },
-                    { name: 'document',	   groups: [ 'document', 'doctools' ] },
-                    //'/',
-                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                    { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-                    { name: 'styles' }
-                ],
-            }
+            'page_content'
         );
       }
 

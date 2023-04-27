@@ -24,29 +24,29 @@
             </button>
             <div class="px-6 py-6 lg:px-8">
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add customer </h3>
-              <form class="space-y-6" action="" method="POST">
+              <form class="space-y-6" method="POST">
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Name" required>
+                    <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Name" required>
                   </div>
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
+                    <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="TIN" pattern="[0-9]{9}">
-                  </div>
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN" pattern="[0-9]{8}">
-                  </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
-                  </div>
                   <div class="w-full mob:w-1/2 px-3"> 
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="date" type="date" max="<?= date('Y-m-d'); ?>">
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="email" type="email" placeholder="E-mail">
+                  </div>
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
+                    <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                    <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
+                  </div>
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                    <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
                   </div>
                 </div>
                 <div class="pb-8">
@@ -67,6 +67,7 @@
         >
           <th class="px-4 py-3">Name</th>
           <th class="px-4 py-3">Phone number</th>
+          <th class="px-4 py-3">E-mail</th>
           <th class="px-4 py-3">TIN</th>
           <th class="px-4 py-3">VRN</th>
           <th class="px-4 py-3">Address</th>
@@ -77,36 +78,35 @@
       <tbody
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
+      <?php foreach($customer as $cus){?>
         <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
               <div>
-                <p class="font-semibold">Ma Samia </p>
+                <p class="font-semibold"><?=$cus['customer_name']?></p>
               </div>
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
-            0656631107
+            <?=$cus['phone_number']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            123-456-789
+            <?=$cus['email']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            23-345-55
+            <?=$cus['tin_number']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            88, Dodoma
+            <?=$cus['vrn_number']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            6/10/2020
+            <?=$cus['physical_adress']?>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <?=helper::format_time($cus['created_time'],'d M, Y @ H:s')?>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
-              <a href="profile"
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                aria-label="View">
-                <i class="fa-solid fa-eye fa-lg"></i>      
-              </a>
               <button 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                 aria-label="Edit"
@@ -122,7 +122,7 @@
             </div>
           </td>
         </tr>
-        
+      <?php }?>
       </tbody>
     </table>
   </div>

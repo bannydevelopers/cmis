@@ -19,11 +19,13 @@
 
         "can_add_activities",
         "can_edit_activities",
+        "can_view_activities",
         "can_delete_activities",
         "can_view_activities",
         
         "can_add_resources",
         "can_edit_resources",
+        "can_view_resources",
         "can_delete_resources",
         "can_view_resources",
         
