@@ -1,6 +1,151 @@
 
-    <h2
-      class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-    >
-      Tools
-    </h2>
+<h2
+  class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+>
+  Tools
+</h2>
+
+<!-- Apply leave modal toggle -->
+<div>
+  <button 
+  data-modal-target="add-leave-modal" data-modal-toggle="add-leave-modal" 
+  class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+  Apply leave
+  </button>
+</div>
+
+<!-- Add toll modal -->
+<div id="add-leave-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full items-center">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-leave-modal">
+              <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add tool </h3>
+              <form class="space-y-6" method="POST">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                    <label>Name
+                      <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
+                    </label>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                    <label>Type 
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="tool_type">
+                        <option value="anual">Network</option>
+                        <option value="anual">Maintanance</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                    <label>Description
+                      <input name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Description">
+                    </label>
+                  </div>
+                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                    <label>Date purchased 
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" max="<?= date('Y-m-d'); ?>" name="date_purchased" required>
+                    </label>
+                  </div>
+              </div>
+                <div class="pb-8">
+                  <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div> 
+<!--/ Add tool modal -->
+
+<br />
+
+  <div x-data="{ open: true }" x-show="open" class="hidden flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+
+
+<div class="w-full overflow-hidden rounded-lg shadow-md">
+  <div class="w-full overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr
+          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+        >
+          <th class="px-4 py-3">Name</th>
+          <th class="px-4 py-3">Type</th>
+          <th class="px-4 py-3">Description</th>
+          <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3">Date purchased</th>
+          <th class="px-4 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody
+        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+      >
+      
+        <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <td class="px-4 py-3">
+            <div class="flex items-center text-sm">
+              <div>
+                <p class="font-semibold">Cable tester</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            Network
+          </td>
+          <td class="px-4 py-3 text-sm">
+            XXXXXXXXXXXXXX
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <span
+              class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+            >
+            Defective
+            </span>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            2022 may 12
+          </td>
+          <td class="px-4 py-3">
+            <div class="flex items-center space-x-4 text-sm">   
+              <button 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                aria-label="Applove"
+              >
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              </button>
+              <button 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                aria-label="Delete"
+              >
+              <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+
+<script src="js/flowbite.min.js"></script>
+<script>
+
+</script>
