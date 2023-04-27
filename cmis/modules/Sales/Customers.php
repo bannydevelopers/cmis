@@ -20,5 +20,5 @@ if(isset($_POST['customer_name'])){
     }
     else $msg = 'Error adding customer';
 }
-$customer = $db->select('customer')->fetchAll();
+$customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
 echo helper::find_template('Customers', ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok]);
