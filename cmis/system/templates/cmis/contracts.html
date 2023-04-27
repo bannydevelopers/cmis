@@ -19,10 +19,10 @@
         <textarea id="page_content" name="content" required><?=$content?></textarea>
       </form>
       <?php }else{?>
-      <div style="flex-basis: 100%;min-height: 70vh;">
+      <div class="text-gray-900 dark:text-white bg-white dark:bg-gray-900" style="flex-basis: 100%;min-height: 70vh;">
         <div style="display: flex;flex-wrap: wrap;">
           <?php foreach($dirs as $fn){?>
-          <div style="background: #fff;padding: 1em;box-shadow: 0 0 2px;border-radius: 8px; #999;width:31%;margin:0 2.3% 2.3% 0">
+          <div style="padding: 1em;box-shadow: 0 0 2px;border-radius: 8px; #999;width:31%;margin:0 2.3% 2.3% 0">
             <p><b><?=substr(str_replace('_',' ',$fn),0,-5)?></b></p>
             <hr style="margin: 1em 0;" />
             <p>
