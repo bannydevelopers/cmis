@@ -3,7 +3,6 @@ $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['ajax_del_staff'])){
-    $ok = false;
     if($helper->user_can('can_delete_staff')){
         $staff_id = intval($_POST['ajax_del_staff']);
         $staff = $db->select('staff', 'user.user_id,user.first_name,user.middle_name,user.last_name')
@@ -14,15 +13,23 @@ if(isset($_POST['ajax_del_staff'])){
             $k = $db->delete('staff')->where(['staff_id'=>$staff_id])->commit();
             if(!$db->error() && $k) {
                 $k = $db->delete('user')->where(['user_id'=>$staff['user_id']])->commit();
-                $msg = 'Staff deleted succesfully';
-                $ok = true;
+                $msg = 'Deletion succesfully';
+                $status = 'success';
             }
-            else $msg = 'Delete failed';
+            else {
+                $msg = 'Deletion failed';
+                $status = 'fail';
+            }
         }
-        else $msg = 'Staff does not exist';
+        else {
+            $msg = 'Staff does not exist';
+            $status = 'not-exist';
+        }
     }
-    else $msg = 'Permission denied';
-    $status = $ok ? 'success' : 'fail';
+    else {
+        $msg = 'Permission denied';
+        $status = 'denied';
+    }
     die(json_encode(['status'=>$status,'msg'=>$msg,'staff'=>$staff]));
 }
 if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
@@ -64,7 +71,7 @@ if(isset($_POST['first_name'])){
                    ->or(['phone_number'=>$user['phone_number']])
                    ->or(['registration_number'=>addslashes($_POST['registration_number'])])
                    ->fetch();
-        if($test) $msg = 'Staff information exists, try to edit existing if necessary';
+        if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
         else {
             $user_id = $db->insert('user',$user);
             //var_dump('<pre>',$db->error());
