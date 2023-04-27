@@ -4,7 +4,7 @@
     >
     Invoices
     </h2>
-     <!-- Modal toggle -->
+  <!-- Add invoice modal toggle -->
   <div>
     <button 
     data-modal-target="add-invoice-modal" data-modal-toggle="add-invoice-modal" 
@@ -12,8 +12,9 @@
     New invoice
     </button>
   </div>
+  <!--/ Add invoice modal toggle -->
 
-  <!-- Main modal -->
+  <!-- Add invoice m modal -->
   <div id="add-invoice-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
       <div class="relative w-full max-w-4xl max-h-full items-center">
           <!-- Modal content -->
@@ -27,7 +28,9 @@
                 <form class="space-y-6" action="" method="POST">
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Date" required>
+                      <lable>Date
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" required>
+                      <lable>
                     </div>
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                       <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
@@ -57,6 +60,8 @@
           </div>
       </div>
   </div> 
+  <!--/ Add invoice m modal -->
+
   <br />
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
