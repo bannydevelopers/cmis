@@ -18,38 +18,54 @@
   <div id="add-invoice-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
       <div class="relative w-full max-w-4xl max-h-full items-center">
           <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
               <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-invoice-modal">
                 <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
                   <span class="sr-only">Close modal</span>
               </button>
               <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">New invoice </h3>
-                <form class="space-y-6" action="" method="POST">
+                <h3 class="mb-4 text-xl font-medium">New invoice </h3>
+                <form class="space-y-6" method="POST">
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                      <lable>Date
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" required>
-                      <lable>
-                    </div>
-                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
-                    </div>
-                  </div>
-                  <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="TIN" pattern="[0-9]{9}">
-                    </div>
-                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN" pattern="[0-9]{9}">
-                    </div>
-                  </div>
-                  <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
+                      <lable>Date issued
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" name="invoice_date" required>
+                      </lable>
                     </div>
                     <div class="w-full mob:w-1/2 px-3"> 
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="date" type="date" max="<?= date('Y-m-d'); ?>">
+                      <lable>Valid until
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="invoice_expire_date" type="date" min="<?=date('Y-m-d');?>">
+                      </lable>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <lable>Invoice type
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="invoice_type">
+                            <option value="Proforma">Proforma</option>
+                            <option value="Proforma">Taxed</option>
+                        </select>
+                      </lable>
+                    </div>
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <lable>Ref number
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" name="ref_number" placeholder="Ref number"> 
+                      </lable>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <lable>Amount
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="invoice_amount" type="number" min="0" placeholder="Amount">
+                      </lable>
+                    </div>
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
+                      <lable>Customer
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="customer_id">
+                          <option value="1">Mama samia</option>
+                          <option value="2">Mama ni mama</option>
+                      </select>
+                      </lable>
                     </div>
                   </div>
                   <div class="pb-8">
@@ -63,6 +79,7 @@
   <!--/ Add invoice m modal -->
 
   <br />
+
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
       <table class="w-full">
@@ -75,8 +92,7 @@
             <th class="px-4 py-3">Ref Number</th>
             <th class="px-4 py-3">Amount</th>
             <th class="px-4 py-3">Overdue Date</th>
-            <th class="px-4 py-3">invoice</th>
-            <th class="px-4 py-3">Created time</th>
+            <th class="px-4 py-3">Customer</th>
             <th class="px-4 py-3">Actions</th>
           </tr>
         </thead>
@@ -107,9 +123,6 @@
         </td>
         <td class="px-4 py-3 text-sm">
          Ma samia
-        </td>
-        <td class="px-4 py-3 text-sm">
-          06/03/2023:10:45:23
         </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
@@ -143,20 +156,5 @@
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
-  const del = () => swal("Sure! want to delete?", {
-    buttons: {
-      cancel: "Cancel!",
-      catch: {
-        text: "Delete!",
-        value: "delete",
-      }
-    },
-  })
-  .then((value) => {
-    switch (value) {
-      case "delete":
-        swal("Done!", "User deleted!", "success");
-        break;
-    }
-  });
+
 </script>
