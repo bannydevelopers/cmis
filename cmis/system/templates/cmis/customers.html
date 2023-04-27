@@ -214,6 +214,7 @@
   
 </div>
   
+<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
   async function delCustomer(values) {
@@ -244,63 +245,20 @@
     })
     .then(data => {
       if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-info fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+` for staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name
-            +`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
+        swal(data.msg, ` For staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name, "success");
         document.getElementById('tr-'+customerId[1]).remove();
       }
       if(data.status == 'fail'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+` for staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name
-            +`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
+        swal(data.msg, ` For staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name, "error");
         delCustomerBtn.disabled = false;
         delCustomerBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
       }
       if(data.status == 'not-exist' || data.status == 'denied'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
+        swal(data.msg, '', "error");
       }
     })
     .catch(error => {
-      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
-        <span>
-          <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-        </span>
-        <div class="ml-3 text-sm font-medium">
-          An error occured! Please try again later.
-        </div> 
-        <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
-          <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl my-auto"></i></span>
-        </button>
-      </div>`;
-      //console.error('Problem:', error);
+      swal('There is an error deleting customer', '', "error");
       delCustomerBtn.disabled = false;
       delCustomerBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
     });
