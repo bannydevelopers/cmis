@@ -15,16 +15,19 @@
         "can_edit_projects",
         "can_delete_projects",
         "can_view_projects",
+       
 
         "can_add_activities",
         "can_edit_activities",
         "can_view_activities",
         "can_delete_activities",
+        "can_view_activities",
         
         "can_add_resources",
         "can_edit_resources",
         "can_view_resources",
         "can_delete_resources",
+        "can_view_resources",
         
         "can_add_project_report",
         "can_edit_project_report",
