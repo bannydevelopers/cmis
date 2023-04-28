@@ -8,12 +8,12 @@ $msg = '';
 if(isset($_POST['leave_type'])){
     $data = [
         'staff_id'=>$me['staff_id'], 
-        'leave_description'=>addslashes($_POST['leave_description']), 
+        'leave_application_description'=>addslashes($_POST['leave_description']), 
         'leave_start_date'=>helper::format_time($_POST['leave_start'], 'Y-m-d H:i:s'), 
-        'leave_type'=>intval($_POST['leave_type']), 
+        'leave_application_type'=>intval($_POST['leave_type']), 
         'leave_length'=>intval($_POST['leave_length']), 
         'application_date'=>date('Y-m-d H:i:s'), 
-        'responsibility_assignee'=>intval($_POST['responsility_assignee'])
+        'responsibility_assignee'=>intval($_POST['responsibility_assignee'])
     ];
     if(!intval($data['responsibility_assignee'])) $data['assignee_response_date'] = date('Y-m-d H:i:s');
     $k = $db->insert('leave_application', $data);
@@ -26,7 +26,7 @@ $leave = $db->select('leave_application', 'leave_application.*,user.first_name,u
             ->join('user','user_id=user_reference','left')
             ->where("leave_application.staff_id != {$me['staff_id']}")
             ->fetchAll();
-            //var_dump('<pre>',$leave);
+            var_dump('<pre>',$leave);
 $assignee = $db->select('user')
                ->where("system_role='{$my['system_role']}' AND user_id != '{$my['user_id']}'")
                ->fetchAll();
