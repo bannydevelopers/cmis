@@ -26,7 +26,7 @@ $leave = $db->select('leave_application', 'leave_application.*,user.first_name,u
             ->join('user','user_id=user_reference','left')
             ->where("leave_application.staff_id != {$me['staff_id']}")
             ->fetchAll();
-            var_dump('<pre>',$leave);
+            //var_dump('<pre>',$leave);
 $assignee = $db->select('user')
                ->where("system_role='{$my['system_role']}' AND user_id != '{$my['user_id']}'")
                ->fetchAll();
