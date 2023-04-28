@@ -219,6 +219,9 @@
 <script src="js/flowbite.min.js"></script>
 <script>
   async function delCustomer(values) {
+    if (!await swal({text: 'Deleting a customer can not be undone!', buttons: true})) {
+      return;
+    }
     delCustomerBtn = document.getElementById(values.id);
     delCustomerBtn.disabled = true;
     delCustomerBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
