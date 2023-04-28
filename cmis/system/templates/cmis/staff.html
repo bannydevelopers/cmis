@@ -220,7 +220,7 @@
             </td>
             <td class="px-4 py-3 text-xs">
               <label class="relative inline-flex items-center cursor-pointer">
-                <input id="checkbox-<?=$x['staff_id']?>" type="checkbox" onclick="activateStaff(this)" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
+                <input id="checkbox-<?=$x['user_id']?>" type="checkbox" onclick="activateStaff(this)" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
                 <div class="w-9 h-5 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
               </label>  
             </td>
@@ -334,7 +334,7 @@
 
   async function delStaff(values) {
     if (!confirm("Sure you want to delete staff?")) {
-      return false;
+      return;
     }
     
     delStaffBtn = document.getElementById(values.id);
@@ -436,15 +436,15 @@
       var status = 'inactive';
     };
 
-    var staffId = values.id.split('-');
-    const staffData = new FormData();
-    staffData.append('ajax_activate_staff', staffId[1]);
-    staffData.append('status', status);
-
+    var userId = values.id.split('-');
+    const userData = new FormData();
+    userData.append('ajax_activate_user', userId[1]);
+    userData.append('status', status);
+    
     let url = '<?=$request_uri?>';
     let obj = {
       method: "POST", 
-      body: staffData,
+      body: userData,
     }
 
     let response = await fetch(url, obj)
