@@ -1,8 +1,28 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
+$ok = false;
+$msg = '';
+if(isset($_POST['role_name']) && isset($_POST['designation_id'])){
+    $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
+    $rd = ['designation_id'=>$_POST['designation_id'],'role_id'=>$role_id];
+    if(intval($role_id)) {
+        $k = $db->insert('designation_role', $rd);
+        if(!$db->error() && $k){
+            $ok = true;
+            $msg = 'Role added successful';
+        }
+        else{
+            $db->delete('role')->where(['role_id'=>$role_id])->commit();
+            $msg = 'Role adding failed';
+        }
+    }
+    else $msg = 'Fatal error occured while adding role';
+    /*echo $msg;
+    var_dump($db->error());*/
+}
 if(isset($_POST['perms'])){
     $role = array_key_first($_POST['perms']);
-    $role_key = $db->select('role','role_id')->where(['name'=>$role])->fetch();
+    $role_key = $db->select('role','role_id')->where(['role_name'=>$role])->fetch();
 
     $data = [];
     $plist = [];
@@ -22,21 +42,29 @@ $roles = $db->select('role_permission_list')
             ->join('permission','permission.permission_id=role_permission_list.permission_id')
             ->join('role','role.role_id=role_permission_list.role_id')
             ->order_by('legend')->fetchAll();
+// Roles without permission hides from list, fixing it...
+$new_roles = $db->select('role','role_name')->fetchAll();
+$legends = $db->select('permission', 'DISTINCT legend')->fetchAll();
 
 $role_tree = [];
+foreach($new_roles as $nr) {
+    $role_tree[$nr['role_name']] = [];
+    foreach($legends as $leg) $role_tree[$nr['role_name']][$leg['legend']] = [];
+}
 foreach($roles as $role){
-    if(!isset($role_tree[$role['role_name']])) {
+    /*if(!isset($role_tree[$role['role_name']])) {
         $role_tree[$role['role_name']] = [];
     }
     if(!isset($role_tree[$role['role_name']][$role['legend']])) {
         $role_tree[$role['role_name']][$role['legend']] = [];
-    }
+    }*/
     $role_tree[$role['role_name']][$role['legend']][] = [
         //'role_id'=>$role['role_id'],
         'permission_id'=>$role['permission_id'],
         'permission_name'=>$role['permission_name']
     ];
 }
+//var_dump('<pre>',$role_tree);
 $designations = $db->select('designation','designation_id,designation_name')->fetchAll();
 //if(isset($_POST['get_permission'])){
     $permission = $db->select('permission')
