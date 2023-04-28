@@ -9,9 +9,9 @@ $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['customer_name'])){
     $data = [
         'customer_name'=>$_POST['customer_name'], 
-        'phone_number'=>$_POST['phone'], 
-        'email'=>$_POST['email'], 
-        'physical_adress'=>$_POST['address'], 
+        'customer_phone_number'=>$_POST['phone'], 
+        'customer_email'=>$_POST['email'], 
+        'customer_physical_adress'=>$_POST['address'], 
         'tin_number'=>$_POST['tin'], 
         'vrn_number'=>$_POST['vrn'], 
         'created_time'=>date('Y-m-d H:i:s')
@@ -22,6 +22,7 @@ if(isset($_POST['customer_name'])){
         $ok =true;
     }
     else $msg = 'Error adding customer';
+    var_dump($db->error());
 }
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
 $data = ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];

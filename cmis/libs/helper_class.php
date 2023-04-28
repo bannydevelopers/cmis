@@ -79,7 +79,7 @@ class helper{
     public function login_user($login_info){
         $db = db::get_connection(storage::init()->system_config->database);
         $obj = new static();
-        $whr = 'password = :password AND (phone_number = :pnumber OR email = :email)';
+        $whr = "password = :password AND (phone_number = :pnumber OR email = :email) AND status = 'active'";
         if(intval($login_info['login'])){
             $login = $obj::format_phone_number($login_info['login']);
         }
