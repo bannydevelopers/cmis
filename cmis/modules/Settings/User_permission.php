@@ -2,7 +2,7 @@
 $db = db::get_connection(storage::init()->system_config->database);
 if(isset($_POST['perms'])){
     $role = array_key_first($_POST['perms']);
-    $role_key = $db->select('role','role_id')->where(['name'=>$role])->fetch();
+    $role_key = $db->select('role','role_id')->where(['role_name'=>$role])->fetch();
 
     $data = [];
     $plist = [];
