@@ -46,57 +46,111 @@ if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
     else $msg = 'You do not have permission for the action';
 }
 if(isset($_POST['first_name'])){
-    if($helper->user_can('can_add_staff')){
-        $token = helper::create_hash(time());
-        $role = $db->select('designation_role','role_id')
-                ->where(['designation_id'=>intval($_POST['designation'])])
-                ->fetch();
-        
-        $user = [
-            'first_name'=>addslashes($_POST['first_name']), 
-            'middle_name'=>addslashes($_POST['middle_name']), 
-            'last_name'=>addslashes($_POST['last_name']), 
-            'system_role'=>$role['role_id'], 
-            'status'=>'active', 
-            'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
-            'email'=>helper::format_email($_POST['email']), 
-            'password'=>md5($token), 
-            'activation_token'=>$token, 
-            'created_by'=>helper::init()->get_session_user('user_id'), 
-            'created_time'=>date('Y-m-d H:i:s')
-        ];
-        $test = $db->select('staff')
-                   ->join('user','user_reference=user_id')
-                   ->where(['email'=>$user['email']])
-                   ->or(['phone_number'=>$user['phone_number']])
-                   ->or(['staff_registration_number'=>addslashes($_POST['registration_number'])])
-                   ->fetch();
-        if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
-        else {
-            $user_id = $db->insert('user',$user);
-            //var_dump('<pre>',$db->error());
-            if(intval($user_id)){
+    
+    $role = $db->select('designation_role','role_id')
+               ->where(['designation_id'=>intval($_POST['designation'])])
+               ->fetch();
+
+    if(isset($_POST['staff_id']) && intval($_POST['staff_id'])){
+        if($helper->user_can('can_edit_staff')){
+            $user = [
+                'first_name'=>addslashes($_POST['first_name']), //
+                'middle_name'=>addslashes($_POST['middle_name']), //
+                'last_name'=>addslashes($_POST['last_name']), //
+                'system_role'=>$role['role_id'], //
+                //'status'=>'active', 
+                'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
+                'email'=>helper::format_email($_POST['email']), //
+                //'password'=>md5($token), 
+                //'activation_token'=>$token, 
+                //'created_by'=>helper::init()->get_session_user('user_id'), 
+                //'created_time'=>date('Y-m-d H:i:s')
+            ];
+            $reg_no = addslashes($_POST['registration_number']);
+            $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}' OR staff_registration_number = '{$reg_no}')";
+            $test = $db->select('staff')
+                    ->join('user','user_reference=user_id')
+                    ->where($whr)
+                    ->and("staff_id != {$_POST['staff_id']}")
+                    ->fetch();
+            if(!$test){
+                $whr = "user_id IN (SELECT user_reference FROM staff WHERE staff_id = '{$_POST['staff_id']}')";
+                $db->update('user', $user)->where($whr)->commit();
+
                 $staff = [
-                    'staff_registration_number'=>addslashes($_POST['registration_number']), 
-                    'staff_residence_address'=>addslashes($_POST['residence_address']), 
-                    'work_location'=>addslashes($_POST['work_location']), 
+                    'staff_registration_number'=>addslashes($_POST['registration_number']), //
+                    'staff_residence_address'=>addslashes($_POST['residence_address']), //
+                    //'work_location'=>addslashes($_POST['work_location']), 
                     'designation'=>addslashes($_POST['designation']), 
-                    'user_reference'=>$user_id, 
-                    'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 
-                    'employment_length'=>2,//addslashes($_POST['employment_length']), 
-                    'employment_status'=>'active'
+                    //'user_reference'=>$user_id, 
+                    'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), //
+                    //'employment_length'=>2,//addslashes($_POST['employment_length']), 
+                    //'employment_status'=>'active'
                 ];
-                $k = $db->insert('staff',$staff);
-                // var_dump('<pre>',$db->error());
-                if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
-                else {
-                    $msg = 'Staff created'; 
+
+                $db->update('staff', $staff)->where(['staff_id'=>intval($_POST['staff_id'])])->commit();
+                if(!$db->error()) {
+                    $msg = 'Updated successful!';
                 }
+                else $msg = 'Something went wrong!';
             }
-            else $msg = 'Fatal error occured';
+            else $msg = 'Some unique information already used by other employee';
         }
+        else $msg = 'Not enough privilege, sorry';
     }
-    else $msg = 'Not enough privilege, sorry';
+    else{
+        if($helper->user_can('can_add_staff')){
+            $token = helper::create_hash(time());
+            $role = $db->select('designation_role','role_id')
+                    ->where(['designation_id'=>intval($_POST['designation'])])
+                    ->fetch();
+            
+            $user = [
+                'first_name'=>addslashes($_POST['first_name']), 
+                'middle_name'=>addslashes($_POST['middle_name']), 
+                'last_name'=>addslashes($_POST['last_name']), 
+                'system_role'=>$role['role_id'], 
+                'status'=>'active', 
+                'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
+                'email'=>helper::format_email($_POST['email']), 
+                'password'=>md5($token), 
+                'activation_token'=>$token, 
+                'created_by'=>helper::init()->get_session_user('user_id'), 
+                'created_time'=>date('Y-m-d H:i:s')
+            ];
+            $test = $db->select('staff')
+                    ->join('user','user_reference=user_id')
+                    ->where(['email'=>$user['email']])
+                    ->or(['phone_number'=>$user['phone_number']])
+                    ->or(['staff_registration_number'=>addslashes($_POST['registration_number'])])
+                    ->fetch();
+            if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
+            else {
+                $user_id = $db->insert('user',$user);
+                //var_dump('<pre>',$db->error());
+                if(intval($user_id)){
+                    $staff = [
+                        'staff_registration_number'=>addslashes($_POST['registration_number']), 
+                        'staff_residence_address'=>addslashes($_POST['residence_address']), 
+                        'work_location'=>addslashes($_POST['work_location']), 
+                        'designation'=>addslashes($_POST['designation']), 
+                        'user_reference'=>$user_id, 
+                        'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 
+                        'employment_length'=>2,//addslashes($_POST['employment_length']), 
+                        'employment_status'=>'active'
+                    ];
+                    $k = $db->insert('staff',$staff);
+                    // var_dump('<pre>',$db->error());
+                    if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
+                    else {
+                        $msg = 'Staff created'; 
+                    }
+                }
+                else $msg = 'Fatal error occured';
+            }
+        }
+        else $msg = 'Not enough privilege, sorry';
+    }
 }
 $designation = $db->select('designation','designation_id,designation_name')
                   ->where("designation_id IN (SELECT designation_id FROM designation_role)")
