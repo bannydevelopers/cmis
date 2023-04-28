@@ -8,12 +8,9 @@ $request = $_SERVER['REQUEST_URI'];
 
 if(isset($_POST['product_name'])){
     $data = [
-        'product_name'=>$_POST['product_name'], 
-        'product_phone_number'=>$_POST['phone'], 
-        'product_email'=>$_POST['email'], 
-        'product_physical_adress'=>$_POST['address'], 
-        'tin_number'=>$_POST['tin'], 
-        'vrn_number'=>$_POST['vrn'], 
+        'product_name'=>$_POST['product name'], 
+        'product_discription'=>$_POST['product discription'], 
+        'product_unit'=>$_POST['unit'], 
         'created_time'=>date('Y-m-d H:i:s')
     ];
     $k = $db->insert('product', $data);
