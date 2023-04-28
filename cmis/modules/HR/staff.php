@@ -78,15 +78,17 @@ if(isset($_POST['first_name'])){
             //var_dump('<pre>',$db->error());
             if(intval($user_id)){
                 $staff = [
-                    'registration_number'=>addslashes($_POST['registration_number']), 
-                    'residence_address'=>addslashes($_POST['residence_address']), 
+                    'staff_registration_number'=>addslashes($_POST['registration_number']), 
+                    'staff_residence_address'=>addslashes($_POST['residence_address']), 
+                    'work_location'=>addslashes($_POST['work_location']), 
                     'designation'=>addslashes($_POST['designation']), 
                     'user_reference'=>$user_id, 
-                    'date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 
+                    'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 
                     'employment_length'=>2,//addslashes($_POST['employment_length']), 
                     'employment_status'=>'active'
                 ];
                 $k = $db->insert('staff',$staff);
+                // var_dump('<pre>',$db->error());
                 if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
                 else {
                     $msg = 'Staff created'; 
