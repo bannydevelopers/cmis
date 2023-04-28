@@ -95,7 +95,7 @@
               </div>
               <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                 <label>Phone number
-                  <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}" name="phone_number">
+                  <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="tel" placeholder="Phone: 0*********" name="phone_number">
                 </label>
               </div>
             </div>
@@ -121,6 +121,11 @@
               </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                <label>Work location
+                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Work location" name="work_location">
+                </label>
+              </div>
               <div class="w-full mob:w-1/2 px-3"> 
                 <label>Date employed
                   <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" max="<?= date('Y-m-d'); ?>" name="date_employed">
@@ -202,7 +207,7 @@
               </div>
             </td>
             <td class="px-4 py-3 text-sm">
-              +<?=$x['phone_number']?>
+              <?=$x['phone_number']?>
             </td>
             <td class="px-4 py-3 text-sm">
               <?=$x['email']?>
@@ -248,6 +253,7 @@
                     <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
                       <h3 class="mb-4 text-xl font-medium">Edit staff </h3>
                       <form class="space-y-6" method="POST">
+                        <input type="hidden" value="<?=$x['user_id']?>" name="user_id">
                         <div class="flex flex-wrap -mx-3 mb-6">
                           <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
                             <label> First name
@@ -273,7 +279,7 @@
                           </div>
                           <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                             <label> Phone number
-                              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" value="<?=$x['phone_number']?>" name="phone_number">
+                              <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="tel" value="<?=$x['phone_number']?>" name="phone_number">
                             </label>
                           </div>
                         </div>
