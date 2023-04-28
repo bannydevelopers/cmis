@@ -65,11 +65,12 @@ if(isset($_POST['first_name'])){
             'created_by'=>helper::init()->get_session_user('user_id'), 
             'created_time'=>date('Y-m-d H:i:s')
         ];
+        var_dump($_POST);//die;
         $test = $db->select('staff')
                    ->join('user','user_reference=user_id')
                    ->where(['email'=>$user['email']])
                    ->or(['phone_number'=>$user['phone_number']])
-                   ->or(['registration_number'=>addslashes($_POST['registration_number'])])
+                   ->or(['staff_registration_number'=>addslashes($_POST['registration_number'])])
                    ->fetch();
         if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
         else {
