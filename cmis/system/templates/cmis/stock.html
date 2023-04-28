@@ -2,7 +2,7 @@
 <h2
   class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
 >
-  Stocks
+  Products
 </h2>
 <!-- Modal toggle -->
 <div>
@@ -40,10 +40,42 @@
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
+                <div class="w-1/2 px-3">
                   <label>Unit
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="text" placeholder="Unit" name="product_unit">
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="number" placeholder="Unit" min="0" name="product_unit">
                   </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Quantity
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Quantity" name="product_quantity">
+                  </label>
+                </div>
+              </div> 
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-1/2 px-3">
+                  <label>Buying Price
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Buying Price" name="buying_price">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Selling price
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Selling price" name="selling_price">
+                </div>
+              </div> 
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-1/2 px-3">
+                  <label>Supplier
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="supplier_id">
+                      <option value="Supplier 1">Supplier 1</option>
+                      <option value="Supplier 2">Supplier 2</option>
+                    </select>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Store
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" name="store_id">
+                      <option value="Store 1">Store 1</option>
+                      <option value="Store 2">Store 2</option>
+                    </select>
                 </div>
               </div> 
               <button type="submit" class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
@@ -62,6 +94,11 @@
           <th class="px-4 py-3">Name</th>
           <th class="px-4 py-3">Discription</th>
           <th class="px-4 py-3">Unit</th>
+          <th class="px-4 py-3">Quantity</th>
+          <th class="px-4 py-3">Purchase price</th>
+          <th class="px-4 py-3">Selling price</th>
+          <th class="px-4 py-3">Supplier</th>
+          <th class="px-4 py-3">Store</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
       </thead>
@@ -83,7 +120,22 @@
             2MP Bullets color vue
           </td>
           <td class="px-4 py-3 text-sm">
-            peices
+            pc
+          </td>
+          <td class="px-4 py-3 text-sm">
+            400
+          </td>
+          <td class="px-4 py-3 text-sm">
+            120,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            150,000
+          </td>
+          <td class="px-4 py-3 text-sm">
+            Dahua Technologies
+          </td>
+          <td class="px-4 py-3 text-sm">
+            Complinics
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
