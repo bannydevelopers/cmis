@@ -22,7 +22,7 @@ if(isset($_POST['customer_name'])){
         $ok =true;
     }
     else $msg = 'Error adding customer';
-    var_dump($db->error());
+    //var_dump($db->error());
 }
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
 $data = ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
