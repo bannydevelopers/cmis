@@ -75,6 +75,7 @@
       <thead>
         <tr
           class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+          <th class="px-4 py-3"></th>
           <th class="px-4 py-3">Name</th>
           <th class="px-4 py-3">Discription</th>
           <th class="px-4 py-3">Unit</th>
@@ -87,11 +88,18 @@
       <?php foreach($product as $prod){?>
         <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
+<<<<<<< HEAD
             <div class="flex items-center text-sm">
               <div>
                 <p class="font-semibold"><?=$prod['product_name']?></p>
               </div>
             </div>
+=======
+            <img src="img/box.png" class="h-16 w-16 object-cover"/>
+          </td>
+          <td class="px-4 py-3">
+            Dahua CCTV Camera
+>>>>>>> fb16b1002adcafcd5c931146be4a74268b5a94a8
           </td>
           <td class="px-4 py-3 text-sm">
             <?=$prod['product_description']?>
@@ -127,7 +135,6 @@
   
 </div>
     
-<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
 

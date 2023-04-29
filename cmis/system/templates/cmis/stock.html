@@ -15,7 +15,7 @@
 
 <!-- Main modal -->
 <div id="add-product-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
-  <div class="relative w-full max-w-md max-h-full">
+  <div class="relative w-full max-w-lg max-h-full">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
           <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-product-modal">
@@ -28,46 +28,64 @@
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
                   <label>Product name
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="text" placeholder="Product name" name="product_name">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="product_id">
+                      <option value="1">Product 1</option>
+                      <option value="2">Product 2</option>
+                    </select>
                   </label>
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
-                
-                <div class="w-1/2 px-3">
-                  <label>Quantity
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Quantity" name="product_quantity">
+                <div class="mob:w-1/2 w-full px-3">
+                  <label>Stock type
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Type" name="stock_type">
+                  </label>
+                </div>
+                <div class="mob:w-1/2 w-full px-3 mt-2 mob:mt-0">
+                  <label>Stock batch
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Batch" name="stock_batch">
                   </label>
                 </div>
               </div> 
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-1/2 px-3">
+                <div class="mob:w-1/2 w-full px-3">
+                  <label>Quantity
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Quantity" name="product_quantity">
+                  </label>
+                </div>
+                <div class="mob:w-1/2 w-full px-3 mt-2 mob:mt-0">
                   <label>Buying Price
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Buying Price" name="buying_price">
                   </label>
                 </div>
-                <div class="w-1/2 px-3">
+              </div> 
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="mob:w-1/2 w-full px-3">
+                  <label>Expenses
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Expenses" name="stock_expenses">
+                </div>
+                <div class="mob:w-1/2 w-full px-3 mt-2 mob:mt-0">
                   <label>Selling price
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="Selling price" name="selling_price">
                 </div>
               </div> 
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-1/2 px-3">
+                <div class="mob:w-1/2 w-full px-3">
                   <label>Supplier
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="supplier_id">
-                      <option value="Supplier 1">Supplier 1</option>
-                      <option value="Supplier 2">Supplier 2</option>
+                      <option value="1">Supplier 1</option>
+                      <option value="2">Supplier 2</option>
                     </select>
                 </div>
-                <div class="w-1/2 px-3">
+                <div class="mob:w-1/2 w-full px-3 mt-2 mob:mt-0">
                   <label>Store
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" name="store_id">
-                      <option value="Store 1">Store 1</option>
-                      <option value="Store 2">Store 2</option>
+                      <option value="1">Store 1</option>
+                      <option value="2">Store 2</option>
                     </select>
                 </div>
               </div> 
-              <button type="submit" class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+              <button type="submit" class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
             </form>
           </div>
       </div>
@@ -81,9 +99,14 @@
         <tr
           class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
           <th class="px-4 py-3">Name</th>
+          <th class="px-4 py-3">Type</th>
+          <th class="px-4 py-3">Batch</th>
           <th class="px-4 py-3">Quantity</th>
           <th class="px-4 py-3">Purchase price</th>
           <th class="px-4 py-3">Selling price</th>
+          <th class="px-4 py-3">Expenses</th>
+          <th class="px-4 py-3">Giver</th>
+          <th class="px-4 py-3">Receiver</th>
           <th class="px-4 py-3">Supplier</th>
           <th class="px-4 py-3">Store</th>
           <th class="px-4 py-3">Actions</th>
@@ -102,6 +125,12 @@
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
+            Type 1
+          </td>
+          <td class="px-4 py-3 text-sm">
+            Batch 1
+          </td>
+          <td class="px-4 py-3 text-sm">
             400
           </td>
           <td class="px-4 py-3 text-sm">
@@ -111,7 +140,16 @@
             150,000
           </td>
           <td class="px-4 py-3 text-sm">
+            20,000
+          </td>
+          <td class="px-4 py-3 text-sm">
             Dahua Technologies
+          </td>
+          <td class="px-4 py-3 text-sm">
+            Jr receiver
+          </td>
+          <td class="px-4 py-3 text-sm">
+            Katunzi Supply
           </td>
           <td class="px-4 py-3 text-sm">
             Complinics
@@ -124,7 +162,7 @@
               >
               <i class="fa-solid fa-pen-to-square fa-lg"></i>
               </button>
-              <button onclick="del()"
+              <button 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                 aria-label="Delete"
               >
@@ -140,7 +178,6 @@
   
 </div>
     
-<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
 
