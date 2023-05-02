@@ -45,7 +45,23 @@
           </div>
       </div>
   </div> 
+  <!--/ Add store modal -->
   <br />
+  <?php if($msg) {?>
+    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+      <span>
+        <i class="fa-solid fa-circle-info fa-lg"></i>
+      </span>
+      <div class="ml-3 text-sm font-medium">
+        <?=$msg?>
+      </div> 
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+  <?php } ?>
+  
+  <div id="message"></div>
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
       <table class="w-full">
@@ -56,7 +72,6 @@
             <th class="px-4 py-3">Name</th>
             <th class="px-4 py-3">Location</th>
             <th class="px-4 py-3">Store Keeper</th>
-            <th class="px-4 py-3">Created time</th>
             <th class="px-4 py-3">Actions</th>
           </tr>
         </thead>
@@ -64,46 +79,36 @@
           class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
         >
         
+        <?php foreach($store as $st){?>
           <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          
             <td class="px-4 py-3">
-              <div class="flex items-center text-sm">
-                <div>
-                  <p class="font-semibold">Compulinics </p>
-                </div>
-              </div>
+              <?=$st['store_name']?>
             </td>
             <td class="px-4 py-3 text-sm">
-             Posta Dar es salaam, Tanzania
+              <?=$st['store_location']?>
             </td>
             <td class="px-4 py-3 text-sm">
-              Christiano Ronaldo
-             </td>
-        <td class="px-4 py-3 text-sm">
-          06/03/2023:10:45:23
-        </td>
+              <?=$st['staff_id']?>
+            </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
-                <a href="profile"
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                  aria-label="View">
-                  <i class="fa-solid fa-eye fa-lg"></i>      
-                </a>
-                <button 
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                <button data-modal-target="add-store-modal-<?=$st['store_id']?>" data-modal-toggle="add-store-modal-<?=$st['store_id']?>" 
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fost:outline-none fost:outline-gray-300"
                   aria-label="Edit"
                 >
                 <i class="fa-solid fa-pen-to-square fa-lg"></i>
                 </button>
-                <button onclick="del()"
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                <button id="del-<?=$st['store_id']?>" onclick="delstore(this)" 
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fost:outline-none fost:outline-gray-300"
                   aria-label="Delete"
-                >
+                  >
                 <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
                 </button>
               </div>
             </td>
           </tr>
-          
+             <?php }?>
         </tbody>
       </table>
     </div>

@@ -5,9 +5,9 @@ $db = db::get_connection(storage::init()->system_config->database);
 if(isset($_POST['project_name'])){
     $data = [
         'project_name'=>addslashes($_POST['project_name']),
-        'started_date'=>addslashes($_POST['started_date']),
-        'end_date'=>addslashes($_POST['end_date']),
-        'project_discription'=>addslashes($_POST['project_deiscription']),
+        'project_starting_date'=>addslashes($_POST['project_starting_date']),
+        'project_ending_date'=>addslashes($_POST['project_ending_date']),
+        'project_description'=>addslashes($_POST['project_description']),
         'project_burget'=>addslashes($_POST['project_burget']),
         'project_manager'=>addslashes($_POST['project_manager']),
         ];
