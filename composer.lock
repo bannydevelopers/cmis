@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35e560895c4c35a1353a37d027dc1c4d",
+    "content-hash": "634885583b189083f5db24e62374ba36",
     "packages": [
         {
             "name": "ckeditor/ckeditor",
@@ -55,43 +55,49 @@
             "time": "2023-03-22T10:37:38+00:00"
         },
         {
-            "name": "components/font-awesome",
-            "version": "6.2.0",
+            "name": "fortawesome/font-awesome",
+            "version": "6.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/components/font-awesome.git",
-                "reference": "75823cacdc5a2b34befa423b390432f5bef373b5"
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "0698449d50f2b95517562295a59d414afc68b369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/75823cacdc5a2b34befa423b390432f5bef373b5",
-                "reference": "75823cacdc5a2b34befa423b390432f5bef373b5",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/0698449d50f2b95517562295a59d414afc68b369",
+                "reference": "0698449d50f2b95517562295a59d414afc68b369",
                 "shasum": ""
             },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "styles": [
-                        "css/all.css"
-                    ],
-                    "files": [
-                        "css/all.min.css",
-                        "webfonts/*"
-                    ]
-                }
-            },
+            "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "CC-BY-4.0",
-                "MIT",
-                "OFL-1.1"
+                "OFL-1.1",
+                "MIT"
             ],
-            "description": "Font Awesome, the iconic SVG, font, and CSS framework.",
+            "authors": [
+                {
+                    "name": "The Font Awesome Team",
+                    "homepage": "https://github.com/orgs/FortAwesome/people"
+                }
+            ],
+            "description": "The iconic font, CSS, and SVG framework",
+            "homepage": "https://fontawesome.com",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon",
+                "svg"
+            ],
             "support": {
-                "issues": "https://github.com/components/font-awesome/issues",
-                "source": "https://github.com/components/font-awesome/tree/6.2.0"
+                "docs": "http://fontawesome.com/docs",
+                "email": "hello@fontawesome.com",
+                "issues": "https://github.com/FortAwesome/Font-Awesome/issues",
+                "source": "https://github.com/FortAwesome/Font-Awesome"
             },
-            "time": "2022-09-08T05:14:26+00:00"
+            "time": "2023-03-27T16:58:41+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
