@@ -20,7 +20,7 @@ if(isset($_POST['leave_type'])){
     $k = $db->insert('leave_application', $data);
     if(!$db->error() && $k) $msg = 'Leave application is a success';
     else $msg = 'Leave application failed';
-    //var_dump($db->error(), $msg);die;
+    var_dump($db->error());
 }
 $leave = $db->select('leave_application', 'leave_application.*,user.first_name,user.last_name,user.middle_name')
             ->join('staff','staff.staff_id=leave_application.staff_id','left') // It's here to link other tables

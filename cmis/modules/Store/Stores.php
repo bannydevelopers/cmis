@@ -1,18 +1,33 @@
 <?php 
-$db = db::get_connection(storage::init()->system_config->database);
 
-//var_dump($_POST);
+$db = db::get_connection(storage::init()->system_config->database);
+$ok = false;
+$msg = '';
+$me = helper::init()->get_session_user();
+
+$request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['store_name'])){
     $data = [
-        'store_name'=>addslashes($_POST['store_name']),
-        'store_location'=>addslashes($_POST['store_location'])
+        'store_name'=>$_POST['store_name'], 
+        'store_location'=>$_POST['store_location'], 
+        'staff_id'=>$me['user_id'],
+        'created_time'=>date('Y-m-d H:i:s')
+        
     ];
+    //var_dump($db->error());
     $k = $db->insert('store', $data);
-//var_dump($db->error());
-    if(intval($k)) $msg = 'store added successful';
-    else  $msg = 'store add failed';
+   
+    if(!$db->error() && $k) {
+        $msg = 'store added successful';
+        $ok =true;
+    }
+    else $msg = 'Error adding store';
+    //var_dump($db->error());
 }
-$store = $db->select('store','store_id,name')->fetchALL();
+$staff= $db->select('staff','staff_id,staff_name')
+                  ->fetchALL();
 
-//var_dump('<pre>',$store);
-echo helper::find_template('stores', ['store'=>$store, 'db'=>$db]);
+
+$store = $db->select('store')->order_by('store_id', 'desc')->fetchAll();
+$data = ['store'=>$store,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+echo helper::find_template('stores', $data);

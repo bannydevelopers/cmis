@@ -121,7 +121,7 @@ class helper{
     public static function find_template($template_name, $data = []){
         $storage = storage::init();
         $that = new static();
-        extract($data);
+        if(is_array($data) or is_object($data)) extract($data);
         //$dirs = scandir(__DIR__);
         $dirs = storage::init()->system_config->modules;
         $home = str_replace('//','/', "/{$storage->request_dir}/{$storage->request[0]}");
@@ -263,7 +263,7 @@ class helper{
         $storage = storage::init();
         $home = str_replace('//','/', "/{$storage->request_dir}/{$storage->request[0]}");
 
-        extract($data);
+        if(is_array($data) or is_object($data)) extract($data);
         ob_start();
         $root = realpath(__DIR__.'/../system/templates/')."/{$storage->system_config->theme}";
         $base = trim("{$storage->request_dir}/cmis/system/assets/",'/');

@@ -8,7 +8,7 @@
   <div>
     <button 
     data-modal-target="add-invoice-modal" data-modal-toggle="add-invoice-modal" 
-    class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+    class="float-right text-white bg-purple-700 hover:bg-purple-800 foinv:ring-4 foinv:outline-none foinv:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foinv:ring-purple-800" type="button">
     New invoice
     </button>
   </div>
@@ -29,47 +29,48 @@
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                       <lable>Date issued
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" name="invoice_date" required>
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" name="invoice_date" required>
                       </lable>
                     </div>
                     <div class="w-full mob:w-1/2 px-3"> 
                       <lable>Valid until
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="invoice_expire_date" type="date" min="<?=date('Y-m-d');?>">
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="invoice_expire_date" type="date" min="<?=date('Y-m-d');?>">
                       </lable>
                     </div>
                   </div>
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                       <lable>Invoice type
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="invoice_type">
-                            <option value="Proforma">Proforma</option>
-                            <option value="Proforma">Taxed</option>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="invoice_type">
+                            <option value="proforma">Proforma</option>
+                            <option value="tax">Taxed</option>
                         </select>
                       </lable>
                     </div>
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                       <lable>Ref number
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" name="ref_number" placeholder="Ref number"> 
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" name="ref_number" placeholder="Ref number"> 
                       </lable>
                     </div>
                   </div>
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                       <lable>Amount
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="invoice_amount" type="number" min="0" placeholder="Amount">
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="invoice_amount" type="number" min="0" placeholder="Amount">
                       </lable>
                     </div>
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                      <lable>Customer
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="customer_id">
-                          <option value="1">Mama samia</option>
-                          <option value="2">Mama ni mama</option>
+                      <lable>customer
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="customer_id">
+                          <option value="1">abby</option>
+                          <option value="2">anny</option>
+                          <option value="3">Jasper Ashomile</option>
                       </select>
                       </lable>
                     </div>
                   </div>
                   <div class="pb-8">
-                    <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+                    <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 foinv:ring-4 foinv:outline-none foinv:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foinv:ring-purple-800">Create</button>
                   </div>
                 </form>
               </div>
@@ -79,6 +80,20 @@
   <!--/ Add invoice m modal -->
 
   <br />
+  <?php if($msg) {?>
+    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+      <span>
+        <i class="fa-solid fa-circle-info fa-lg"></i>
+      </span>
+      <div class="ml-3 text-sm font-medium">
+        <?=$msg?>
+      </div> 
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+  <?php } ?>
+  <div id="message"></div>
 
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
@@ -99,54 +114,49 @@
         <tbody
           class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
         >
-          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-3">
-              <div class="flex items-center text-sm">
-                <div>
-                  <p class="font-semibold">06/03/2023 </p>
-                </div>
+        <?php foreach($invoice as $inv){?>
+        <tr id="tr-<?=$inv['invoice_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <td class="px-4 py-3">
+            <div class="flex items-center text-sm">
+              <div>
+                <p class="font-semibold"><?=$inv['invoice_date']?></p>
               </div>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              Taxed Invoice
-            </td>
-            <td class="px-4 py-3 text-sm">
-             2023/03-0191
-            </td>
-            <td class="px-4 py-3 text-sm">
-              16,879,000
-             </td>
-          </div>
-        </td>
-        <td class="px-4 py-3 text-sm">
-          06/04/2023
-        </td>
-        <td class="px-4 py-3 text-sm">
-         Ma samia
-        </td>
-            <td class="px-4 py-3">
-              <div class="flex items-center space-x-4 text-sm">   
-                <a href="profile"
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                  aria-label="View">
-                  <i class="fa-solid fa-eye fa-lg"></i>      
-                </a>
-                <button 
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                  aria-label="Edit"
-                >
-                <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                </button>
-                <button onclick="del()"
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                  aria-label="Delete"
-                >
-                <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['invoice_type']?>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['ref_number']?>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['invoice_amount']?>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['invoice_expire_date']?>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['customer_id']?>
+          </td>
+        
+          <td class="px-4 py-3">
+            <div class="flex items-center space-x-4 text-sm">   
+              <button data-modal-target="add-invoice-modal-<?=$inv['invoice_id']?>" data-modal-toggle="add-invoice-modal-<?=$inv['invoice_id']?>" 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
+                aria-label="Edit"
+              >
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              </button>
+              <button id="del-<?=$inv['invoice_id']?>" onclick="delinvoice(this)" 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
+                aria-label="Delete"
+              >
+           <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
                 </button>
               </div>
             </td>
           </tr>
-          
+          <?php }?>
         </tbody>
       </table>
     </div>
