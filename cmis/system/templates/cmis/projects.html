@@ -45,7 +45,7 @@
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                       <label>Budget
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Burget" name="project_burget">
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Burget" name="project_burget">
                       </label>
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
@@ -58,7 +58,7 @@
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
                       <label>Project description
-                        <textarea type="text" name="Discription" id="Discription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Project Discription" name="project_description"></textarea>
+                        <textarea type="text" name="project_description" id="Discription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Project Discription" name="project_description"></textarea>
                       </label>
                     </div>
                   </div>
@@ -79,48 +79,41 @@
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
           >
             <th class="px-4 py-3">Project Name</th>
-            <th class="px-4 py-3">Date Started </th>
+            <th class="px-4 py-3">Start Date </th>
             <th class="px-4 py-3">End Date</th>
-            <th class="px-4 py-3">Discription</th>
+            <th class="px-4 py-3">Description</th>
             <th class="px-4 py-3">Burget</th>
             <th class="px-4 py-3">Project Manager</th>
-            <th class="px-4 py-3">Created time</th>
             <th class="px-4 py-3">Actions</th>
           </tr>
         </thead>
         <tbody
           class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
         >
+        <?php foreach($project as $p){?>
           <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
             <td class="px-4 py-3">
               <div class="flex items-center text-sm">
                 <div>
-                  <p class="font-semibold">BAF </p>
+                  <p class="font-semibold"><?=$p['project_name']?></p>
                 </div>
               </div>
             </td>
             <td class="px-4 py-3 text-sm">
-              06/06/2022
+              <?=helper::format_time($p['project_starting_date'],'d M, Y')?>
             </td>
             <td class="px-4 py-3 text-sm">
-              06/06/2023
+              <?=helper::format_time($p['project_ending_date'],'d M, Y')?>
             </td>
             <td class="px-4 py-3 text-sm">
-              Activity to be done include,
-              installation of CCTV Camera
-
-             </td>
-          </div>
-        </td>
-        <td class="px-4 py-3 text-sm">
-          500,000,000
-        </td>
-        <td class="px-4 py-3 text-sm">
-         Katunzi JR
-        </td>
-        <td class="px-4 py-3 text-sm">
-          06/06/2023:13:05:23
-        </td>
+              <?=$p['project_description']?>
+            </td>
+            <td class="px-4 py-3 text-sm">
+              <?=number_format($p['project_burget'])?>
+            </td>
+            <td class="px-4 py-3 text-sm">
+              <?=$p['first_name']?> <?=$p['middle_name']?> <?=$p['last_name']?>
+            </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
                 <a href="profile"
@@ -143,7 +136,7 @@
               </div>
             </td>
           </tr>
-          
+        <?php }?>
         </tbody>
       </table>
     </div>
