@@ -10,12 +10,12 @@
       <form method="post" class="text-gray-900 dark:text-white bg-white dark:bg-gray-900" style="box-shadow: 0 0 2px #999;flex-basis: 100%;">
         <div style="display: flex;">
           <label>Name</label>
-          <input type="text" name="contract_name" value="<?=$name?>" style="margin-right: 1em;" required>
+          <input type="text" name="contract_name" class="font-semibold bg-gray-50 text-gray-900 dark:text-white dark:bg-gray-800 dark:placeholder-gray-400" value="<?=$name?>" style="margin-right: 1em;" required>
           <button style="padding: .6em;">
             <i class="fa fa-save">&nbsp;</i>Save
           </button>
         </div>
-        <input type="hidden" class="w-full bg-gray-50 text-gray-900 dark:text-white text-sm rounded-lg block p-2.5 dark:bg-gray-800 dark:placeholder-gray-400" name="old_name" value="<?=$name?>">
+        <input type="hidden" name="old_name" value="<?=$name?>">
         <textarea id="page_content" name="content"class="w-full h-full bg-gray-50 text-gray-900 block p-2.5 dark:bg-gray-800 dark:placeholder-gray-400 dark:text-white" required><?=$content?></textarea>
       </form>
       <?php }else{?>
