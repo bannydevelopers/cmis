@@ -1,47 +1,35 @@
 <?php 
+
 $db = db::get_connection(storage::init()->system_config->database);
-$my = helper::init()->get_session_user();
-//var_dump($_POST);
+$ok = false;
+$msg = '';
+
+
+$request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['project_name'])){
-<<<<<<< HEAD
     $data = [
-        'project_name'=>addslashes($_POST['project_name']),
-        'project_starting_date'=>addslashes($_POST['project_starting_date']),
-        'project_ending_date'=>addslashes($_POST['project_ending_date']),
-        'project_description'=>addslashes($_POST['project_description']),
-        'project_burget'=>addslashes($_POST['project_burget']),
-        'project_manager'=>addslashes($_POST['project_manager']),
-=======
-    if($helper::init()->user_can('can_add_project')){
-        $staff = $db->select('staff','staff_id')
-                    ->where(['user_reference'=>$my['user_id']])
-                    ->fetch();
-        $data = [
-            'project_name'=>addslashes($_POST['project_name']), 
-            'project_starting_date'=>helper::format_time($_POST['project_starting_date'],'Y-m-d H:i:s'), 
-            'project_ending_date'=>helper::format_time($_POST['project_ending_date'],'Y-m-d H:i:s'), 
-            'project_description'=>addslashes($_POST['project_description']), 
-            'project_burget'=>addslashes($_POST['project_burget']), 
-            'staff_id'=>$staff['staff_id'], 
-            'created_time'=>date('Y-m-d H:i:s')
->>>>>>> 9cf16d64d06776ec567584bdc4cf577333b36f87
-        ];
-        $k = $db->insert('project', $data);
-        if(!$db->error() && $k){
-            $msg = 'Project created successful';
-        }
-        else{
-            $msg = 'Project create error';
-        }
+        'project_name'=>$_POST['project_name'], 
+        'project_starting_date'=>$_POST['project_starting_date'],
+        'project_ending_date'=>$_POST['project_ending_date'],
+        'project_burget'=>$_POST['project_burget'],
+        'project_description'=>$_POST['project_description'],
+        'staff_id'=>$_POST['staff_id'],
+        'created_time'=>date('Y-m-d H:i:s')
+    ];
+    $k = $db->insert('project', $data);
+    //var_dump($db->error());
+   
+    if(!$db->error() && $k) {
+        $msg = 'project added successful';
+        $ok =true;
     }
-    else $msg = 'Permission denied';
+    else $msg = 'Error adding project';
+    var_dump($db->error());
 }
-$project = $db->select('project', 'project.*,user.first_name,user.middle_name,user.last_name')
-              ->join('staff','staff.staff_id=project.staff_id')
-              ->join('user','staff.user_reference=user.user_id')
-              ->fetchALL();
-        
-//var_dump('<pre>',$project);
-$data = ['project'=>$project];
-echo helper::find_template('projects', ['project'=>$project]);
-        
+ $staff= $db->select('staff','staff_id,staff_name')
+                  ->fetchALL();
+
+
+$project = $db->select('project')->order_by('project_id', 'desc')->fetchAll();
+$data = ['project'=>$project,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+echo helper::find_template('projects', $data);
