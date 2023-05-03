@@ -3,6 +3,8 @@
     "icon":"users-cog",
     "nav":[
         {"name":"Staff","href":"Staff/", "permission":"can_view_staff"},
+        {"name":"Payroll","href":"Payroll/", "permission":"can_view_payroll"},
+        {"name":"Salary slip","href":"Salary/","permission":"can_view_salary"},
         {"name":"Leave","href":"Leave/","permission":"can_view_leave"},
         {"name":"Contracts","href":"Contracts/","permission":"can_view_contracts"}
     ],
