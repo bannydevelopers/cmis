@@ -174,6 +174,10 @@ $designation = $db->select('designation','designation_id,designation_name')
 $roles = $db->select('role','role_id,role_name')
                   ->order_by('role_name', 'asc')
                   ->fetchALL();
+                  
+$banks = $db->select('bank','bank_id,bank_name')
+                  ->order_by('bank_name', 'asc')
+                  ->fetchALL();
 
 $staff = $db->select('staff')
             ->join('user','user.user_id=staff.user_reference')
@@ -188,6 +192,7 @@ if($helper->user_can('can_view_staff')){
     $data = [
         'designation'=>$designation,
         'roles'=>$roles, 
+        'banks'=>$banks, 
         'staff'=>$staff,'msg'=>$msg, 
         'request_uri'=>$request];
     echo helper::find_template('Staff', $data);

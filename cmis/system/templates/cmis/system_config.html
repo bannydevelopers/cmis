@@ -1,6 +1,21 @@
 
-    <h2
-      class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-    >
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
     System config
     </h2>
+    <div>
+      <?php foreach($configs as $key=>$val){if(is_array($val)) continue;?>
+        <div>
+          <label for="<?="config_{$key}"?>"><?=ucwords($key)?></label>
+          <?php if(is_object($val)){?>
+            <div style="box-shadow: 0 0 3px #999;">
+            <?php foreach($val as $k=>$v){?>
+              <em id="<?="config_{$key}_{$k}"?>"><?=ucwords($k)?></em>
+              <p><input type="text" name="<?="{$key}[{$k}]"?>" value="<?=$v?>" /></p>
+            <?php }?>
+            </div>
+          <?php }else{?>
+          <p><input type="text" name="<?=$key?>" value="<?=$val?>" /></p>
+          <?php }?>
+        </div>
+      <?php }?>
+    </div>
