@@ -168,7 +168,11 @@ if(isset($_POST['first_name'])){
     }
 }
 $designation = $db->select('designation','designation_id,designation_name')
-                  ->where("designation_id IN (SELECT designation_id FROM designation_role)")
+                  ->order_by('designation_name', 'asc')
+                  ->fetchALL();
+                  
+$roles = $db->select('role','role_id,role_name')
+                  ->order_by('role_name', 'asc')
                   ->fetchALL();
 
 $staff = $db->select('staff')
@@ -181,7 +185,11 @@ $staff = $db->select('staff')
             ->fetchAll();
 //var_dump('<pre>',$staff);
 if($helper->user_can('can_view_staff')){
-    $data = ['designation'=>$designation, 'staff'=>$staff,'msg'=>$msg, 'request_uri'=>$request];
+    $data = [
+        'designation'=>$designation,
+        'roles'=>$roles, 
+        'staff'=>$staff,'msg'=>$msg, 
+        'request_uri'=>$request];
     echo helper::find_template('Staff', $data);
 }
 else echo helper::find_template('permission_denied');
