@@ -149,32 +149,23 @@
                       </select>
                     </label>
                   </div>
+                  <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                    <label>Choose document type
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="appendDocInput(this)">
+                        <option value="CV">CV </option>
+                        <option value="CONTRACT">CONTRACT</option>
+                        <option value="UNI CERTIFICATE">UNI CERTIFICATE</option>
+                        <option value="DIPLOMA CERTIFICATE">DIPLOMA CERTIFICATE</option>
+                      </select>
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div class="pt-4">
-                <div id="documentInputs">
-                  <!-- doc input -->
-                  <div class="flex flex-wrap -mx-3 mb-2">
-                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
-                      <label>Document type
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="doc_type">
-                          <option value="CV">CV </option>
-                          <option value="CONTRACT">CONTRACT</option>
-                          <option value="CERTIFICATE1">UNI CERTIFICATE</option>
-                          <option value="CERTIFICATE2">DIPLOMA CERTIFICATE</option>
-                        </select>
-                      </label>
-                    </div>
-                    <div class="w-full mob:w-2/3 px-3 my-1 mob:my-0"> 
-                      <label>Document file
-                        <input class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" placeholder="Bank account number" name="document">
-                      </label>
-                    </div>
-                  </div>
-                  <!--/ doc input -->
-                </div>
-                <div>
-                  <button type="button" onclick="appendDocInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+</button>
+              <div id="documentInputs">
+                <div class="w-full mob:w-1/2 mx-auto my-4"> 
+                  <label>CV
+                    <input class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" name="document_cv">
+                  </label>
                 </div>
               </div>
             </div>
@@ -379,23 +370,26 @@
 <script src="plugins/intlTelInput/js/intlTelInput.min.js"></script>
 
 <script>
-  function appendDocInput(){
-    docInputs = `<div class="flex flex-wrap -mx-3 mb-2">
-      <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
-        <label>Document type
-          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="doc_type">
-            <option value="CV">CV </option>
-            <option value="CONTRACT">CONTRACT</option>
-            <option value="CERTIFICATE1">UNI CERTIFICATE</option>
-            <option value="CERTIFICATE2">DIPLOMA CERTIFICATE</option>
-          </select>
-        </label>
-      </div>
-      <div class="w-full mob:w-2/3 px-3 my-1 mob:my-0"> 
-        <label>Document file
-          <input class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" placeholder="Bank account number" name="document">
-        </label>
-      </div>
+  function appendDocInput(docVal){
+    var docName = "";
+    if(docVal.value == "CV") {
+      docName = "document_cv";
+    }
+    if(docVal.value == "CONTRACT") {
+      docName = "document_cont";
+    }
+    if(docVal.value == "UNI CERTIFICATE") {
+      docName = "document_uni";
+    }
+    if(docVal.value == "DIPLOMA CERTIFICATE") {
+      docName = "document_dip";
+    }
+    
+
+    docInputs = `<div class="w-full mob:w-1/2 mx-auto my-3"> 
+      <label>`+docVal.value+`
+        <input class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" name="`+docName+`">
+      </label>
     </div>`;
     documentInputs = document.getElementById("documentInputs");
     documentInputs.insertAdjacentHTML('beforeend', docInputs);
