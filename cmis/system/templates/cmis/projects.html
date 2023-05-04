@@ -112,19 +112,19 @@
               </div>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=$pro['project_starting_date']?>
+              <?=helper::format_time($pro['project_starting_date'],'d M, Y')?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=$pro['project_ending_date']?>
+              <?=helper::format_time($pro['project_ending_date'],'d M, Y')?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=$pro['project_burget']?>
+              <?=number_format($pro['project_burget'],2)?>
             </td>
             <td class="px-4 py-3 text-sm">
               <?=$pro['project_description']?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=$pro['staff_id']?>
+              <?=$pro['pm_name']?>
             </td>
           
           
