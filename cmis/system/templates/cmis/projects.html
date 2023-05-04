@@ -50,7 +50,12 @@
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                       <label>Project manager
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="project manager" name="project_manager">
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_manager" required>
+                          <option selected="true" disabled="disabled">Choose...</option> 
+                          <?php foreach($user as $pm) { ?>
+                          <option value="<?=$pm['user_id']?>"><?=$pm['user_name']?></option>
+                          <?php } ?>
+                        </select>
                       </label>
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
