@@ -3,15 +3,6 @@ $db = db::get_connection(storage::init()->system_config->database);
 $my = helper::init()->get_session_user();
 //var_dump($_POST);
 if(isset($_POST['project_name'])){
-<<<<<<< HEAD
-    $data = [
-        'project_name'=>addslashes($_POST['project_name']),
-        'project_starting_date'=>addslashes($_POST['project_starting_date']),
-        'project_ending_date'=>addslashes($_POST['project_ending_date']),
-        'project_description'=>addslashes($_POST['project_description']),
-        'project_burget'=>addslashes($_POST['project_burget']),
-        'project_manager'=>addslashes($_POST['project_manager']),
-=======
     if($helper::init()->user_can('can_add_project')){
         $staff = $db->select('staff','staff_id')
                     ->where(['user_reference'=>$my['user_id']])
@@ -24,7 +15,6 @@ if(isset($_POST['project_name'])){
             'project_burget'=>addslashes($_POST['project_burget']), 
             'staff_id'=>$staff['staff_id'], 
             'created_time'=>date('Y-m-d H:i:s')
->>>>>>> 9cf16d64d06776ec567584bdc4cf577333b36f87
         ];
         $k = $db->insert('project', $data);
         if(!$db->error() && $k){

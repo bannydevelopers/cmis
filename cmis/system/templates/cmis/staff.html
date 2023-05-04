@@ -5,15 +5,13 @@
     Staff management
   </h2>
   <!-- Modal toggle -->
-  <div>
-    <button 
-    data-modal-target="add-staff-modal" data-modal-toggle="add-staff-modal" 
-    class="float-right mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+  <div class="text-right">
+    <button data-modal-target="add-staff-modal" data-modal-toggle="add-staff-modal" 
+    class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
     Add staff
     </button>
-    <button 
-      data-modal-target="add-designation-modal" data-modal-toggle="add-designation-modal" 
-      class="float-right mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+    <button data-modal-target="add-designation-modal" data-modal-toggle="add-designation-modal" 
+      class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
       Add designation
     </button>
   </div>
@@ -98,16 +96,23 @@
                   <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                     <label>Designation
                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation">
+                        <option selected="true" disabled="disabled">Choose...</option>   
                         <?php foreach($designation as $x) { ?>
                           <option value="<?=$x['designation_id']?>"><?=$x['designation_name']?></option>
                         <?php } ?>
-                        <option data-modal-target="add-designation-modal" data-modal-toggle="add-designation-modal">Add new designation</option>
+                        <option value="" onclick="openModal('add-designation-modal')">
+                            <button onclick="openModal('add-designation-modal')"
+                            class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                            Add designatio
+                          </button>
+                        </option>
                       </select>
                     </label>
                   </div>
                   <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                     <label>Role <span class="text-red-500">*</span>
                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation" required>
+                        <option selected="true" disabled="disabled">Choose...</option> 
                         <?php foreach($roles as $x) { ?>
                         <option value="<?=$x['role_id']?>"><?=$x['role_name']?></option>
                         <?php } ?>
@@ -373,6 +378,15 @@
 <script src="plugins/intlTelInput/js/intlTelInput.min.js"></script>
 
 <script>
+  function openModal(modalId) {
+    const modalToggle = document.querySelector(`[data-modal-toggle="${modalId}"]`);
+    if (modalToggle) {
+      modalToggle.dispatchEvent(new MouseEvent('click'));
+    } else {
+      console.error(`Could not find modal with ID "${modalId}"`);
+    }
+  }
+
   function appendDocInput(docVal){
     var docName = "";
     if(docVal.value == "CV") {
