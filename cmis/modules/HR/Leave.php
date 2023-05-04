@@ -8,7 +8,7 @@ $msg = '';
 if(isset($_POST['leave_type'])){
     $data = [
         'staff_id'=>$me['staff_id'], 
-        'leave_application_description'=>addslashes($_POST['leave_description']), 
+        'leave_application_description'=>addslashes($_POST['leave_application_description']), 
         'leave_start_date'=>helper::format_time($_POST['leave_start'], 'Y-m-d H:i:s'), 
         'leave_application_type'=>intval($_POST['leave_type']), 
         'leave_length'=>intval($_POST['leave_length']), 
