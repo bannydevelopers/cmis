@@ -228,8 +228,8 @@
                   <label>Department
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="openDepModal(this)">
                       <option selected="true" disabled="disabled">Choose...</option> 
-                      <?php foreach($banks as $d) { ?>
-                        <option value="<?=$d['bank_id']?>"><?=$d['bank_name']?></option>
+                      <?php foreach($departments as $d) { ?>departments
+                        <option value="<?=$d['department_id']?>"><?=$d['department_name']?></option>
                       <?php } ?>
                       <option value="">Add department</option>
                     </select>
