@@ -161,7 +161,7 @@
                       <?php foreach($designation as $x) { ?>
                         <option value="<?=$x['designation_id']?>"><?=$x['designation_name']?></option>
                       <?php } ?>
-                      <option value="">++ Add designation ++</option>
+                      <option value="">Add designation</option>
                     </select>
                   </label>
                 </div>
@@ -169,10 +169,10 @@
                   <label>Role <span class="text-red-500">*</span>
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation" onchange="openRoleModal(this)" required>
                       <option selected="true" disabled="disabled">Choose...</option> 
-                      <?php foreach($roles as $x) { ?>
-                      <option value="<?=$x['role_id']?>"><?=$x['role_name']?></option>
+                      <?php foreach($roles as $r) { ?>
+                      <option value="<?=$r['role_id']?>"><?=$r['role_name']?></option>
                       <?php } ?>
-                      <option value="">++ Add new role ++</option>
+                      <option value="">Add new role</option>
                     </select>
                   </label>
                 </div>
@@ -210,7 +210,18 @@
                       <?php foreach($banks as $b) { ?>
                         <option value="<?=$b['bank_id']?>"><?=$b['bank_name']?></option>
                       <?php } ?>
-                      <option value="">++ Add bank ++</option>
+                      <option value="">Add bank</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+                  <label>Department
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="openDepModal(this)">
+                      <option selected="true" disabled="disabled">Choose...</option> 
+                      <?php foreach($banks as $d) { ?>
+                        <option value="<?=$d['bank_id']?>"><?=$d['bank_name']?></option>
+                      <?php } ?>
+                      <option value="">Add department</option>
                     </select>
                   </label>
                 </div>
@@ -442,6 +453,12 @@
     if(selBankVal.value == "") {
       document.getElementById("close-staff-modal-id").click();
       document.getElementById("add-bank-modal-id").click();
+    }
+  }
+  function openDepModal(selDepVal) {
+    if(selDepVal.value == "") {
+      document.getElementById("close-staff-modal-id").click();
+      document.getElementById("add-dep-modal-id").click();
     }
   }
 
