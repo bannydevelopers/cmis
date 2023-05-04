@@ -3,6 +3,8 @@
     "dashboard":"admin",
     "theme":"cmis",
     "session_name":"cmis_session",
+    "system_locale":"sw",
+    "system_currency":"TSH",
     "database":{
         "host":"localhost",
         "username":"root",
