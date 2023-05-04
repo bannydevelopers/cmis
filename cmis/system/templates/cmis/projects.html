@@ -4,14 +4,6 @@
     >
     Projects
     </h2>
-     <!-- Modal toggle -->
-  <div>
-    <button 
-    data-modal-target="add-project-modal" data-modal-toggle="add-project-modal" 
-    class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
-    New Project
-    </button>
-  </div>
 
   <!-- Main modal -->
   <div id="add-project-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
@@ -88,55 +80,69 @@
   <?php } ?>
   <div id="message"></div>
 
-  <div class="w-full overflow-hidden rounded-lg shadow-md">
-    <div class="w-full overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr
-            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-          >
-            <th class="px-4 py-3">Project Name</th>
-            <th class="px-4 py-3">Start Date </th>
-            <th class="px-4 py-3">End Date</th>
-            <th class="px-4 py-3">Burget</th>
-            <th class="px-4 py-3">Description</th>
-            <th class="px-4 py-3">Project Manager</th>
-          
-          </tr>
-        </thead>
-        <tbody
-          class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-          >
-          <?php foreach($project as $pro){?>
-          <tr id="tr-<?=$pro['project_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-            <td class="px-4 py-3">
-              <div class="flex items-center text-sm">
-                <div>
-                  <p class="font-semibold"><?=$pro['project_name']?></p>
+  <div class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 p-4 rounded">
+    <div class="space-y-2 pt-2 pb-2 md:space-y-5">
+      
+      <div class="text-lg leading-7 text-gray-700 dark:text-gray-300">
+        <div class="flex items-center">
+          <p class="w-full text-grey-darkest">List of all projects</p>
+          <button
+          data-modal-target="add-project-modal" data-modal-toggle="add-project-modal" 
+          class="text-2xl px-1.5 pb-1 text-purple-700 bg-white hover:bg-purple-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium border-2 border-purple-700 rounded-lg text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+          +
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="divide-y divide-gray-200 dark:divide-gray-700">
+      <div class="py-4">
+        <div class="pb-4">
+          <div class="space-y-2 divide-y dark:divide-gray-700">
+            <?php foreach($project as $pro){?>
+            <!--/ Project -->
+            <div class="p-2 text-gray-700 dark:text-gray-300">
+              <div class="flex mob:flex-row flex-col">
+                <div class="w-full mob:w-3/4">
+                  <h2 class="text-xl font-bold tracking-tight">
+                    <a class="text-blue-500 hover:underline" href="">
+                      <?=$pro['project_name']?>
+                    </a>
+                  </h2>
+                  <div class="flex flex-row">
+                    <div class="pl-3 pt-2"> Budget: </div>
+                    <div class="font-semibold uppercase pl-3 pt-2"> TZS <?=number_format($pro['project_burget'],2)?></div>
+                  </div>
+                  <div class="flex pl-3">
+                    <div class="hidden mob:block">Project manager:</div>
+                    <div class="mob:hidden">P.Manager:</div>
+                    <div class="font-semibold pl-2"><?=$pro['pm_name']?></div>
+                  </div>
+                </div>
+                <div class="w-full mob:w-1/4 mob:text-right  pl-3 mob:pl-0 pt-2 mob:pt-0">
+                  <div class="flex flex-row mob:flex-col">
+                    <div class="">Since: </div>
+                    <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2 mob:pl-0">
+                      <time datetime="2021-08-07T15:32:14.000Z"><?=helper::format_time($pro['project_starting_date'],'d M, Y')?></time>
+                    </div>
+                  </div>
+                  <div class="flex flex-row mob:flex-col">
+                    <div class="">To: </div>
+                    <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2 mob:pl-0">
+                      <time datetime="2021-08-07T15:32:14.000Z"><?=helper::format_time($pro['project_ending_date'],'d M, Y')?></time>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              <?=helper::format_time($pro['project_starting_date'],'d M, Y')?>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              <?=helper::format_time($pro['project_ending_date'],'d M, Y')?>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              <?=number_format($pro['project_burget'],2)?>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              <?=$pro['project_description']?>
-            </td>
-            <td class="px-4 py-3 text-sm">
-              <?=$pro['pm_name']?>
-            </td>
-          
-          </tr>
-        <?php }?>
-        </tbody>
-      </table>
+            </div>
+            <!--/ Project -->
+            <?php }?>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+    
     
   </div>
     
