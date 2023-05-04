@@ -50,10 +50,7 @@
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                       <label>Project manager
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_manager">
-                          <option value="anual">Annual</option>
-                          <option value="anual">Emergency</option>
-                        </select>
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="project manager" name="project_manager">
                       </label>
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
@@ -71,6 +68,21 @@
       </div>
   </div> 
   <br />
+  <?php if($msg) {?>
+    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+      <span>
+        <i class="fa-solid fa-circle-info fa-lg"></i>
+      </span>
+      <div class="ml-3 text-sm font-medium">
+        <?=$msg?>
+      </div> 
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+  <?php } ?>
+  <div id="message"></div>
+
   <div class="w-full overflow-hidden rounded-lg shadow-md">
     <div class="w-full overflow-x-auto">
       <table class="w-full">
@@ -89,46 +101,42 @@
         </thead>
         <tbody
           class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-        >
-        <?php foreach($project as $p){?>
-          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          >
+          <?php foreach($project as $pro){?>
+          <tr id="tr-<?=$pro['project_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
             <td class="px-4 py-3">
               <div class="flex items-center text-sm">
                 <div>
-                  <p class="font-semibold"><?=$p['project_name']?></p>
+                  <p class="font-semibold"><?=$pro['project_name']?></p>
                 </div>
               </div>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=helper::format_time($p['project_starting_date'],'d M, Y')?>
+              <?=$pro['project_starting_date']?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=helper::format_time($p['project_ending_date'],'d M, Y')?>
+              <?=$pro['project_ending_date']?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=$p['project_description']?>
+              <?=$pro['project_burget']?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=number_format($p['project_burget'])?>
+              <?=$pro['project_description']?>
             </td>
             <td class="px-4 py-3 text-sm">
-              <?=$p['first_name']?> <?=$p['middle_name']?> <?=$p['last_name']?>
+              <?=$pro['staff_id']?>
             </td>
+          
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
-                <a href="profile"
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                  aria-label="View">
-                  <i class="fa-solid fa-eye fa-lg"></i>      
-                </a>
-                <button 
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                <button data-modal-target="add-project-modal-<?=$pro['project_id']?>" data-modal-toggle="add-project-modal-<?=$pro['project_id']?>" 
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fopro:outline-none fopro:outline-gray-300"
                   aria-label="Edit"
                 >
                 <i class="fa-solid fa-pen-to-square fa-lg"></i>
                 </button>
-                <button onclick="del()"
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                <button id="del-<?=$pro['project_id']?>" onclick="delproject(this)" 
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fopro:outline-none fopro:outline-gray-300"
                   aria-label="Delete"
                 >
                 <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
