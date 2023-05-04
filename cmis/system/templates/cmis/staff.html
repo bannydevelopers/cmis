@@ -101,6 +101,7 @@
                         <?php foreach($designation as $x) { ?>
                           <option value="<?=$x['designation_id']?>"><?=$x['designation_name']?></option>
                         <?php } ?>
+                        <option data-modal-target="add-designation-modal" data-modal-toggle="add-designation-modal">Add new designation</option>
                       </select>
                     </label>
                   </div>
@@ -108,8 +109,9 @@
                     <label>Role <span class="text-red-500">*</span>
                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="designation" required>
                         <?php foreach($roles as $x) { ?>
-                          <option value="<?=$x['role_id']?>"><?=$x['role_name']?></option>
+                        <option value="<?=$x['role_id']?>"><?=$x['role_name']?></option>
                         <?php } ?>
+                        <option>Add new role</option>
                       </select>
                     </label>
                   </div>
@@ -143,9 +145,10 @@
                   <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                     <label>Bank name
                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="bank_id">
-                        <option value="1">CRDB </option>
-                        <option value="2">NMB</option>
-                        <option value="3">NBC</option>
+                        <?php foreach($banks as $b) { ?>
+                          <option value="<?=$b['bank_id']?>"><?=$b['bank_name']?></option>
+                        <?php } ?>
+                        <option>Add bank</option>
                       </select>
                     </label>
                   </div>

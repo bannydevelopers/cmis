@@ -2,20 +2,28 @@
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
     System config
     </h2>
-    <div>
-      <?php foreach($configs as $key=>$val){if(is_array($val)) continue;?>
-        <div>
-          <label for="<?="config_{$key}"?>"><?=ucwords($key)?></label>
-          <?php if(is_object($val)){?>
-            <div style="box-shadow: 0 0 3px #999;">
-            <?php foreach($val as $k=>$v){?>
-              <em id="<?="config_{$key}_{$k}"?>"><?=ucwords($k)?></em>
-              <p><input type="text" name="<?="{$key}[{$k}]"?>" value="<?=$v?>" /></p>
-            <?php }?>
+    <div class="w-full overflow-hidden rounded-lg shadow-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4">
+      <div class="grid grid-cols-2 gap-4">
+        <?php foreach($configs as $key=>$val){if(is_array($val)) continue;?>
+        <div class="my-4">
+          <label for="<?="config_{$key}"?>" class="font-semibold"><?=ucwords($key)?></label>
+            <?php if(is_object($val)){?>
+            <div>
+              <?php foreach($val as $k=>$v){?>
+              <div class="pl-4 pt-2">
+                <em id="<?="config_{$key}_{$k}"?>"><?=ucwords($k)?></em>
+                <div class="w-full mob:w-2/3">
+                  <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="<?="{$key}[{$k}]"?>" value="<?=$v?>" />
+                </div>
+              </div>
+              <?php }?>
             </div>
-          <?php }else{?>
-          <p><input type="text" name="<?=$key?>" value="<?=$val?>" /></p>
+            <?php } else {?>
+          <div class="w-full mob:w-2/3 pl-4">
+            <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="<?=$key?>" value="<?=$val?>" />
+          </div>
           <?php }?>
         </div>
-      <?php }?>
+        <?php }?>
+      </div>
     </div>
