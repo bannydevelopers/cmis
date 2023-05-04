@@ -2,23 +2,10 @@
 $db = db::get_connection(storage::init()->system_config->database);
 $ok = false;
 $msg = '';
-if(isset($_POST['role_name']) && isset($_POST['designation_id'])){
+if(isset($_POST['role_name'])){
     $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
-    $rd = ['designation_id'=>$_POST['designation_id'],'role_id'=>$role_id];
-    if(intval($role_id)) {
-        $k = $db->insert('designation_role', $rd);
-        if(!$db->error() && $k){
-            $ok = true;
-            $msg = 'Role added successful';
-        }
-        else{
-            $db->delete('role')->where(['role_id'=>$role_id])->commit();
-            $msg = 'Role adding failed';
-        }
-    }
-    else $msg = 'Fatal error occured while adding role';
-    /*echo $msg;
-    var_dump($db->error());*/
+    if(intval($role_id)) $msg = 'Role added successful';
+    else $msg = 'Role adding failed';
 }
 if(isset($_POST['perms'])){
     $role = array_key_first($_POST['perms']);

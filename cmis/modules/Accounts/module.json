@@ -2,8 +2,6 @@
     "name":"Accounts",
     "icon":"fa-solid fa-money-bills",
     "nav":[
-        {"name":"Payroll","href":"Payroll/", "permission":"can_view_payroll"},
-        {"name":"Salary","href":"Salary/","permission":"can_view_salary"},
         {"name":"Expenses","href":"Expenses/","permission":"can_view_expenses"},
         {"name":"Debts","href":"Debts/","permission":"can_view_debts"},
         {"name":"Revenues","href":"Revenues/","permission":"can_view_revenues"},
