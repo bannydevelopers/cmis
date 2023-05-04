@@ -93,10 +93,10 @@
             <th class="px-4 py-3">Project Name</th>
             <th class="px-4 py-3">Start Date </th>
             <th class="px-4 py-3">End Date</th>
-            <th class="px-4 py-3">Description</th>
             <th class="px-4 py-3">Burget</th>
+            <th class="px-4 py-3">Description</th>
             <th class="px-4 py-3">Project Manager</th>
-            <th class="px-4 py-3">Actions</th>
+          
           </tr>
         </thead>
         <tbody
@@ -127,22 +127,7 @@
               <?=$pro['staff_id']?>
             </td>
           
-            <td class="px-4 py-3">
-              <div class="flex items-center space-x-4 text-sm">   
-                <button data-modal-target="add-project-modal-<?=$pro['project_id']?>" data-modal-toggle="add-project-modal-<?=$pro['project_id']?>" 
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fopro:outline-none fopro:outline-gray-300"
-                  aria-label="Edit"
-                >
-                <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                </button>
-                <button id="del-<?=$pro['project_id']?>" onclick="delproject(this)" 
-                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fopro:outline-none fopro:outline-gray-300"
-                  aria-label="Delete"
-                >
-                <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-                </button>
-              </div>
-            </td>
+          
           </tr>
         <?php }?>
         </tbody>
