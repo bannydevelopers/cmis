@@ -131,17 +131,27 @@
                     <div class="font-semibold pl-2"><?=$pro['pm_name']?></div>
                   </div>
                 </div>
-                <div class="w-full mob:w-1/4 mob:text-right  pl-3 mob:pl-0 pt-2 mob:pt-0">
-                  <div class="flex flex-row mob:flex-col">
-                    <div class="">Since: </div>
-                    <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2 mob:pl-0">
-                      <time datetime="2021-08-07T15:32:14.000Z"><?=helper::format_time($pro['project_starting_date'],'d M, Y')?></time>
+                <div class="w-full mob:w-1/4 pl-3">
+                  <div class="flex gap-x-2">
+                    <div class="flex flex-row mob:flex-col text-center">
+                      <div class="">Since: </div>
+                      <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2">
+                        <time datetime="2021-08-07T15:32:14.000Z"><?=helper::format_time($pro['project_starting_date'],'d M, Y')?></time>
+                      </div>
+                    </div>
+                    <div class="flex flex-row mob:flex-col text-center">
+                      <div class="">To: </div>
+                      <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2">
+                        <time datetime="2021-08-07T15:32:14.000Z"><?=helper::format_time($pro['project_ending_date'],'d M, Y')?></time>
+                      </div>
                     </div>
                   </div>
-                  <div class="flex flex-row mob:flex-col">
-                    <div class="">To: </div>
-                    <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2 mob:pl-0">
-                      <time datetime="2021-08-07T15:32:14.000Z"><?=helper::format_time($pro['project_ending_date'],'d M, Y')?></time>
+                  <div class="flex flex-row mob:justify-center mob:pt-2">
+                    <div class="">Duration: </div>
+                    <div class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 pl-2">
+                      <time datetime="2021-08-07T15:32:14.000Z">
+                        <?=round((strtotime($pro['project_ending_date']) - strtotime($pro['project_starting_date']))/(60*60*24))?>
+                      </time>
                     </div>
                   </div>
                 </div>
@@ -154,7 +164,6 @@
       </div>
     </div>
   </div>
-    
     
   </div>
     
