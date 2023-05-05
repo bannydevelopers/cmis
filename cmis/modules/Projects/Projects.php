@@ -18,8 +18,8 @@ if(isset($_POST['project_name'])){
         'created_by'=>$my['user_id'],
         'created_time'=>date('Y-m-d H:i:s')
     ];
+    
     $k = $db->insert('project', $data);
-    var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'project added successful';
@@ -28,11 +28,11 @@ if(isset($_POST['project_name'])){
     else $msg = 'Error adding project';
     //var_dump($db->error());
 }
- $staff= $db->select('staff','staff_id,staff_name')
+ $staff= $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name")
                   ->fetchALL();
 
 $project = $db->select('project', "project.*, concat( first_name,' ',last_name) as pm_name")
               ->join('user', 'project_manager=user_id')
               ->order_by('project_id', 'desc')->fetchAll();
-$data = ['project'=>$project,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$data = ['project'=>$project,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,'user'=>$staff];
 echo helper::find_template('projects', $data);
