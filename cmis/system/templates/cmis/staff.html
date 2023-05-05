@@ -284,7 +284,7 @@
 <!--/ Add staff modal -->
 <br />
 
-<?php if($status) {?>
+<?php if($status == 'success') {?>
   <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
     <span>
       <i class="fa-solid fa-circle-info fa-lg"></i>
@@ -296,7 +296,7 @@
       <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
     </button>
   </div>
-<?php } else if($msg) {?>
+<?php } else if($status == 'fail') {?>
 <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
   <span>
     <i class="fa-solid fa-circle-exclamation fa-lg"></i>
@@ -308,6 +308,7 @@
     <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
   </button>
 </div>
+<?php }?>
 <div id="message"></div>
 
 <div class="w-full overflow-hidden rounded-lg shadow-md">

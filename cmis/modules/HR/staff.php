@@ -1,6 +1,7 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
+$status = 'fail';
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['ajax_del_staff'])){
     if($helper->user_can('can_delete_staff')){
@@ -193,7 +194,9 @@ if($helper->user_can('can_view_staff')){
         'designation'=>$designation,
         'roles'=>$roles, 
         'banks'=>$banks, 
-        'staff'=>$staff,'msg'=>$msg, 
+        'staff'=>$staff,
+        'msg'=>$msg, 
+        'status'=>$status,
         'request_uri'=>$request];
     echo helper::find_template('Staff', $data);
 }
