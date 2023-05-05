@@ -3,8 +3,6 @@
     "icon":"user-shield",
     "nav":[
         {"name":"Projects","href":"Projects/", "permission":"can_view_projects"},
-        {"name":"Activities","href":"Activities/", "permission":"can_view_activities"},
-        {"name":"Resources","href":"Resources/", "permission":"can_view_resources"},
         {"name":"Project report","href":"Project_report/", "permission":"can_view_project_report"}
        
     ],
