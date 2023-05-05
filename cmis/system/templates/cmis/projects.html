@@ -42,10 +42,10 @@
                     </div>
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                       <label>Project manager
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_manager" required>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_manager" required> 
                           <option selected="true" disabled="disabled">Choose...</option> 
                           <?php foreach($user as $pm) { ?>
-                          <option value="<?=$pm['user_id']?>"><?=$pm['user_name']?></option>
+                          <option value="<?=$pm['user_id']?>"><?=$pm['pm_name']?></option>
                           <?php } ?>
                         </select>
                       </label>
@@ -63,10 +63,11 @@
               </div>
           </div>
       </div>
-  </div> 
+  </div>   
+  <!--/ Main modal -->
   <br />
-  <?php if($msg) {?>
-    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+  <?php if($status) {?>
+    <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
       <span>
         <i class="fa-solid fa-circle-info fa-lg"></i>
       </span>
@@ -77,8 +78,19 @@
         <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
       </button>
     </div>
+  <?php } else if($msg) {?>
+  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
   <?php } ?>
-  <div id="message"></div>
 
   <div class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 p-4 rounded">
     <div class="space-y-2 pt-2 pb-2 md:space-y-5">
@@ -147,6 +159,3 @@
   </div>
     
 <script src="js/flowbite.min.js"></script>
-<script>
-
-</script>
