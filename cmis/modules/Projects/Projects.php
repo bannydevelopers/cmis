@@ -34,5 +34,5 @@ if(isset($_POST['project_name'])){
 $project = $db->select('project', "project.*, concat( first_name,' ',last_name) as pm_name")
               ->join('user', 'project_manager=user_id')
               ->order_by('project_id', 'desc')->fetchAll();
-$data = ['project'=>$project,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$data = ['project'=>$project,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,];
 echo helper::find_template('projects', $data);
