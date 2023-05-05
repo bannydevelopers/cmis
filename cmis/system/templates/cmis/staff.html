@@ -591,7 +591,7 @@
     })
     .then(data => {
       if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
           <span>
             <i class="fa-solid fa-circle-info fa-lg"></i>
           </span>
@@ -606,7 +606,7 @@
         document.getElementById('tr-'+staffId[1]).remove();
       }
       if(data.status == 'fail'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
           <span>
             <i class="fa-solid fa-circle-exclamation fa-lg"></i>
           </span>
@@ -622,7 +622,7 @@
         delStaffBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
       }
       if(data.status == 'not-exist' || data.status == 'denied'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
           <span>
             <i class="fa-solid fa-circle-exclamation fa-lg"></i>
           </span>
@@ -636,7 +636,7 @@
       }
     })
     .catch(error => {
-      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
         <span>
           <i class="fa-solid fa-circle-exclamation fa-lg"></i>
         </span>
@@ -683,7 +683,7 @@
     .then(data => {
       console.log(data);
       if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
           <span>
             <i class="fa-solid fa-circle-info fa-lg"></i>
           </span>
@@ -697,7 +697,7 @@
       }
     })
     .catch(error => {
-      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
         <span>
           <i class="fa-solid fa-circle-exclamation fa-lg"></i>
         </span>
@@ -712,6 +712,3 @@
     });
   }
 </script>
-
-
-
