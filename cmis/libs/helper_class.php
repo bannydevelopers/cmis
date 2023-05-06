@@ -262,6 +262,7 @@ class helper{
     public static function get_sub_template($template_name, $data = []){
         $storage = storage::init();
         $home = str_replace('//','/', "/{$storage->request_dir}/{$storage->request[0]}");
+        if(isset($storage->request[1])) $myhome = "$home/{$storage->request[1]}";
 
         if(is_array($data) or is_object($data)) extract($data);
         ob_start();

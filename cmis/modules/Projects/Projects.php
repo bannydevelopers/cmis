@@ -7,6 +7,8 @@ $me = $db->select('staff')->where(['user_reference'=>$my['user_id']])->fetch();
 $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
+$storage = storage::init();
+
 if(isset($_POST['project_name'])){
     $data = [
         'project_name'=>$_POST['project_name'], 
@@ -28,7 +30,16 @@ if(isset($_POST['project_name'])){
     else $msg = 'Error adding project';
     //var_dump($db->error());
 }
- $staff= $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name")
+if(isset($storage->request[3]) && intval($storage->request[3])){
+    $project = $db->select('project')->where(['project_id'=>$storage->request[3]])->fetch();
+    $activities = $db->select('activities')->where(['activity_id'=>$storage->request[3]])->fetchAll();
+    $data = [
+        'project'=>$project,
+        'activity'=>$activities
+    ];
+    die(helper::find_template('project_details', $data));
+}
+$staff= $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name")
                   ->fetchALL();
 
 $project = $db->select('project', "project.*, concat( first_name,' ',last_name) as pm_name")
