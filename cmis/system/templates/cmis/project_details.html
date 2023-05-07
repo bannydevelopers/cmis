@@ -1,24 +1,106 @@
+<style>
+  [role="tab"].active,[role="tab"].active:hover {
+    color: #6D28D9;
+    border-color: #6D28D9;
+  }
+  
+  .dark [role="tab"].active,.dark [role="tab"].active:hover {
+    color: #6D28D9;
+    border-color: #6D28D9;
+  }
+</style>
 
 <h2
 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
 >
-<?=$project['project_name']?>
+<?=$project['project_name']?><?=var_dump($project)?>
 </h2>
-<div class="">
+
+<div class="w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-300">
+  <div class="shadow rounded-lg overflow-hidden">
+      <div class="flex flex-row justify-between">
+        <div class="p-4">
+          <p class="text-xl">TZS <?=$project['project_burget']?></p>
+          <p class="text-gray-700 dark:text-gray-400">Budget</p>
+        </div>
+        <div class="p-4">
+          <p class="text-xl">TZS <?=$project['project_burget']?></p>
+          <p class="text-gray-700 dark:text-gray-400">Used</p>
+        </div>
+        <div class="p-4">
+          <p class="text-xl">
+            <?php if($project['project_status'] == 'in_progress') { ?><span class="bg-purple-200 text-purple-600 dark:bg-purple-600 dark:text-purple-200 py-1 px-3 rounded-full text-xs">In progress</span><?php } ?>
+          </p>
+        </div>
+        <div class="p-4 hidden">
+          <p class="text-xl">70% <span class="text-sm">complete</span></p>
+          <p class="text-gray-700 dark:text-gray-400">Project status</p>
+        </div>
+      </div>
+      <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex flex-row w-full">
+        <div class="shrink-0 w-full mob:w-1/2">
+          <div class="flex flex-row">
+            <p>Starting Date:</p>
+            <p class="pl-2 font-bold"><?=$project['project_starting_date']?></p>
+          </div>
+          <div class="flex flex-row">
+            <p>Ending Date:</p>
+            <p class="pl-2 font-bold"><?=$project['project_ending_date']?></p>
+          </div>
+          <div class="flex flex-row">
+            <p>Time duration:</p>
+            <p class="pl-2 font-bold">2 yrs <?=$project['actual_end_time']?></p>
+          </div>
+        </div>
+        <div class="mob:block hidden w-1/2">
+          <div className="inline-block w-[200px]">
+            <p class="font-bold">Description</p>
+            <span className="font-semibold truncate block">
+              <?=$project['project_description']?>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex flex-row">
+        <div class="w-1/2">
+          <div class="text-xs uppercase font-bold text-gray-600 dark:text-gray-400 tracking-wide">Project Manager</div>
+          <div class="flex items-center pt-2">
+            <div class="bg-cover bg-center w-8 h-8 rounded-full mr-3" style="background-image: url(../assets/img/no-profile.jpg)">
+            </div>
+            <div>
+              <p class="font-bold"><?=$project['project_manager']?></p>
+              <p class="text-sm text-gray-700 dark:text-gray-400">Designation</p>
+            </div>
+          </div>
+        </div>
+        <div class="w-1/2">
+          <div class="text-xs uppercase font-bold text-gray-600 dark:text-gray-400 tracking-wide">Client</div>
+          <div class="items-center pt-2">
+            <div>
+              <p class="font-bold">Rand Osterbay</p>
+              <a href="tel:07760" class="text-sm text-gray-700 dark:text-gray-400">(778) 111-1111</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="py-2">
   <!-- Tabs -->
   <div class="border-b border-gray-200 dark:border-gray-700 mb-4">
     <ul class="flex flex-wrap -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300 active" id="activities-tab" data-tabs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="true">Activities</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200 active" id="activities-tab" data-tabs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="true">Activities</button>
       </li>
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300" id="resources-tab" data-tabs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="resources-tab" data-tabs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
       </li>
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Reports</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Reports</button>
       </li>
       <li role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
       </li>
     </ul>
   </div>
@@ -29,76 +111,120 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
       <div class="mb-4">
         <form action="POST" >
           <div class="flex flex-row">
-            <div class="w-5/6">
-              <input class="w-full shadow-sm appearance-none border rounded py-1 px-3 mr-4 text-grey-darker" placeholder="Add activity" name="activity_name">
+            <div class="w-5/6 mx-auto">
+              <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="activity_name" placeholder="Add new activity">
             </div>
-            <div class="w-1/6">
-              <button class="flex-no-shrink py-1 px-2 border border-purple-600 rounded hover:bg-purple-400 hover:text-white" type="submit">Add</button>
+            <div class="mx-auto">
+              <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Add</button>
             </div>
           </div>
         </form>
       </div>
       <!-- Activities -->
-      <div class="grid divide-y-4 divide-gray-100 bg-white dark:bg-gray-800 rounded">
+      <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
+
         <!-- Main activity -->
-        <div class="">
+        <div class="rounded-lg bg-white dark:bg-gray-800">
           <details class="group text-gray-900 dark:text-gray-200">
-            <summary class="flex items-center font-medium cursor-pointer list-none py-2 px-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
+            <summary class="flex items-center font-medium cursor-pointer list-none p-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
               <span class="transition group-open:-rotate-90">
                 <svg fill="none" height="16" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16"><path d="M6 9l6 6 6-6"></path>
                 </svg>
               </span>
               <!--  -->
-                <div class="flex justify-between w-full">
-                  <div>Installation of camera</div>
-                  <div class="relative">
-                    <a href="javascript:void(0);" @click="open = !open">
-                      <svg fill="currentColor" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
+              <div class="flex justify-between w-full">
+                <div id="actContent-01">Installation of cameras</div>
+                <div class="relative">
+                  <a href="javascript:void(0);" @click="open = !open">
+                    <svg fill="currentColor" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
+                  </a>
+                  <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" 
+                  class="absolute z-20 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 origin-top-right right-0 mt-2 w-36 rounded-md shadow-lg overflow-hidden border-2 border-gray-300 dark:border-gray-700">
+                    <a href="javascript:void(0);" class="flex p-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-800">
+                      <span class="mr-auto">Add a task</span>
                     </a>
-                    <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="options absolute bg-white text-gray-600 origin-top-right right-0 mt-2 w-36 rounded-md shadow-lg overflow-hidden">
-                      <a href="javascript:void(0);" class="flex p-2 text-sm hover:bg-gray-100">
-                          <span style="white-space: nowrap;">Edit activity</span>
-                      </a>
-                      <a href="javascript:void(0);" class="flex p-2 text-sm hover:bg-gray-100">
-                          <span style="white-space: nowrap;">Delete activity</span>
-                      </a>
+                    <button id="editActId-01" onclick="editActivity(this)" class="flex p-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-800">
+                      <span class="mr-auto">Edit activity</span>
+                    </button>
+                    <a href="javascript:void(0);" class="flex p-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-800">
+                      <span class="mr-auto">Delete activity</span>
+                    </a>
+                    <a href="javascript:void(0);" class="flex p-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-800">
+                      <span class="mr-auto">Mark as done</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!--/  -->
+            </summary>
+            <div class="text-gray-800 dark:text-gray-200 divide-y-4 divide-white dark:divide-gray-800 mb-3">
+
+              <!-- Sub activity -->
+              <div class="py-1 mx-5 px-5 rounded bg-gray-100 dark:bg-gray-900">
+                <div class="flex flex-row content-center justify-between">
+                  <a href="javascript:void(0);" class="underline">
+                    Wiring the building
+                  </a>
+                  <div class="shrink-0 flex flex-row">
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs uppercase">To-DO</span>
+                    </div>
+                    <div>
+                      <img src="../assets/img/no-profile.jpg" class="w-6 h-6 rounded-full" alt="">
                     </div>
                   </div>
                 </div>
-              <!--/  -->
-            </summary>
-            <div class="group-open:animate-fadeIn text-gray-800 dark:text-gray-200 divide-y divide-white mb-3">
-              <!-- Sub activity -->
-              <div class="py-1 mx-5 px-5 rounded bg-gray-100">
-                Sub activity 
               </div>
               <!--/ Sub activity -->
-              <!-- Sub activity -->
-              <div class="py-1 mx-5 px-5 rounded bg-gray-100">
-                Sub activity 
-              </div>
-              <!--/ Sub activity -->
-              <!-- Sub activity -->
-              <div class="py-1 mx-5 px-5 rounded bg-gray-100">
-                Sub activity 
-              </div>
-              <!--/ Sub activity -->
+              
             </div>
           </details>
         </div>
         <!--/ Main activity -->
+
       </div>
       <!--/ Activities -->
     </div>
-    <div class=" px-4 rounded-lg hidden" id="resources" role="tabpanel" aria-labelledby="resources-tab">
-      <ul class="rounded overflow-hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-white">
-        <li class="px-4 py-2 hover:bg-gray-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
-          First Tool
-        </li>
-        <li class="px-4 py-2 hover:bg-gray-700 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out"> 
-          Second Tool
-        </li>
-      </ul>
+    <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="resources" role="tabpanel" aria-labelledby="resources-tab">
+      <!-- Tool -->
+      <div class="pb-2">
+        <div class="py-2">Tools</div>
+        <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
+          <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+            Drill kubwa
+          </li>
+          <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+            Drill ndogo
+          </li>
+        </ul>
+      </div>
+      <!--/ Tool -->
+      <!-- People -->
+      <div class="pb-2">
+        <div class="py-2">People</div>
+        <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
+          <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+            Jasper Rup
+          </li>
+          <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+            Ezbon Moses
+          </li>
+        </ul>
+      </div>
+      <!--/ People -->
+      <!-- People -->
+      <div class="pb-2">
+        <div class="py-2">Deliverables</div>
+        <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
+          <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+            52 Dahua Camera s
+          </li>
+          <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+            45 Smart TV
+          </li>
+        </ul>
+      </div>
+      <!--/ People -->
     </div>
     <div class="p-4 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-white hidden" id="report" role="tabpanel" aria-labelledby="report-tab">
       <h1>
@@ -115,6 +241,5 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
 </div>
 
 <script src="js/flowbite.min.js"></script>
-<script>
-</script>
+
 
