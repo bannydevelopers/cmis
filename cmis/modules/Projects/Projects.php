@@ -35,7 +35,8 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
     $activities = $db->select('activities')->where(['activity_id'=>$storage->request[3]])->fetchAll();
     $data = [
         'project'=>$project,
-        'activity'=>$activities
+        'activity'=>$activities,
+        'currency'=>$storage->system_config->system_currency
     ];
     die(helper::find_template('project_details', $data));
 }
@@ -44,5 +45,12 @@ $staff= $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name
 $project = $db->select('project', "project.*, concat( first_name,' ',last_name) as pm_name")
               ->join('user', 'project_manager=user_id')
               ->order_by('project_id', 'desc')->fetchAll();
-$data = ['project'=>$project,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,'user'=>$staff];
+$data = [
+    'project'=>$project,
+    'msg'=>$msg, 
+    'status'=>$ok,
+    'request_uri'=>$request,
+    'user'=>$staff,
+    'currency'=>$storage->system_config->system_currency
+];
 echo helper::find_template('projects', $data);

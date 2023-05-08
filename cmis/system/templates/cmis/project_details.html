@@ -20,11 +20,11 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
   <div class="shadow rounded-lg overflow-hidden">
       <div class="flex flex-row justify-between">
         <div class="p-4">
-          <p class="text-xl">TZS <?=$project['project_burget']?></p>
+          <p class="text-xl"><?=$currency?> <?=number_format($project['project_burget'])?></p>
           <p class="text-gray-700 dark:text-gray-400">Budget</p>
         </div>
         <div class="p-4">
-          <p class="text-xl">TZS <?=$project['project_burget']?></p>
+          <p class="text-xl"><?=$currency?> <?=number_format($project['project_burget'])?></p>
           <p class="text-gray-700 dark:text-gray-400">Used</p>
         </div>
         <div class="p-4">
@@ -41,11 +41,11 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
         <div class="shrink-0 w-full mob:w-1/2">
           <div class="flex flex-row">
             <p>Starting Date:</p>
-            <p class="pl-2 font-bold"><?=$project['project_starting_date']?></p>
+            <p class="pl-2 font-bold"><?=helper::format_time($project['project_starting_date'],'d M, Y')?></p>
           </div>
           <div class="flex flex-row">
             <p>Ending Date:</p>
-            <p class="pl-2 font-bold"><?=$project['project_ending_date']?></p>
+            <p class="pl-2 font-bold"><?=helper::format_time($project['project_ending_date'],'d M, Y')?></p>
           </div>
           <div class="flex flex-row">
             <p>Time duration:</p>
