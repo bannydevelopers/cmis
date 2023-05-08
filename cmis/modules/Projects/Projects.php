@@ -39,8 +39,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
     ];
     die(helper::find_template('project_details', $data));
 }
-$staff= $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name")
-                  ->fetchALL();
+$staff= $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name")->fetchALL();
 
 $project = $db->select('project', "project.*, concat( first_name,' ',last_name) as pm_name")
               ->join('user', 'project_manager=user_id')
