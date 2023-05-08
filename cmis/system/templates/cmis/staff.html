@@ -260,17 +260,12 @@
                 </div>
               </div>
             </div>
-            <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
-              <label>Choose document type
-                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="appendDocInput(this)">
-                  <option value="CV">CV </option>
-                  <option value="CONTRACT">CONTRACT</option>
-                  <option value="UNI CERTIFICATE">UNI CERTIFICATE</option>
-                  <option value="DIPLOMA CERTIFICATE">DIPLOMA CERTIFICATE</option>
-                </select>
-              </label>
+            <div>
+              <div class="pt-3">Have an attachment? 
+                <a class="text-blue-500 hover:underline cursor-pointer" onclick="appendDocInput();">Add</a>
+              </div>
+              <div id="documentInputs"></div>
             </div>
-            <div id="documentInputs"></div>
           </div>
           <div class="pb-8">
             <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Save</button>
@@ -480,7 +475,7 @@
           </div>
         </div> 
         <!--/ Edit staff modal -->
-        <!-- Edit staff modal -->
+        <!-- View staff modal -->
         <div id="view-staff-modal-<?=$x['staff_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
           <div class="relative w-full max-w-4xl max-h-full items-center">
             <!-- Modal content -->
@@ -490,13 +485,56 @@
                 <span class="sr-only">Close modal</span>
               </button>
               <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
-                <h3 class="mb-4 text-xl font-medium">Staff </h3>
-                
+                <div class="relative max-w-md mx-auto md:max-w-2xlmin-w-0 break-words bg-white w-full mb-6 rounded-xl mt-16">
+                  <div class="px-6">
+                      <div class="flex flex-wrap justify-center">
+                          <div class="w-full flex justify-center">
+                              <div class="relative">
+                                  <img src="img/no-profile.jpg" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"/>
+                              </div>
+                          </div>
+                          
+                          <div class="w-full text-center mt-20">
+                            <!--  
+                              <div class="flex justify-center lg:pt-4 pt-8 pb-0">
+                                  <div class="p-3 text-center">
+                                      <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">3,360</span>
+                                      <span class="text-sm text-slate-400">Photos</span>
+                                  </div>
+                                  <div class="p-3 text-center">
+                                      <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">2,454</span>
+                                      <span class="text-sm text-slate-400">Followers</span>
+                                  </div>
+              
+                                  <div class="p-3 text-center">
+                                      <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">564</span>
+                                      <span class="text-sm text-slate-400">Following</span>
+                                  </div>
+                              </div>
+                            -->
+                          </div>
+                          
+                      </div>
+                      <div class="text-center mt-2">
+                          <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1"><?=$x['first_name'] . " " . $x['middle_name'] . " " . $x['last_name']?></h3>
+                          <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                              <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i><?=$x['staff_residence_address']?>
+                          </div>
+                      </div>
+                      <div class="mt-6 py-6 border-t border-slate-200 text-center">
+                          <div class="flex flex-wrap justify-center">
+                              <div class="w-full px-4">
+                                  <p class="font-light leading-relaxed text-slate-600 mb-4">Details.</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
               </div>
             </div>
           </div>
         </div> 
-        <!--/ Edit staff modal -->
+        <!--/ View staff modal -->
         <?php } ?>
         
       </tbody>
@@ -535,7 +573,28 @@
   }
 
 
-  function appendDocInput(docVal){
+  function appendDocInput(){
+    docInputs = `<div class="flex flex-wrap -mx-3 mb-6 pt-3">
+      <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
+        <label>Choose document type
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="staff_doc[name][]">
+            <option value="CV">CV </option>
+            <option value="CONTRACT">CONTRACT</option>
+            <option value="UNI_CERTIFICATE">UNI CERTIFICATE</option>
+            <option value="DIPLOMA_CERTIFICATE">DIPLOMA CERTIFICATE</option>
+          </select>
+        </label>
+      </div>
+      <div class="w-full mob:w-2/3 px-3 my-1 mob:my-0"> 
+        <label>Choose document file
+          <input class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" name="staff_doc[docfile][]">
+        </label>
+      </div>
+    </div>`;
+    documentInputs = document.getElementById("documentInputs");
+    documentInputs.insertAdjacentHTML('beforeend', docInputs);
+  }
+  /*function changeDocInput(docVal){
     var docName = "";
     if(docVal.value == "CV") {
       docName = "document_cv";
@@ -556,7 +615,7 @@
     </div>`;
     documentInputs = document.getElementById("documentInputs");
     documentInputs.insertAdjacentHTML('beforeend', docInputs);
-  }
+  }*/
 
 
   const input = document.querySelector("#phone");
