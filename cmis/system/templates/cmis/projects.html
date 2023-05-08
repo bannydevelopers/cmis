@@ -19,11 +19,11 @@
                 <form class="space-y-6" method="POST">
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
-                      <label>Roles
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_manager" required> 
+                      <label>Project manager role
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_manager_role" required> 
                           <option selected="true" disabled="disabled">Choose...</option> 
-                          <?php foreach($user as $r) { ?>
-                          <option value="<?=$r['user_id']?>"><?=$r['pm_name']?></option>
+                          <?php foreach($roles as $r) { ?>
+                          <option value="<?=$r['role_id']?>"><?=$r['role_name']?></option>
                           <?php } ?>
                         </select>
                       </label>
