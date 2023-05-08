@@ -18,7 +18,7 @@ if(isset($_POST['invoice_date'])){
         
     ];
     $k = $db->insert('invoice', $data);
-    //var_dump($db->error());
+    var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'invoice added successful';

@@ -13,11 +13,11 @@ if(isset($_POST['supplier_name'])){
         'supplier_email'=>$_POST['supplier_email'],
         'supplier_physical_address'=>$_POST['supplier_physical_address'],
         'supplier_details'=>$_POST['supplier_details'],
-        'created_date'=>date('Y-m-d H:i:s')
+        'create_time'=>date('Y-m-d H:i:s')
         
     ];
     $k = $db->insert('supplier', $data);
-    var_dump($db->error());
+    //var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'supplier added successful';
