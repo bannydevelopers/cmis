@@ -70,6 +70,22 @@ if(isset($_POST['role_name'])){
     }
     else $msg = 'Permission denied';
 }
+if(isset($_POST['department_name'])){
+    if($helper->user_can('can_add_department')){
+        $dept_id = $db->insert('department',['department_name'=>$_POST['department_name']]);
+        if(intval($dept_id)) $msg = 'Department added successful';
+        else $msg = 'Department adding failed, possibly a duplicate already exists';
+    }
+    else $msg = 'Permission denied';
+}
+if(isset($_POST['branch_name'])){
+    if($helper->user_can('can_add_branch')){
+        $branch_id = $db->insert('branches',['branch_name'=>$_POST['branch_name']]);
+        if(intval($branch_id)) $msg = 'Branch added successful';
+        else $msg = 'Branch adding failed, possibly a duplicate already exists';
+    }
+    else $msg = 'Permission denied';
+}
 if(isset($_POST['full_name'])){
     
     $role = $db->select('designation_role','role_id')
@@ -191,11 +207,19 @@ if(isset($_POST['full_name'])){
 }
 $designation = $db->select('designation','designation_id,designation_name')
                   ->order_by('designation_name', 'asc')
-                  ->fetchALL();
+                  ->fetchAll();
                   
 $roles = $db->select('role','role_id,role_name')
                   ->order_by('role_name', 'asc')
-                  ->fetchALL();
+                  ->fetchAll();
+                  
+$depts = $db->select('department','department_id,department_name')
+                  ->order_by('department_name', 'asc')
+                  ->fetchAll();
+                  
+$branches = $db->select('branches','branch_id,branch_name')
+                  ->order_by('branch_name', 'asc')
+                  ->fetchAll();
                   
 $banks = $db->select('bank','bank_id,bank_name')
                   ->order_by('bank_name', 'asc')
@@ -209,16 +233,20 @@ $staff = $db->select('staff')
             ->where("user.status != 'deleted'")
             ->order_by('user_id', 'desc')
             ->fetchAll();
-//var_dump('<pre>',$staff);
+
 if($helper->user_can('can_view_staff')){
     $data = [
         'designation'=>$designation,
         'roles'=>$roles, 
+        'branches'=>$branches, 
+        'departments'=>$depts, 
         'banks'=>$banks, 
         'staff'=>$staff,
         'msg'=>$msg, 
         'status'=>$status,
-        'request_uri'=>$request];
+        'request_uri'=>$request
+    ];
+
     echo helper::find_template('Staff', $data);
 }
 else echo helper::find_template('permission_denied');
