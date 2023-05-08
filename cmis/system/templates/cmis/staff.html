@@ -28,7 +28,7 @@
   class="hidden text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
   Add Department
   </button>
-  <button id="add-dep-modal-id"
+  <button id="add-work-loc-modal-id"
   data-modal-target="add-work-loc-modal" data-modal-toggle="add-work-loc-modal" 
   class="hidden text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
   Add work location
@@ -40,7 +40,7 @@
   <div class="relative w-full max-w-lg max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-department-modal">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-work-loc-modal">
             <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
             <span class="sr-only">Close modal</span>
           </button>
@@ -263,12 +263,12 @@
                 </div>
                 <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                   <label>Work location
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="branch_name">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="branch_name" onchange="openWorkLocModal(this);">
                       <option selected="true" disabled="disabled">Choose...</option> 
                       <?php foreach($branches as $br) { ?>
                       <option value="<?=$br['branch_id']?>"><?=$br['branch_name']?></option>
                       <?php } ?>
-                      <option value="">Add new role</option>
+                      <option value="">Add a branch</option>
                     </select>
                   </label>
                 </div>
@@ -627,7 +627,7 @@
   function openWorkLocModal(selDepVal) {
     if(selDepVal.value == "") {
       document.getElementById("close-staff-modal-id").click();
-      document.getElementById("add-dep-modal-id").click();
+      document.getElementById("add-work-loc-modal-id").click();
     }
   }
 
