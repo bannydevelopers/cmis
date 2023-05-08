@@ -80,7 +80,12 @@ if(isset($_POST['department_name'])){
 }
 if(isset($_POST['branch_name'])){
     if($helper->user_can('can_add_branch')){
-        $branch_id = $db->insert('branches',['branch_name'=>$_POST['branch_name']]);
+        $data = [
+            'branch_name'=>addslashes($_POST['branch_name']),
+            'branch_location'=>addslashes($_POST['branch_location']),
+            'branch_address'=>addslashes($_POST['branch_address'])
+        ];
+        $branch_id = $db->insert('branches', $data);
         if(intval($branch_id)) $msg = 'Branch added successful';
         else $msg = 'Branch adding failed, possibly a duplicate already exists';
     }
