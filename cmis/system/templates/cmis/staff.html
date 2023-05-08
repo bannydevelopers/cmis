@@ -147,10 +147,14 @@
             </form>
             <div>
               <?php foreach($designation as $des){?>
-                <span>
-                  <?=$des['designation_name']?>
-                </span>
-                <a href="<?=$des['designation_id']?>"><i class="fa fa-trash"></i></a>
+                <div class="flex flex-row">
+                  <div>
+                    <?=$des['designation_name']?>
+                  </div>
+                  <div class="ml-6 hover:text-red-500">
+                    <a href="<?=$des['designation_id']?>"><i class="fa fa-trash"></i></a>
+                  </div>
+                </div>
               <?php }?>
             </div>
           </div>
