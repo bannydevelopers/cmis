@@ -61,7 +61,7 @@ if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
     }
     else $msg = 'You do not have permission for the action';
 }
-if(isset($_POST['first_name'])){
+if(isset($_POST['full_name'])){
     
     $role = $db->select('designation_role','role_id')
                ->where(['designation_id'=>intval($_POST['designation'])])
@@ -69,11 +69,17 @@ if(isset($_POST['first_name'])){
 
     if(isset($_POST['staff_id']) && intval($_POST['staff_id'])){
         if($helper->user_can('can_edit_staff')){
+            $names = explode(' ', addslashes($_POST['full_name']));
+            $fn = $names[0];
+            $ln = end($names);
+            array_shift($names);
+            array_pop($names);
+            $mn = implode(' ', $names);
             $user = [
-                'first_name'=>addslashes($_POST['first_name']), //
-                'middle_name'=>addslashes($_POST['middle_name']), //
-                'last_name'=>addslashes($_POST['last_name']), //
-                'system_role'=>$role['role_id'], //
+                'first_name'=>$fn,
+                'middle_name'=>$mn,
+                'last_name'=>$ln,
+                'system_role'=>$role['role_id'],
                 //'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
                 'email'=>helper::format_email($_POST['email']), //
@@ -121,10 +127,16 @@ if(isset($_POST['first_name'])){
                     ->where(['designation_id'=>intval($_POST['designation'])])
                     ->fetch();
             
+            $names = explode(' ', addslashes($_POST['full_name']));
+            $fn = $names[0];
+            $ln = end($names);
+            array_shift($names);
+            array_pop($names);
+            $mn = implode(' ', $names);
             $user = [
-                'first_name'=>addslashes($_POST['first_name']), 
-                'middle_name'=>addslashes($_POST['middle_name']), 
-                'last_name'=>addslashes($_POST['last_name']), 
+                'first_name'=>$fn, 
+                'middle_name'=>$mn, 
+                'last_name'=>$ln, 
                 'system_role'=>$role['role_id'], 
                 'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
