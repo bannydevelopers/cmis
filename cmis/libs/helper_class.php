@@ -76,6 +76,16 @@ class helper{
         $permission = $this->get_user_permissions($this->get_session_user('system_role'));
         return in_array($reference, $permission) ? true : false;
     }
+    public static function get_user_avatar($user_id){
+        $conf = storage::init();
+        $dir = realpath(__DIR__.'/../system/assets/uploads/avatar');
+        $default = 'img/no-profile.jpg';
+
+        if(is_readable("$dir/avatar_$user_id.jpg")) 
+            return "uploads/avatar/avatar_{$user_id}.jpg";
+        else
+            return $default;
+    }
     public function login_user($login_info){
         $db = db::get_connection(storage::init()->system_config->database);
         $obj = new static();
@@ -112,8 +122,12 @@ class helper{
         return date($format, $timestamp);
     }
     public static function format_phone_number($number){
-        if($number[0] == 0) $number = '255'.substr($number, 1);
+        $number = preg_replace('~\D~', '', $number);
+        if($number[0] == 0 or strlen($number) < 10) $number = '255'.intval($number);
         return $number;
+    }
+    public static function format_phone($number){
+        return self::format_phone_number($number);
     }
     public static function format_email($email){
         return filter_var($email, FILTER_SANITIZE_EMAIL);

@@ -79,7 +79,6 @@
           <th class="px-4 py-3">Name</th>
           <th class="px-4 py-3">Discription</th>
           <th class="px-4 py-3">Unit</th>
-          <th class="px-4 py-3">Date created</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
       </thead>
@@ -99,9 +98,6 @@
           </td>
           <td class="px-4 py-3 text-sm">
             <?=$prod['product_unit']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=helper::format_time($prod['created_time'],'d M, Y @ H:s')?>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   

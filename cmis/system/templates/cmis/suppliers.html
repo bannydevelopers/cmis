@@ -89,8 +89,8 @@
           <th class="px-4 py-3">Name</th>
           <th class="px-4 py-3">Phone number</th>
           <th class="px-4 py-3">Email</th>
-          <th class="px-4 py-3">Description</th>
           <th class="px-4 py-3">Physical adress </th>
+          <th class="px-4 py-3">Description</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
       </thead>
@@ -115,10 +115,7 @@
           <td class="px-4 py-3 text-sm">
             <?=$sup['supplier_details']?>
           </td>
-          <td class="px-4 py-3 text-sm">
-            <?=helper::format_time($sup['create_time'],'d M, Y @ H:s')?>
-          </td>
-        
+         
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
               <button data-modal-target="add-supplier-modal-<?=$sup['supplier_id']?>" data-modal-toggle="add-supplier-modal-<?=$sup['supplier_id']?>" 

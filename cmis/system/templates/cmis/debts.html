@@ -2,28 +2,28 @@
 <h2
   class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
 >
-  Debts
+  debts
 </h2>
 <!-- Modal toggle -->
 <div>
   <button 
-  data-modal-target="add-debt-modal" data-modal-toggle="add-debt-modal" 
+  data-modal-target="add-deb-modal" data-modal-toggle="add-deb-modal" 
   class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
-  Add Debt
+  Add debt
   </button>
 </div>
 
 <!-- Main modal -->
-<div id="add-debt-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+<div id="add-deb-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-debt-modal">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-deb-modal">
               <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="px-6 py-6 lg:px-8">
-              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Debt </h3>
+              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add debt </h3>
               <form class="space-y-6" action="" method="POST">
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
@@ -32,27 +32,38 @@
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label for="discription">debt discription </label>
-                    <textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Debt discription" name="discription" ></textarea>
+                    <textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="deb discription" name="discription" ></textarea>
                   </div>
                 </div>
                 <div class=" flex flex-wrap -mx-3 mb-6">
                     <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                       <label for="amount">Amount </label>
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Debt amount" required name="amount">
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="deb amount" required name="amount">
                     </div>
                     <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                      <label for="party_type">party type </label>
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Debt party type" required name="party_type">
-                    </div>
+                      <label>Party type
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="Party_type" required>
+                          <option selected="true" disabled="disabled">Choose...</option> 
+                          <option value="Business partner">Business partner</option>
+                          <option value="Customer">Customer</option>
+                          <option value="Supplier">Supplier</option>
+                        </select>
+                      </label>
+                 </div>
                   </div>
                 </div>
                 <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                  <label for="debt_type">Debt type </label>
-                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Debt type" required name="debt_type">
+                  <label>debt type 
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_type" required>
+                        <option selected="true" disabled="disabled">Choose...</option> 
+                        <option value="Loan">Loan</option>
+                        <option value="Lend">Lend</option>
+                      </select>
+                    </label>
                 </div>
                 <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                   <label for="party">Party</label>
-                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Debt party" required name="party_id">
+                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="deb party" required name="party_id">
                 </div>
                 <div class="pb-8">
                   <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
@@ -63,6 +74,20 @@
     </div>
 </div> 
 <br />
+<?php if($msg) {?>
+  <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php } ?>
+<div id="message"></div>
 <div class="w-full overflow-hidden rounded-lg shadow-md">
   <div class="w-full overflow-x-auto">
     <table class="w-full">
@@ -70,64 +95,61 @@
         <tr
           class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
         >
-          <th class="px-4 py-3">debt date</th>
-          <th class="px-4 py-3">Debt discription</th>
+          <th class="px-4 py-3">date</th>
+          <th class="px-4 py-3">debt description</th>
           <th class="px-4 py-3">debt amount</th>
-          <th class="px-4 py-3">debt party type</th>
+          <th class="px-4 py-3">party type</th>
           <th class="px-4 py-3">debt type</th>
-          <th class="px-4 py-3">debt party</th>
           <th class="px-4 py-3">Actions</th>
         </tr>
       </thead>
       <tbody
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
+      <?php 
+        if (is_array($debt) || is_object($debt))
+        foreach ($debt as $deb)
+     {?>
         <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
-            <div class="flex items-center text-sm">
-              <div>
-                <p class="font-semibold">12 march 2023 </p>
-              </div>
-            </div>
+            <img src="img/box.png" class="h-16 w-16 object-cover"/>
+          </td>
+          <td class="px-4 py-3">
+            <?=$deb['date']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            Borrowing for project implimentation
+            <?=$deb['debt_description']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            30,000,000
+            <?=$deb['debt_amount']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            Business Partner
+            <?=$deb['party_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <span
-              class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-            >
-              Loan
-            </span>
+            <?=$deb['deb_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            Xyz company ltd
+            <?=$deb['party']?>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
-              
-              <button 
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+              <button data-modal-target="add-debt-modal-<?=$deb['debt_id']?>" data-modal-toggle="add-debt-modal-<?=$deb['debt_id']?>" 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fodeb:outline-none fodeb:outline-gray-300"
                 aria-label="Edit"
               >
               <i class="fa-solid fa-pen-to-square fa-lg"></i>
               </button>
-              <button onclick="del()"
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+              <button id="del-<?=$deb['debt_id']?>" onclick="deldebt(this)" 
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fodeb:outline-none fodeb:outline-gray-300"
                 aria-label="Delete"
-              >
+                >
               <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
               </button>
             </div>
           </td>
         </tr>
-        
+        <?php }?>
       </tbody>
     </table>
   </div>

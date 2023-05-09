@@ -9,15 +9,23 @@
     border-color: #6D28D9;
   }*/
 </style>
-
-<h2
-class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
->
-<?=$project['project_name']?>
-</h2>
-
+<div class="flex flex-row justify-between">
+  <h2
+  class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+  >
+  <?=$project['project_name']?>
+  </h2>
+  <div class="p-4">
+    <p class="text-xl">
+      <span class="bg-purple-200 text-purple-600 dark:bg-purple-600 dark:text-purple-200 py-1 px-3 rounded-full text-xs">
+        <?=str_replace('_',' ',ucwords($project['project_status']))?>
+      </span>
+    </p>
+  </div>
+</div>
 <div class="w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-300">
   <div class="shadow rounded-lg overflow-hidden">
+    <?php if(helper::init()->user_can('can_view_project_budget')){?>
       <div class="flex flex-row justify-between">
         <div class="p-4">
           <p class="text-xl"><?=$currency?> <?=number_format($project['project_burget'])?></p>
@@ -27,16 +35,8 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
           <p class="text-xl"><?=$currency?> <?=number_format($project['project_burget'])?></p>
           <p class="text-gray-700 dark:text-gray-400">Used</p>
         </div>
-        <div class="p-4">
-          <p class="text-xl">
-            <?php if($project['project_status'] == 'in_progress') { ?><span class="bg-purple-200 text-purple-600 dark:bg-purple-600 dark:text-purple-200 py-1 px-3 rounded-full text-xs">In progress</span><?php } ?>
-          </p>
-        </div>
-        <div class="p-4 hidden">
-          <p class="text-xl">70% <span class="text-sm">complete</span></p>
-          <p class="text-gray-700 dark:text-gray-400">Project status</p>
-        </div>
       </div>
+      <?php }?>
       <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex flex-row w-full">
         <div class="shrink-0 w-full mob:w-1/2">
           <div class="flex flex-row">
@@ -77,8 +77,10 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
           <div class="text-xs uppercase font-bold text-gray-600 dark:text-gray-400 tracking-wide">Client</div>
           <div class="items-center pt-2">
             <div>
-              <p class="font-bold">Rand Osterbay</p>
-              <a href="tel:07760" class="text-sm text-gray-700 dark:text-gray-400">(778) 111-1111</a>
+              <p class="font-bold"><?=$project['customer_name']?></p>
+              <a href="tel:+<?=helper::format_phone_number($project['customer_phone_number'])?>" class="text-sm text-gray-700 dark:text-gray-400">
+                <?=helper::format_phone_number($project['customer_phone_number'])?>
+              </a>
             </div>
           </div>
         </div>
@@ -106,21 +108,50 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
   <div id="myTabContent">
     <div class="px-4 rounded-lg" id="activities" role="tabpanel" aria-labelledby="activities-tab">
       <div class="mb-4">
-        <form action="POST" >
+        <form method="POST">
           <div class="flex flex-row">
-            <div class="w-5/6 mx-auto">
-              <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="activity_name" placeholder="Add new activity">
+            <div class="w-2/6 mx-auto">
+              <p>
+                <label>Activity name</label>
+                <input name="activity_name" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">
+              </p>
             </div>
-            <div class="mx-auto">
-              <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Add</button>
+            <div class="w-2/6 mx-auto">
+              <p>
+                <label>Activity duration(days)</label>
+                <input name="activity_duration" type="number" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">
+              </p>
+            </div>
+            <div class="w-2/6 mx-auto">
+              <p>
+                <label>Activity assignee</label>
+                <select required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_assignee" required> 
+                  <option selected="true" disabled="disabled">Choose...</option> 
+                  <?php foreach($users as $assignee) { ?>
+                  <option value="<?=$assignee['user_id']?>"><?=$assignee['full_name']?></option>
+                  <?php } ?>
+                </select>
+              </p>
+              <input type="hidden" name="project_ref" value="<?=$project['project_id']?>">
+              <input type="hidden" name="activity_parent" value="0">
+            </div>
+            <div class="w-2/6 mx-auto">
+              <p>
+                <label>Activity description</label>
+                <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity"></textarea>
+              </p>
             </div>
           </div>
+            <div class="mx-auto">
+              <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Save</button>
+            </div>
         </form>
       </div>
       <!-- Activities -->
       <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
 
         <!-- Main activity -->
+        <?php foreach($activity as $act){?>
         <div class="rounded-lg bg-white dark:bg-gray-800">
           <details class="group text-gray-900 dark:text-gray-200">
             <summary class="flex items-center font-medium cursor-pointer list-none p-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
@@ -130,7 +161,7 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
               </span>
               <!--  -->
               <div class="flex justify-between w-full">
-                <div id="actContent-01">Installation of cameras</div>
+                <div id="actContent-01"><?=$act['activity_name']?></div>
                 <div class="relative">
                   <a href="javascript:void(0);" @click="open = !open">
                     <svg fill="currentColor" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
@@ -177,6 +208,7 @@ class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             </div>
           </details>
         </div>
+        <?php }?>
         <!--/ Main activity -->
 
       </div>

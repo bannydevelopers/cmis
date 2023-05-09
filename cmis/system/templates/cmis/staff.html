@@ -400,7 +400,7 @@
               >
                 <img
                   class="object-cover w-full h-full rounded-full"
-                  src="img/no-profile.jpg"
+                  src="<?=helper::get_user_avatar($x['user_id'])?>"
                   alt=""
                   loading="lazy"
                 />
@@ -608,7 +608,7 @@
                     <div class="flex flex-wrap justify-center">
                       <div class="w-full flex justify-center">
                         <div class="relative">
-                          <img src="img/no-profile.jpg" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"/>
+                          <img src="<?=helper::get_user_avatar($x['user_id'])?>" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"/>
                         </div>
                       </div>
                       <div class="w-full text-center mt-20">

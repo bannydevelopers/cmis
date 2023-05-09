@@ -27,6 +27,16 @@
         "can_view_contracts",
 
         "can_add_designation",
-        "can_delete_designation"
+        "can_delete_designation",
+
+        "can_add_department",
+        "can_edit_department",
+        "can_view_department",
+        "can_delete_department",
+
+        "can_add_branch",
+        "can_edit_branch",
+        "can_view_branch",
+        "can_delete_branch"
     ]
 }
