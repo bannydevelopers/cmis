@@ -76,6 +76,13 @@ class helper{
         $permission = $this->get_user_permissions($this->get_session_user('system_role'));
         return in_array($reference, $permission) ? true : false;
     }
+    public static function get_user_avatar($user_id){
+        $conf = storage::init();
+        return json_encode($conf->request_url);
+        $dir = realpath(__DIR__.'/../system/uploads/avatar');
+        $default = 'cmis/system/assets/img/no-profile.jpg';
+        if(is_readable("$dir/avatar$user_id.jpg")) return '../../';
+    }
     public function login_user($login_info){
         $db = db::get_connection(storage::init()->system_config->database);
         $obj = new static();
