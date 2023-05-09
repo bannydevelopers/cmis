@@ -238,7 +238,7 @@ $staff = $db->select('staff')
             ->where("user.status != 'deleted'")
             ->order_by('user_id', 'desc')
             ->fetchAll();
-echo helper::get_user_avatar(1);
+            
 if($helper->user_can('can_view_staff')){
     $data = [
         'designation'=>$designation,

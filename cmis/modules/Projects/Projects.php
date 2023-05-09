@@ -38,19 +38,45 @@ if(isset($_POST['project_name'])){
     else $msg = 'Error adding project';
     //var_dump($db->error());
 }
+
+$users = $db->select('user',"user_id,concat(first_name,' ', last_name) as full_name")
+            ->where("system_role IN ({$mod_conf->project_assignees})")
+            ->fetchALL();
+
 if(isset($storage->request[3]) && intval($storage->request[3])){
-    $cols = "project.*,designation.designation_name, concat( first_name,' ',last_name) as pm_name";
+    $cols = "project.*,designation.designation_name,customer.*, concat(first_name,' ',last_name) as pm_name";
+    
+    if(isset($_POST['activity_name'])){
+        $data = [ 
+            'activity_name'=>$_POST['activity_name'], 
+            'activity_duration'=>$_POST['activity_duration'], 
+            'activity_description'=>$_POST['activity_description'], 
+            'project_ref'=>$_POST['project_ref'], 
+            'assignee_id'=>$_POST['project_assignee'], 
+            'created_by'=>helper::init()->get_session_user('user_id'), 
+            'activity_parent'=>$_POST['activity_parent'], 
+        ];
+        $k = $db->insert('activities', $data);
+        if(intval($k)) $msg = 'Activity created successful';
+        else $msg = 'Activity creation fail';
+    }
+
     $project = $db->select('project', $cols)
                  ->join('user', 'project_manager=user_id')
                  ->join('staff','staff.user_reference=user.user_id')
+                 ->join('customer','project.project_client=customer.customer_id')
                  ->join('designation', 'designation_id=staff.designation')
                  ->where(['project_id'=>$storage->request[3]])
                  ->order_by('project_id', 'desc')->fetch();
-    var_dump($db->error());
-    $activities = $db->select('activities')->where(['activity_id'=>$storage->request[3]])->fetchAll();
+
+    $activities = $db->select('activities', "activities.*, concat(first_name,' ', last_name) as assignee")
+                     ->join('user', 'assignee_id=user_id')
+                     ->where(['project_ref'=>$storage->request[3]])
+                     ->fetchAll();
     $data = [
         'project'=>$project,
         'activity'=>$activities,
+        'users'=>$users,
         'currency'=>$storage->system_config->system_currency
     ];
     die(helper::find_template('project_details', $data));
@@ -59,6 +85,8 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
 $staff = $db->select('user',"user_id,concat(first_name,' ', last_name) as pm_name")
             ->where(['system_role'=>$mod_conf->pm_manager])
             ->fetchALL();
+
+$clients = $db->select('customer','customer_id, customer_name, customer_email')->fetchAll();
 
 $project = $db->select('project', "project.*, concat( first_name,' ',last_name) as pm_name")
               ->join('user', 'project_manager=user_id')
@@ -71,6 +99,7 @@ $data = [
     'status'=>$ok,
     'request_uri'=>$request,
     'user'=>$staff,
+    'clients'=>$clients,
     'currency'=>$storage->system_config->system_currency,
     'roles'=>$roles
 ];
