@@ -84,22 +84,68 @@
             </div>
           </div>
         </div>
-        <div class="mx-auto">
-          <div class="text-xs uppercase font-bold text-gray-600 dark:text-gray-400 tracking-wide">Action</div>
-          <div class="items-center pt-2">
-            <div>
-              <div class="mx-auto">
-                <button data-modal-target="add-activity-modal" data-modal-toggle="add-activity-modal" class="hidden"></button>
-                <button type="button" onclick="add_activity(0)" class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                  <span style="white-space: nowrap;padding: 6px;display: block;">Add main activity</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
   </div>
 </div>
+
+<!-- Add activity modal -->
+<div id="add-activity-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-lg max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-activity-modal">
+            <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+              <span class="sr-only">Close modal</span>
+          </button>
+          <div class="px-3 py-6 lg:px-8 text-gray-900 dark:text-white">
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add activity</h3>
+            <div class="mb-4">
+              <form method="POST">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3 my-2 mob:my-0">
+                    <label>Activity name
+                      <input name="activity_name" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3 my-2 mob:my-0">
+                    <label>Activity duration(days)
+                      <input name="activity_duration" type="number" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3 my-2 mob:my-0">
+                    <label>Activity assignee
+                      <select required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_assignee" required> 
+                        <option selected="true" disabled="disabled">Choose...</option> 
+                        <?php foreach($users as $assignee) { ?>
+                        <option value="<?=$assignee['user_id']?>"><?=$assignee['full_name']?></option>
+                        <?php } ?>
+                      </select>
+                    </label>
+                    <input type="hidden" name="project_ref" value="<?=$project['project_id']?>">
+                    <input type="hidden" name="activity_parent" value="0">
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3 my-2 mob:my-0">
+                    <label>Activity description
+                      <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity"></textarea>
+                    </label>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>   
+<!--/ Add activity modal -->
 
 <div class="py-2">
   <!-- Tabs -->
@@ -114,59 +160,23 @@
       <li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Reports</button>
       </li>
-      <li role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
-      </li>
     </ul>
   </div>
   <!-- Tabs -->
   <!-- Details -->
   <div id="myTabContent">
     <div class="px-4 rounded-lg" id="activities" role="tabpanel" aria-labelledby="activities-tab">
-      <div class="mb-4">
-        <form method="POST">
-          <div class="flex flex-row">
-            <div class="w-2/6 mx-auto">
-              <p>
-                <label>Activity name</label>
-                <input name="activity_name" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">
-              </p>
-            </div>
-            <div class="w-2/6 mx-auto">
-              <p>
-                <label>Activity duration(days)</label>
-                <input name="activity_duration" type="number" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">
-              </p>
-            </div>
-            <div class="w-2/6 mx-auto">
-              <p>
-                <label>Activity assignee</label>
-                <select required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_assignee" required> 
-                  <option selected="true" disabled="disabled">Choose...</option> 
-                  <?php foreach($users as $assignee) { ?>
-                  <option value="<?=$assignee['user_id']?>"><?=$assignee['full_name']?></option>
-                  <?php } ?>
-                </select>
-              </p>
-              <input type="hidden" name="project_ref" value="<?=$project['project_id']?>">
-              <input type="hidden" name="activity_parent" value="0">
-            </div>
-            <div class="w-2/6 mx-auto">
-              <p>
-                <label>Activity description</label>
-                <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity"></textarea>
-              </p>
-            </div>
-          </div>
-            <div class="mx-auto">
-              <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Save</button>
-            </div>
-        </form>
+      
+      <div class="text-right pb-2">
+        <button data-modal-target="add-activity-modal" data-modal-toggle="add-activity-modal" class="hidden"></button>
+        <button type="button" onclick="add_activity(0)" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add main activity
+        </button>
       </div>
       <!-- Activities -->
       <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
-        <?php foreach($activity as $act){?>
+
         <!-- Main activity -->
+        <?php foreach($activity as $act){?>
         <div class="rounded-lg bg-white dark:bg-gray-800">
           <details class="group text-gray-900 dark:text-gray-200">
             <summary class="flex items-center font-medium cursor-pointer list-none p-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
@@ -238,8 +248,8 @@
             </div>
           </details>
         </div>
-        <!--/ Main activity -->
         <?php }?>
+        <!--/ Main activity -->
 
       </div>
       <!--/ Activities -->
@@ -288,11 +298,6 @@
     <div class="p-4 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-white hidden" id="report" role="tabpanel" aria-labelledby="report-tab">
       <h1>
         pending reports
-      </h1>
-    </div>
-    <div class="p-4 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-white hidden" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-      <h1>
-        pending settings
       </h1>
     </div>
   </div>
