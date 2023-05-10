@@ -1,3 +1,3 @@
 <?php 
 
-echo helper::find_template('products', []);
+echo helper::find_template('dispencing', []);
