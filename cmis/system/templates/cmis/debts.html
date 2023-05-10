@@ -28,21 +28,21 @@
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label for="date">Date </label>
-                    <input id="date" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="date">
+                    <input id="date" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="debt_date">
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label for="discription">debt discription </label>
-                    <textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="deb discription" name="discription" ></textarea>
+                    <label for="discription">debt description </label>
+                    <textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt description " name="debt_description" ></textarea>
                   </div>
                 </div>
                 <div class=" flex flex-wrap -mx-3 mb-6">
                     <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                       <label for="amount">Amount </label>
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="deb amount" required name="amount">
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt amount" required name="debt_amount">
                     </div>
                     <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                       <label>Party type
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="Party_type" required>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_Party_type" required>
                           <option selected="true" disabled="disabled">Choose...</option> 
                           <option value="Business partner">Business partner</option>
                           <option value="Customer">Customer</option>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                   <label>debt type 
-                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_type" required>
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt type" required>
                         <option selected="true" disabled="disabled">Choose...</option> 
                         <option value="Loan">Loan</option>
                         <option value="Lend">Lend</option>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                   <label for="party">Party</label>
-                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="deb party" required name="party_id">
+                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt party" required name="debt_party_id">
                 </div>
                 <div class="pb-8">
                   <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
@@ -110,12 +110,9 @@
         if (is_array($debt) || is_object($debt))
         foreach ($debt as $deb)
      {?>
-        <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+        
           <td class="px-4 py-3">
-            <img src="img/box.png" class="h-16 w-16 object-cover"/>
-          </td>
-          <td class="px-4 py-3">
-            <?=$deb['date']?>
+            <?=$deb['debt_date']?>
           </td>
           <td class="px-4 py-3 text-sm">
             <?=$deb['debt_description']?>
@@ -124,14 +121,12 @@
             <?=$deb['debt_amount']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$deb['party_type']?>
+            <?=$deb['debt_party_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$deb['deb_type']?>
+            <?=$deb['debt_type']?>
           </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$deb['party']?>
-          </td>
+          
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
               <button data-modal-target="add-debt-modal-<?=$deb['debt_id']?>" data-modal-toggle="add-debt-modal-<?=$deb['debt_id']?>" 
