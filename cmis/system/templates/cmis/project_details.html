@@ -163,8 +163,8 @@
             <input type="hidden" name="project_ref" value="<?=$project['project_id']?>">
             <div class="flex flex-wrap -mx-3 mb-6">
               <div class="w-full px-3 my-2 mob:my-0">
-                <label>Resource type
-                  <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_assignee" required onchange="changeSelectResources(this);"> 
+                <label>Resource type <span class="text-red-500">*</span>
+                  <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="activity_resource_type" required onchange="changeSelectResources(this);"> 
                     <option selected="true" disabled="disabled">Choose...</option> 
                     <option value="people">People</option>
                     <option value="tools">Tools</option>
@@ -173,6 +173,7 @@
                 </label>
               </div>
             </div>
+            
             <div id="toggle-resource"></div>
             <div class="text-right">
               <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Save</button>
@@ -350,12 +351,13 @@
   <!-- Details -->
 </div>
 <script>
+  count = 0;
   function changeSelectResources(selValue) {
     if(selValue.value == 'people') {
       document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full px-3 my-2 mob:my-0">
-          <label>People
-            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[people]" required> 
+          <label>Press trl + click to add people <span class="text-red-500">*</span>
+            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_people" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <?php foreach($users as $person) { ?>
               <option value="<?=$person['user_id']?>"><?=$person['full_name']?></option>
@@ -366,31 +368,122 @@
       </div>`;
     }
     if(selValue.value == 'tools') {
-      document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3 my-2 mob:my-0">
-          <label>Deliverables
-            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
+      toolInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-2/4 px-3 my-1 mob:my-0">
+          <label>Tools <span class="text-red-500">*</span>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <option value="tools">Tools 1</option>
               <option value="tools">Tools 2</option>
             </select>
           </label>
         </div>
+        <div class="w-1/4 px-3 my-1 mob:my-0"> 
+          <label>How many <span class="text-red-500">*</span>
+            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+          </label>
+        </div>
+        <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
+          <div class="my-auto pt-8">
+            <button type="button" onclick="appendToolInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+
+            </button>
+            <button type="button" onclick="delInput(`+count+`)" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">x
+            </button>
+          </div>
+        </div>
       </div>`;
+      document.getElementById('toggle-resource').innerHTML = toolInput;
+      count++;
     }
     if(selValue.value == 'deliverables') {
-      document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3 my-2 mob:my-0">
-          <label>Tools
-            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
+      deliverableInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-2/4 px-3 my-1 mob:my-0">
+          <label>Deliverable <span class="text-red-500">*</span>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <option value="deliverables">Deliverable 1</option>
               <option value="deliverables">Deliverable 2</option>
             </select>
           </label>
         </div>
+        <div class="w-1/4 px-3 my-1 mob:my-0"> 
+          <label>How many <span class="text-red-500">*</span>
+            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+          </label>
+        </div>
+        <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
+          <div class="my-auto pt-8">
+            <button type="button" onclick="appendDeliverablesInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+
+            </button>
+            <button type="button" onclick="delInput(`+count+`)" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">x
+            </button>
+          </div>
+        </div>
       </div>`;
+      document.getElementById('toggle-resource').innerHTML = deliverableInput;
+      count++;
     }
+  }
+  function appendToolInput(){
+    toolInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-2/4 px-3 my-1 mob:my-0">
+        <label>Tools <span class="text-red-500">*</span>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
+            <option selected="true" disabled="disabled">Choose...</option> 
+            <option value="tools">Tools 1</option>
+            <option value="tools">Tools 2</option>
+          </select>
+        </label>
+      </div>
+      <div class="w-1/4 px-3 my-1 mob:my-0"> 
+        <label>How many <span class="text-red-500">*</span>
+          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+        </label>
+      </div>
+      <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
+        <div class="my-auto pt-8">
+          <button type="button" onclick="appendToolInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+
+          </button>
+          <button type="button" onclick="delInput(`+count+`)" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">x
+          </button>
+        </div>
+      </div>
+    </div>`;
+    appendInput = document.getElementById("toggle-resource");
+    appendInput.insertAdjacentHTML('beforeend', toolInput);
+    count++;
+  }
+  function appendDeliverablesInput(){
+    deliverableInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-2/4 px-3 my-1 mob:my-0">
+        <label>Deliverable <span class="text-red-500">*</span>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
+            <option selected="true" disabled="disabled">Choose...</option> 
+            <option value="deliverables">Deliverable 1</option>
+            <option value="deliverables">Deliverable 2</option>
+          </select>
+        </label>
+      </div>
+      <div class="w-1/4 px-3 my-1 mob:my-0"> 
+        <label>How many <span class="text-red-500">*</span>
+          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+        </label>
+      </div>
+      <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
+        <div class="my-auto pt-8">
+          <button type="button" onclick="appendDeliverablesInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+
+          </button>
+          <button type="button" onclick="delInput(`+count+`)" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">x
+          </button>
+        </div>
+      </div>
+    </div>`;
+    appendInput = document.getElementById("toggle-resource");
+    appendInput.insertAdjacentHTML('beforeend', deliverableInput);
+    count++;
+  }
+  function delInput(valueId){
+    document.getElementById(valueId).remove();
   }
 
 
