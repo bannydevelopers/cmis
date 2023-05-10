@@ -23,6 +23,7 @@
     </p>
   </div>
 </div>
+
 <div class="w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-300">
   <div class="shadow rounded-lg overflow-hidden">
     <?php if(helper::init()->user_can('can_view_project_budget')){?>
@@ -146,6 +147,43 @@
   </div>
 </div>   
 <!--/ Add activity modal -->
+<!-- Add resources modal -->
+<div id="add-resources-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-lg max-h-full items-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-resources-modal">
+        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+          <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-3 py-6 lg:px-8 text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add resources</h3>
+        <div class="mb-4">
+          <form method="POST">
+            <input type="hidden" name="project_ref" value="<?=$project['project_id']?>">
+            <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full px-3 my-2 mob:my-0">
+                <label>Resource type
+                  <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="project_assignee" required onchange="changeSelectResources(this);"> 
+                    <option selected="true" disabled="disabled">Choose...</option> 
+                    <option value="people">People</option>
+                    <option value="tools">Tools</option>
+                    <option value="deliverables">Deliverables</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div id="toggle-resource"></div>
+            <div class="text-right">
+              <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>   
+<!--/ Add resources modal -->
 
 <div class="py-2">
   <!-- Tabs -->
@@ -254,13 +292,21 @@
       </div>
       <!--/ Activities -->
     </div>
+
     <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="resources" role="tabpanel" aria-labelledby="resources-tab">
+      <div class="text-right pb-2">
+        <button data-modal-target="add-resources-modal" data-modal-toggle="add-resources-modal" type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add resources
+        </button>
+      </div>
       <!-- Tool -->
       <div class="pb-2">
         <div class="py-2">Tools</div>
         <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
           <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
-            Drill kubwa
+            <div class="flex flex-row justify-between">
+              <div>Drill kubwa</div>
+              <div><a href="javascript:void(0);" class="text-red-500">Delete</a></div>
+            </div>
           </li>
           <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
             Drill ndogo
@@ -304,6 +350,50 @@
   <!-- Details -->
 </div>
 <script>
+  function changeSelectResources(selValue) {
+    if(selValue.value == 'people') {
+      document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3 my-2 mob:my-0">
+          <label>People
+            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[people]" required> 
+              <option selected="true" disabled="disabled">Choose...</option> 
+              <?php foreach($users as $person) { ?>
+              <option value="<?=$person['user_id']?>"><?=$person['full_name']?></option>
+              <?php } ?>
+            </select>
+          </label>
+        </div>
+      </div>`;
+    }
+    if(selValue.value == 'tools') {
+      document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3 my-2 mob:my-0">
+          <label>Deliverables
+            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
+              <option selected="true" disabled="disabled">Choose...</option> 
+              <option value="tools">Tools 1</option>
+              <option value="tools">Tools 2</option>
+            </select>
+          </label>
+        </div>
+      </div>`;
+    }
+    if(selValue.value == 'deliverables') {
+      document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3 my-2 mob:my-0">
+          <label>Tools
+            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
+              <option selected="true" disabled="disabled">Choose...</option> 
+              <option value="deliverables">Deliverable 1</option>
+              <option value="deliverables">Deliverable 2</option>
+            </select>
+          </label>
+        </div>
+      </div>`;
+    }
+  }
+
+
   const add_activity = parent_activity=>{
     let modal = document.getElementById('add-activity-modal');
     let btn = document.querySelector('[data-modal-target=add-activity-modal]');
