@@ -72,6 +72,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
     $activities = $db->select('activities', "activities.*, concat(first_name,' ', last_name) as assignee")
                      ->join('user', 'assignee_id=user_id')
                      ->where(['project_ref'=>$storage->request[3]])
+                     ->order_by('activity_id','ASC')
                      ->fetchAll();
     $activities_tree = [];
     // Arrange in tree hierarchy
@@ -85,6 +86,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         }
 
     }
+    rsort($activities_tree);
     
     $data = [
         'project'=>$project,

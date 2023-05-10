@@ -176,7 +176,7 @@
       <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
 
         <!-- Main activity -->
-        <?php foreach($activity as $act){?>
+        <?php foreach($activity as $act){rsort($act['tasks'])?>
         <div class="rounded-lg bg-white dark:bg-gray-800">
           <details class="group text-gray-900 dark:text-gray-200">
             <summary class="flex items-center font-medium cursor-pointer list-none p-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
