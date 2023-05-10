@@ -63,7 +63,7 @@
                     </div>  
                     <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                       <label>End date
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" name="project_ending_date">
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="project_ending_date">
                       </label>
                     </div>
                   </div>

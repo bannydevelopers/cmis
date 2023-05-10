@@ -645,6 +645,10 @@
                       </div>
                       <div class="flex flex-wrap"> 
                         <div class="w-full flex flex-row gap-4 justify-center">
+                          <div class="font-semibold text-slate-600">Status:</div>
+                          <div class="font-normal text-slate-900"><?=$x['status']?></div>
+                        </div>
+                        <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Email:</div>
                           <div class="font-normal text-slate-900"><?=$x['email']?></div>
                         </div>
@@ -666,27 +670,27 @@
                       <div class="flex flex-wrap"> 
                         <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Registration number:</div>
-                          <div class="font-normal text-slate-900"><?=$designationValue?></div>
+                          <div class="font-normal text-slate-900"><?=$x['staff_registration_number']?></div>
                         </div>
                         <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Working location:</div>
-                          <div class="font-normal text-slate-900"><!--<?=$x['branch_name']?>--></div>
+                          <div class="font-normal text-slate-900"><?=$x['work_location']?></div>
                         </div>
                         <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Department:</div>
-                          <div class="font-normal text-slate-900"><!--<?=$x['department_name']?>--></div>
+                          <div class="font-normal text-slate-900">NIL</div>
                         </div>
                         <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Designation:</div>
-                          <div class="font-normal text-slate-900"><?=$x['bank_name']?></div>
+                          <div class="font-normal text-slate-900"><?=$designationValue?></div>
                         </div>
                         <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Role:</div>
-                          <div class="font-normal text-slate-900"><!--<?=$x['role_name']?>--></div>
+                          <div class="font-normal text-slate-900"><?=$x['system_role']?></div>
                         </div>
                         <div class="w-full flex flex-row gap-4 justify-center">
                           <div class="font-semibold text-slate-600">Contract length:</div>
-                          <div class="font-normal text-slate-900">2 years</div>
+                          <div class="font-normal text-slate-900"><?=$x['employment_length']?> years</div>
                         </div>
                       </div>
                     </div>
