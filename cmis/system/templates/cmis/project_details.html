@@ -356,7 +356,7 @@
     if(selValue.value == 'people') {
       document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full px-3 my-2 mob:my-0">
-          <label>Press trl + click to add people <span class="text-red-500">*</span>
+          <label>Press Ctrl + click to add people <span class="text-red-500">*</span>
             <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_people" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <?php foreach($users as $person) { ?>
@@ -370,7 +370,7 @@
     if(selValue.value == 'tools') {
       toolInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
         <div class="w-2/4 px-3 my-1 mob:my-0">
-          <label>Tools <span class="text-red-500">*</span>
+          <label>Tool name <span class="text-red-500">*</span>
             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <option value="tools">Tools 1</option>
@@ -398,7 +398,7 @@
     if(selValue.value == 'deliverables') {
       deliverableInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
         <div class="w-2/4 px-3 my-1 mob:my-0">
-          <label>Deliverable <span class="text-red-500">*</span>
+          <label>Deliverable name <span class="text-red-500">*</span>
             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <option value="deliverables">Deliverable 1</option>
@@ -413,7 +413,7 @@
         </div>
         <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
           <div class="my-auto pt-8">
-            <button type="button" onclick="appendDeliverablesInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+
+            <button type="button" onclick="appendDeliverableInput()" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">+
             </button>
             <button type="button" onclick="delInput(`+count+`)" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">x
             </button>
@@ -453,7 +453,7 @@
     appendInput.insertAdjacentHTML('beforeend', toolInput);
     count++;
   }
-  function appendDeliverablesInput(){
+  function appendDeliverableInput(){
     deliverableInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
       <div class="w-2/4 px-3 my-1 mob:my-0">
         <label>Deliverable <span class="text-red-500">*</span>
