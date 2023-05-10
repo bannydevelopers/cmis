@@ -73,9 +73,22 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
                      ->join('user', 'assignee_id=user_id')
                      ->where(['project_ref'=>$storage->request[3]])
                      ->fetchAll();
+    $activities_tree = [];
+    // Arrange in tree hierarchy
+    foreach($activities as $child){
+        if($child['activity_parent'] == 0) {
+            $child['tasks'] = [];
+            $activities_tree[$child['activity_id']] = $child;
+        }
+        else{
+            $activities_tree[$child['activity_parent']]['tasks'][] = $child;
+        }
+
+    }
+    
     $data = [
         'project'=>$project,
-        'activity'=>$activities,
+        'activity'=>$activities_tree,
         'users'=>$users,
         'currency'=>$storage->system_config->system_currency
     ];
