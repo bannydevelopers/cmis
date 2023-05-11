@@ -25,6 +25,7 @@ if(isset($_POST['project_name'])){
         'project_burget'=>$_POST['project_burget'],
         'project_description'=>$_POST['project_description'],
         'project_manager'=>$_POST['project_manager'],
+        'project_client'=>intval($_POST['project_client']),
         'created_by'=>$my['user_id'],
         'created_time'=>date('Y-m-d H:i:s')
     ];
@@ -36,7 +37,7 @@ if(isset($_POST['project_name'])){
         $ok =true;
     }
     else $msg = 'Error adding project';
-    //var_dump($db->error());
+    var_dump($db->error());
 }
 
 $users = $db->select('user',"user_id,concat(first_name,' ', last_name) as full_name")
