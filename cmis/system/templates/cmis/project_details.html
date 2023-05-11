@@ -157,11 +157,27 @@
           <span class="sr-only">Close modal</span>
       </button>
       <div class="px-3 py-6 lg:px-8 text-gray-900 dark:text-white">
-        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add resources</h3>
+        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Request resources</h3>
         <div class="mb-4">
           <form method="POST">
-            <input type="hidden" name="project_ref" value="<?=$project['project_id']?>">
-            <div class="flex flex-wrap -mx-3 mb-6">
+            <!--input type="hidden" name="project_ref" value="<?=$project['project_id']?>"-->
+            <div class="-mx-3 mb-6">
+              <div class="w-full px-3 my-2 mob:my-0">
+                <label>Activity <span class="text-red-500">*</span></label>
+                  <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="activity_ref" required> 
+                    <option selected="true" disabled="disabled">Choose...</option> 
+                    <?php foreach($activity as $acts){?>
+                      <optgroup label="<?=$acts['activity_name']?>">
+                      <?php foreach($acts['tasks'] as $task) { ?>
+                      <option value="<?=$task['activity_id']?>"><?=$task['activity_name']?></option>
+                      <?php } ?>
+                      </optgroup>
+                    <?php }?>
+                  </select>
+                
+              </div>
+            </div>
+            <div class="-mx-3 mb-6">
               <div class="w-full px-3 my-2 mob:my-0">
                 <label>Resource type <span class="text-red-500">*</span>
                   <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="activity_resource_type" required onchange="changeSelectResources(this);"> 
@@ -357,7 +373,7 @@
       document.getElementById('toggle-resource').innerHTML = `<div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full px-3 my-2 mob:my-0">
           <label>Press trl + click to add people <span class="text-red-500">*</span>
-            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_people" required> 
+            <select multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resources[]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
               <?php foreach($users as $person) { ?>
               <option value="<?=$person['user_id']?>"><?=$person['full_name']?></option>
@@ -371,16 +387,16 @@
       toolInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
         <div class="w-2/4 px-3 my-1 mob:my-0">
           <label>Tools <span class="text-red-500">*</span>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
-              <option value="tools">Tools 1</option>
-              <option value="tools">Tools 2</option>
+              <option value="tool 1">Tools 1</option>
+              <option value="tool 2">Tools 2</option>
             </select>
           </label>
         </div>
         <div class="w-1/4 px-3 my-1 mob:my-0"> 
           <label>How many <span class="text-red-500">*</span>
-            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="resource_quantity[]" required>
           </label>
         </div>
         <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
@@ -399,16 +415,16 @@
       deliverableInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
         <div class="w-2/4 px-3 my-1 mob:my-0">
           <label>Deliverable <span class="text-red-500">*</span>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
-              <option value="deliverables">Deliverable 1</option>
-              <option value="deliverables">Deliverable 2</option>
+              <option value="deliverable 1">Deliverable 1</option>
+              <option value="deliverable 2">Deliverable 2</option>
             </select>
           </label>
         </div>
         <div class="w-1/4 px-3 my-1 mob:my-0"> 
           <label>How many <span class="text-red-500">*</span>
-            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="resource_quantity[]" required>
           </label>
         </div>
         <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
@@ -428,16 +444,16 @@
     toolInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
       <div class="w-2/4 px-3 my-1 mob:my-0">
         <label>Tools <span class="text-red-500">*</span>
-          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[deliverable]" required> 
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
             <option selected="true" disabled="disabled">Choose...</option> 
-            <option value="tools">Tools 1</option>
-            <option value="tools">Tools 2</option>
+            <option value="tool 1">Tools 1</option>
+            <option value="tool 2">Tools 2</option>
           </select>
         </label>
       </div>
       <div class="w-1/4 px-3 my-1 mob:my-0"> 
         <label>How many <span class="text-red-500">*</span>
-          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="resource_quantity[]" required>
         </label>
       </div>
       <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
@@ -457,16 +473,16 @@
     deliverableInput = `<div id="`+count+`" class="flex flex-wrap -mx-3 mb-6">
       <div class="w-2/4 px-3 my-1 mob:my-0">
         <label>Deliverable <span class="text-red-500">*</span>
-          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource[tool]" required> 
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
             <option selected="true" disabled="disabled">Choose...</option> 
-            <option value="deliverables">Deliverable 1</option>
-            <option value="deliverables">Deliverable 2</option>
+            <option value="deliverable 1">Deliverable 1</option>
+            <option value="deliverable 2">Deliverable 2</option>
           </select>
         </label>
       </div>
       <div class="w-1/4 px-3 my-1 mob:my-0"> 
         <label>How many <span class="text-red-500">*</span>
-          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="activity_resource_quantity" required>
+          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="How many" name="resource_quantity[]" required>
         </label>
       </div>
       <div class="w-1/4 px-3 my-1 mob:my-0 flex flex-row">
