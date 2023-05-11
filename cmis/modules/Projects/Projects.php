@@ -62,7 +62,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         else $msg = 'Activity creation fail';
     }
     if(isset($_POST['activity_resource_type'])){
-        var_dump($_POST);
+        //var_dump($_POST);
         $data = [
         'resource_type'=>addslashes($_POST['activity_resource_type']), 
         'resource_requester'=>helper::init()->get_session_user('user_id'), 
@@ -79,6 +79,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             $data['resource_reference'] = implode(',',$_POST['resources']);
         }
         $k = $db->insert('project_resources', $data);
+        //var_dump($db->error());
     }
     $project = $db->select('project', $cols)
                  ->join('user', 'project_manager=user_id')
@@ -93,6 +94,18 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
                      ->where(['project_ref'=>$storage->request[3]])
                      ->order_by('activity_id','ASC')
                      ->fetchAll();
+                     
+    $tools      = $db->select('tools','tool_id, tool_name')
+                     ->where(['tool_status'=>'new'])
+                     ->or(['tool_status'=>'active'])
+                     ->fetchAll();
+
+    $deliverables  = $db->select('product','product_id, product_name')
+                        ->fetchAll();
+    
+    $resources = $db->select('project_resources')
+                    ->where(['project_resources'=>$storage->request[3]])
+                    ->fetchAll();
     $activities_tree = [];
     // Arrange in tree hierarchy
     foreach($activities as $child){
@@ -111,6 +124,8 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         'project'=>$project,
         'activity'=>$activities_tree,
         'users'=>$users,
+        'tools'=>$tools,
+        'deliverables'=>$deliverables,
         'currency'=>$storage->system_config->system_currency
     ];
     die(helper::find_template('project_details', $data));
