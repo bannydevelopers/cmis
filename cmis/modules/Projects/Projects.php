@@ -25,6 +25,7 @@ if(isset($_POST['project_name'])){
         'project_burget'=>$_POST['project_burget'],
         'project_description'=>$_POST['project_description'],
         'project_manager'=>$_POST['project_manager'],
+        'project_client'=>intval($_POST['project_client']),
         'created_by'=>$my['user_id'],
         'created_time'=>date('Y-m-d H:i:s')
     ];
@@ -36,7 +37,7 @@ if(isset($_POST['project_name'])){
         $ok =true;
     }
     else $msg = 'Error adding project';
-    //var_dump($db->error());
+    var_dump($db->error());
 }
 
 $users = $db->select('user',"user_id,concat(first_name,' ', last_name) as full_name")
@@ -60,7 +61,25 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         if(intval($k)) $msg = 'Activity created successful';
         else $msg = 'Activity creation fail';
     }
-
+    if(isset($_POST['activity_resource_type'])){
+        var_dump($_POST);
+        $data = [
+        'resource_type'=>addslashes($_POST['activity_resource_type']), 
+        'resource_requester'=>helper::init()->get_session_user('user_id'), 
+        'resource_activity'=>addslashes($_POST['activity_ref']), 
+        'resource_status'=>'requested', 
+        'resource_quantity'=>0,
+        'request_date'=>date('Y-m-d H:i:s')
+        ];
+        if($_POST['activity_resource_type'] == 'deliverables' or $_POST['activity_resource_type'] == 'tools'){
+            $data['resource_reference'] = json_encode($_POST['resource_name']);
+            $data['resource_quantity'] = json_encode($_POST['resource_quantity']);
+        }
+        else{
+            $data['resource_reference'] = implode(',',$_POST['resources']);
+        }
+        $k = $db->insert('project_resources', $data);
+    }
     $project = $db->select('project', $cols)
                  ->join('user', 'project_manager=user_id')
                  ->join('staff','staff.user_reference=user.user_id')

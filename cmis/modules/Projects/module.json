@@ -34,6 +34,6 @@
         "can_view_project_report",
         "can_view_project_budget"
     ],
-    "pm_manager": 1,
+    "pm_manager": 2,
     "project_assignees": "2,3,4,5,33,34,37,40"
 }

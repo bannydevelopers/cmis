@@ -9,7 +9,7 @@
     <div>
       <button 
       data-modal-target="add-business-partner-modal" data-modal-toggle="add-business-partner-modal" 
-      class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+      class="float-right text-white bg-purple-700 hover:bg-purple-800 fobp:ring-4 fobp:outline-none fobp:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:fobp:ring-purple-800" type="button">
       Add Business Partner
       </button>
     </div>
@@ -29,26 +29,40 @@
                     <div class="flex flex-wrap -mx-3 mb-6">
                       <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                         <label for="Business_Partner_namet">Business Partner name </label>
-                        <input id="Business_Partner_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text"  name="business Partner Name" placeholder="Business partner names">
+                        <input id="Business_Partner_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text"  name="business_partner_name" placeholder="Business partner names">
                       </div>
                       <div class="w-full sm:w-1/3 px-3 my-2 mob:my-0">
                         <label for="phone_number">Phone Number </label>
-                        <input id="phone_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="phone" placeholder="business partner Phone Number" required>
+                        <input id="phone_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="phone" placeholder="business_partner_phone Number" required>
                       </div>
                     </div>
                     <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                       <label for="text">Details </label>
-                      <textarea id="phone_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="business partner details" required></textarea>
+                      <textarea id="details" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="business_partner_details" required></textarea>
                     </div>
                     <div class="pb-8">
-                      <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+                      <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 fobp:ring-4 fobp:outline-none fobp:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:fobp:ring-purple-800">Create</button>
                     </div>
                   </form>
                 </div>
             </div>
         </div>
     </div> 
-    <br />
+    <br/>
+    <?php if($msg) {?>
+      <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <span>
+          <i class="fa-solid fa-circle-info fa-lg"></i>
+        </span>
+        <div class="ml-3 text-sm font-medium">
+          <?=$msg?>
+        </div> 
+        <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg fobp:ring-2 fobp:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+          <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+        </button>
+      </div>
+    <?php } ?>
+    <div id="message"></div>
     <div class="w-full overflow-hidden rounded-lg shadow-md">
       <div class="w-full overflow-x-auto">
         <table class="w-full">
@@ -65,36 +79,34 @@
           <tbody
             class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
           >
-            <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <?php 
+          if (is_array($business_partners) || is_object($business_partners))
+          foreach ($business_partners as $bp)
+       {?>
+            <tr id="tr-<?=$bp['business_partners_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
               <td class="px-4 py-3">
                 <div class="flex items-center text-sm">
                   <div>
-                    <p class="font-semibold">Xyz Company ltd </p>
+                    <p class="font-semibold"><?=$bp['business_partner_name']?></p>
                   </div>
                 </div>
               </td>
               <td class="px-4 py-3 text-sm">
-                +255 745 565 324
+                <?=$bp['business_partner_phone_number']?>
               </td>
               <td class="px-4 py-3 text-sm">
-                Xyz company ltd, Dar es salaam Tanzania <br>
-                info@xyz.co.tz
+                <?=$bp['business_partner_details']?>
               </td>
               <td class="px-4 py-3">
                 <div class="flex items-center space-x-4 text-sm">   
-                  <a href="profile"
-                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                    aria-label="View">
-                    <i class="fa-solid fa-eye fa-lg"></i>      
-                  </a>
-                  <button 
-                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                  <button data-modal-target="add-business_partners-modal-<?=$bp['business_partners_id']?>" data-modal-toggle="add-business_partners-modal-<?=$bp['business_partners_id']?>" 
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fobp:outline-none fobp:outline-gray-300"
                     aria-label="Edit"
                   >
                   <i class="fa-solid fa-pen-to-square fa-lg"></i>
                   </button>
-                  <button onclick="del()"
-                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                  <button id="del-<?=$bp['business_partners_id']?>" onclick="delbusiness_partners(this)" 
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fobp:outline-none fobp:outline-gray-300"
                     aria-label="Delete"
                   >
                   <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
@@ -102,7 +114,7 @@
                 </div>
               </td>
             </tr>
-            
+            <?php }?>
           </tbody>
         </table>
       </div>

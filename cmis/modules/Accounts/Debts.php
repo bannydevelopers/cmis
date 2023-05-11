@@ -5,29 +5,30 @@ $ok = false;
 $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
-//var_dump($_SERVER['REQUEST_URI']);
-if(isset($_POST['debt_amount'])){
+//var_dump($_REQUEST);
+if(isset($_POST['debt_description'])){
     $data = [
-        'date'=>$_POST['date'], 
+        'debt_date'=>$_POST['debt_date'], 
         'debt_description'=>$_POST['debt_description'], 
         'debt_amount'=>$_POST['debt_amount'], 
-        'party_type'=>$_POST['party_type'],
-        'debty_type'=>$_POST['debty_type'],
-        'party'=>$_POST['party'],
-        'created_time'=>date('Y-m-d H:i:s')
+        'debt_party_type'
+              =>$_POST['debt_Party_type'],
+        'debt_type'=>$_POST['debt_type'],
+        'debt_party_id'=>$_POST['debt_party_id'],
+        'create_time'=>date('Y-m-d H:i:s')
         
     ];
    //var_dump($db->error());
     $k = $db->insert('debts', $data);
    
     if(!$db->error() && $k) {
-        $msg = 'debt added successful';
+        $msg = 'debts added successful';
         $ok =true;
     }
-    else $msg = 'Error adding debt';
+    else $msg = 'Error adding debts';
     //var_dump($db->error());
 }
 $debt = $db->select('debts')->order_by('debt_id', 'desc')->fetchAll();
-//var_dump($db->error());
+var_dump($db->error());
 $data = ['debt'=>$debt,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
 echo helper::find_template('debts', $data);
