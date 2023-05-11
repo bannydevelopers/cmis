@@ -103,9 +103,11 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
     $deliverables  = $db->select('product','product_id, product_name')
                         ->fetchAll();
     
+    $whr = "resource_activity IN (SELECT activity_id FROM activities WHERE project_ref = {$storage->request[3]})";
     $resources = $db->select('project_resources')
-                    ->where(['project_resources'=>$storage->request[3]])
+                    ->where($whr)
                     ->fetchAll();
+    
     $activities_tree = [];
     // Arrange in tree hierarchy
     foreach($activities as $child){
@@ -114,10 +116,22 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             $activities_tree[$child['activity_id']] = $child;
         }
         else{
+            foreach($resources as $tool){
+                if(!isset($child[$tool['resource_type']])) $child['tools'] = [];
+                if($tool['resource_type'] != 'people' && $tool['resource_activity'] == $child['activity_id']){
+                    $tool['qty'] = array_sum(json_decode($tool['resource_quantity'], true));
+                    $child[$tool['resource_type']][] = $tool;
+                }
+                else{
+                    $tool['qty'] = count(explode(',',$tool['resource_reference'], true)); // needs a fix
+                    $child[$tool['resource_type']][] = $tool;
+                }
+            }
             $activities_tree[$child['activity_parent']]['tasks'][] = $child;
         }
 
     }
+    //var_dump('<pre>', $activities_tree);echo '</pre>';
     rsort($activities_tree);
     
     $data = [

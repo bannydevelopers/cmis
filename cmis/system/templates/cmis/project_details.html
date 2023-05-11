@@ -281,6 +281,27 @@
                     <?=$task['activity_name']?>
                   </span>
                   <div class="shrink-0 flex flex-row">
+                    <?php if(isset($task['deliverables'])){?>
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                        Deliverable (<?=count($task['deliverables'])?>)
+                      </span>
+                    </div>
+                    <?php }?>
+                    <?php if(isset($task['people'])){?>
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                        People (<?=count($task['people'])?>)
+                      </span>
+                    </div>
+                    <?php }?>
+                    <?php if(isset($task['tools'])){?>
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                        Tool (<?=count($task['tools'])?>)
+                      </span>
+                    </div>
+                    <?php }?>
                     <div class="text-center pr-2">
                       <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
                         <?=$task['activity_duration']?> days
