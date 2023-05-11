@@ -165,7 +165,7 @@
               <div class="w-full px-3 my-2 mob:my-0">
                 <label>Activity <span class="text-red-500">*</span></label>
                   <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="activity_ref" required> 
-                    <option selected="true" disabled="disabled">Choose...</option> 
+                    <option value="">Choose...</option> 
                     <?php foreach($activity as $acts){?>
                       <optgroup label="<?=$acts['activity_name']?>">
                       <?php foreach($acts['tasks'] as $task) { ?>
@@ -308,6 +308,27 @@
                     <a class="underline"><?=$task['activity_name']?></a>
                   </div>
                   <div class="shrink-0 flex flex-row">
+                    <?php if(isset($task['deliverables'])){?>
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                        Deliverable (<?=count($task['deliverables'])?>)
+                      </span>
+                    </div>
+                    <?php }?>
+                    <?php if(isset($task['people'])){?>
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                        People (<?=count($task['people'])?>)
+                      </span>
+                    </div>
+                    <?php }?>
+                    <?php if(isset($task['tools'])){?>
+                    <div class="text-center pr-2">
+                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                        Tool (<?=count($task['tools'])?>)
+                      </span>
+                    </div>
+                    <?php }?>
                     <div class="text-center pr-2">
                       <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
                         <?=$task['activity_duration']?> days
@@ -416,8 +437,9 @@
           <label>Tools <span class="text-red-500">*</span>
             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
-              <option value="tool 1">Tools 1</option>
-              <option value="tool 2">Tools 2</option>
+              <?php foreach($tools as $tool) { ?>
+              <option value="<?=$tool['tool_id']?>"><?=$tool['tool_name']?></option>
+              <?php } ?>
             </select>
           </label>
         </div>
@@ -444,8 +466,9 @@
           <label>Deliverable <span class="text-red-500">*</span>
             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
               <option selected="true" disabled="disabled">Choose...</option> 
-              <option value="deliverable 1">Deliverable 1</option>
-              <option value="deliverable 2">Deliverable 2</option>
+              <?php foreach($deliverables as $deliverable) { ?>
+              <option value="<?=$deliverable['product_id']?>"><?=$deliverable['product_name']?></option>
+              <?php } ?>
             </select>
           </label>
         </div>
@@ -473,8 +496,9 @@
         <label>Tools <span class="text-red-500">*</span>
           <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
             <option selected="true" disabled="disabled">Choose...</option> 
-            <option value="tool 1">Tools 1</option>
-            <option value="tool 2">Tools 2</option>
+            <?php foreach($tools as $tool) { ?>
+            <option value="<?=$tool['tool_id']?>"><?=$tool['tool_name']?></option>
+            <?php } ?>
           </select>
         </label>
       </div>
@@ -502,8 +526,9 @@
         <label>Deliverable <span class="text-red-500">*</span>
           <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="resource_name[]" required> 
             <option selected="true" disabled="disabled">Choose...</option> 
-            <option value="deliverable 1">Deliverable 1</option>
-            <option value="deliverable 2">Deliverable 2</option>
+            <?php foreach($deliverables as $deliverable) { ?>
+            <option value="<?=$deliverable['product_id']?>"><?=$deliverable['product_name']?></option>
+            <?php } ?>
           </select>
         </label>
       </div>

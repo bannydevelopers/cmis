@@ -62,7 +62,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         else $msg = 'Activity creation fail';
     }
     if(isset($_POST['activity_resource_type'])){
-        var_dump($_POST);
+        //var_dump($_POST);
         $data = [
         'resource_type'=>addslashes($_POST['activity_resource_type']), 
         'resource_requester'=>helper::init()->get_session_user('user_id'), 
@@ -79,6 +79,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             $data['resource_reference'] = implode(',',$_POST['resources']);
         }
         $k = $db->insert('project_resources', $data);
+        //var_dump($db->error());
     }
     $project = $db->select('project', $cols)
                  ->join('user', 'project_manager=user_id')
@@ -93,6 +94,20 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
                      ->where(['project_ref'=>$storage->request[3]])
                      ->order_by('activity_id','ASC')
                      ->fetchAll();
+                     
+    $tools      = $db->select('tools','tool_id, tool_name')
+                     ->where(['tool_status'=>'new'])
+                     ->or(['tool_status'=>'active'])
+                     ->fetchAll();
+
+    $deliverables  = $db->select('product','product_id, product_name')
+                        ->fetchAll();
+    
+    $whr = "resource_activity IN (SELECT activity_id FROM activities WHERE project_ref = {$storage->request[3]})";
+    $resources = $db->select('project_resources')
+                    ->where($whr)
+                    ->fetchAll();
+    
     $activities_tree = [];
     // Arrange in tree hierarchy
     foreach($activities as $child){
@@ -101,16 +116,30 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             $activities_tree[$child['activity_id']] = $child;
         }
         else{
+            foreach($resources as $tool){
+                if(!isset($child[$tool['resource_type']])) $child['tools'] = [];
+                if($tool['resource_type'] != 'people' && $tool['resource_activity'] == $child['activity_id']){
+                    $tool['qty'] = array_sum(json_decode($tool['resource_quantity'], true));
+                    $child[$tool['resource_type']][] = $tool;
+                }
+                else{
+                    $tool['qty'] = count(explode(',',$tool['resource_reference'], true)); // needs a fix
+                    $child[$tool['resource_type']][] = $tool;
+                }
+            }
             $activities_tree[$child['activity_parent']]['tasks'][] = $child;
         }
 
     }
+    //var_dump('<pre>', $activities_tree);echo '</pre>';
     rsort($activities_tree);
     
     $data = [
         'project'=>$project,
         'activity'=>$activities_tree,
         'users'=>$users,
+        'tools'=>$tools,
+        'deliverables'=>$deliverables,
         'currency'=>$storage->system_config->system_currency
     ];
     die(helper::find_template('project_details', $data));
