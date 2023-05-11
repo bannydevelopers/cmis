@@ -9,8 +9,7 @@ if(isset($_POST['tool_name'])){
     $data = [
         'tool_name'=>$_POST['tool_name'], 
         'tool_description'=>$_POST['tool_description'], 
-        'tool_status'=>$_POST['tool_status'], 
-        'tool_date_purchased'=>$_POST['tool_date_purchased'], 
+        'tool_quantity'=>$_POST['tool_quantity'], 
         'create_time'=>date('Y-m-d H:i:s')
         
     ];

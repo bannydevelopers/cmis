@@ -31,4 +31,9 @@ $leave = $db->select('leave_application', 'leave_application.*,user.first_name,u
 $assignee = $db->select('user')
                ->where("system_role='{$my['system_role']}' AND user_id != '{$my['user_id']}'")
                ->fetchAll();
-echo helper::find_template('leave', ['assignee'=>$assignee,'leave'=>$leave,'msg'=>$msg]);
+
+ $roles = $db->select('role','role_id,role_name')
+              ->order_by('role_name', 'asc')
+              ->fetchAll();
+                              
+echo helper::find_template('leave', ['assignee'=>$assignee,'leave'=>$leave,'msg'=>$msg,'roles'=>$roles]);
