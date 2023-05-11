@@ -201,6 +201,33 @@
   </div>
 </div>   
 <!--/ Add resources modal -->
+<!-- View task button -->
+<div class="text-right pb-2 hidden">
+  <button id="view-task-modal-id" data-modal-target="view-task-modal" data-modal-toggle="view-task-modal" type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">View task
+  </button>
+</div>
+<!--/ View task button -->
+<!-- View task modal -->
+<div id="view-task-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-4xl max-h-full items-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="view-task-modal">
+        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+          <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-3 py-6 lg:px-8 text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Task details</h3>
+        <div class="mb-4">
+          <div id="task-details">
+            ...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>   
+<!--/ View task modal -->
 
 <div class="py-2">
   <!-- Tabs -->
@@ -209,9 +236,9 @@
       <li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200 active" id="activities-tab" data-tabs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="true">Activities</button>
       </li>
-      <li class="mr-2" role="presentation">
+      <!--<li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="resources-tab" data-tabs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
-      </li>
+      </li>-->
       <li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Reports</button>
       </li>
@@ -276,10 +303,10 @@
               <!-- Sub activity -->
               <?php foreach($act['tasks'] as $task){?>
               <div class="py-1 mx-5 px-5 rounded bg-gray-100 dark:bg-gray-900">
-                <div class="flex flex-row content-center justify-between">
-                  <span>
-                    <?=$task['activity_name']?>
-                  </span>
+                <div  onclick="openViewTask(<?=$task['activity_id']?>)" class="flex flex-row content-center cursor-pointer justify-between">
+                  <div>
+                    <a class="underline"><?=$task['activity_name']?></a>
+                  </div>
                   <div class="shrink-0 flex flex-row">
                     <?php if(isset($task['deliverables'])){?>
                     <div class="text-center pr-2">
@@ -525,6 +552,14 @@
   }
   function delInput(valueId){
     document.getElementById(valueId).remove();
+  }
+
+
+  function openViewTask(taskId) {
+    btnViewTaskModal = document.getElementById('view-task-modal-id');
+    btnViewTaskModal.click();
+    taskDetails = document.getElementById('task-details');
+    taskDetails.innerHTML = 'wait for it...' + taskId;
   }
 
 
