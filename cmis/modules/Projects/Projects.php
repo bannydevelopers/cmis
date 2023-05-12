@@ -37,7 +37,7 @@ if(isset($_POST['project_name'])){
         $ok =true;
     }
     else $msg = 'Error adding project';
-    var_dump($db->error());
+    //var_dump($db->error());
 }
 
 $users = $db->select('user',"user_id,concat(first_name,' ', last_name) as full_name")
@@ -143,7 +143,8 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         'users'=>$users,
         'tools'=>$tools,
         'deliverables'=>$deliverables,
-        'currency'=>$storage->system_config->system_currency
+        'currency'=>$storage->system_config->system_currency,
+        'request_uri'=>$_SERVER['REQUEST_URI']
     ];
     die(helper::find_template('project_details', $data));
 }
@@ -167,6 +168,7 @@ $data = [
     'user'=>$staff,
     'clients'=>$clients,
     'currency'=>$storage->system_config->system_currency,
-    'roles'=>$roles
+    'roles'=>$roles,
+    'request_uri'=>$_SERVER['REQUEST_URI']
 ];
 echo helper::find_template('projects', $data);
