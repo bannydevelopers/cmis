@@ -37,7 +37,7 @@ if(isset($_POST['project_name'])){
         $ok =true;
     }
     else $msg = 'Error adding project';
-    var_dump($db->error());
+    //var_dump($db->error());
 }
 
 $users = $db->select('user',"user_id,concat(first_name,' ', last_name) as full_name")
@@ -72,8 +72,8 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         'request_date'=>date('Y-m-d H:i:s')
         ];
         if($_POST['activity_resource_type'] == 'deliverables' or $_POST['activity_resource_type'] == 'tools'){
-            $data['resource_reference'] = json_encode($_POST['resource_name']);
-            $data['resource_quantity'] = json_encode($_POST['resource_quantity']);
+            $data['resource_reference'] = implode(',',$_POST['resource_name']);
+            $data['resource_quantity'] = implode(',',$_POST['resource_quantity']);
         }
         else{
             $data['resource_reference'] = implode(',',$_POST['resources']);
@@ -103,9 +103,11 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
     $deliverables  = $db->select('product','product_id, product_name')
                         ->fetchAll();
     
+    $whr = "resource_activity IN (SELECT activity_id FROM activities WHERE project_ref = {$storage->request[3]})";
     $resources = $db->select('project_resources')
-                    ->where(['project_resources'=>$storage->request[3]])
+                    ->where($whr)
                     ->fetchAll();
+    
     $activities_tree = [];
     // Arrange in tree hierarchy
     foreach($activities as $child){
@@ -114,10 +116,25 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             $activities_tree[$child['activity_id']] = $child;
         }
         else{
+            $qty = [];
+            foreach($resources as $tool){
+                if(!isset($qty[$tool['resource_type']])) $qty[$tool['resource_type']] = 0;
+                if(!isset($child[$tool['resource_type']])) $child['tools'] = [];
+                if($tool['resource_type'] != 'people' && $tool['resource_activity'] == $child['activity_id']){
+                    $qty[$tool['resource_type']] += array_sum(explode(',',$tool['resource_quantity'], true));
+                    $child[$tool['resource_type']][] = $tool;
+                }
+                else{
+                    $qty[$tool['resource_type']] += count(explode(',',$tool['resource_reference'], true)); // needs a fix
+                    $child[$tool['resource_type']][] = $tool;
+                }
+            }
+            $child['qty'] = $qty;
             $activities_tree[$child['activity_parent']]['tasks'][] = $child;
         }
 
     }
+    //var_dump('<pre>', $activities_tree);echo '</pre>';
     rsort($activities_tree);
     
     $data = [
@@ -126,8 +143,39 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         'users'=>$users,
         'tools'=>$tools,
         'deliverables'=>$deliverables,
-        'currency'=>$storage->system_config->system_currency
+        'currency'=>$storage->system_config->system_currency,
+        'request_uri'=>$_SERVER['REQUEST_URI']
     ];
+    if(isset($_POST['ajax_view_task'])){
+        $activty_resources = $db->select('project_resources')
+                                ->where(['resource_activity'=>intval($_POST['ajax_view_task'])])
+                                ->fetchAll();
+        
+        $return = ['tools'=>[], 'people'=>[], 'deliverables'=>[], 'money'=>[]];
+        
+        foreach($activty_resources as $res_val){
+            if($res_val['resource_type'] == 'people'){
+                $return['people'][] = $db->select('user', "user_id, concat(first_name,' ', last_name) as full_name")
+                                    ->where("user_id in ({$res_val['resource_reference']})")
+                                    ->fetchAll();
+            }
+            if($res_val['resource_type'] == 'tools'){
+                $return['tools'][] = $db->select('tools','tool_id, tool_name')
+                                    ->where("tool_id IN ({$res_val['resource_reference']})")
+                                    ->fetchAll();
+            }
+            if($res_val['resource_type'] == 'deliverables'){
+                $return['deliverables'][] = $db->select('product','product_id, product_name')
+                                        ->where("product_id IN ({$res_val['resource_reference']})")
+                                        ->fetchAll();
+                
+            }
+            if($res_val['resource_type'] == 'money'){
+                
+            }
+        }
+        die(json_encode($return, JSON_PRETTY_PRINT));
+    }
     die(helper::find_template('project_details', $data));
 }
 
@@ -150,6 +198,7 @@ $data = [
     'user'=>$staff,
     'clients'=>$clients,
     'currency'=>$storage->system_config->system_currency,
-    'roles'=>$roles
+    'roles'=>$roles,
+    'request_uri'=>$_SERVER['REQUEST_URI']
 ];
 echo helper::find_template('projects', $data);
