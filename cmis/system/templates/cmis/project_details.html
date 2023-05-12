@@ -570,7 +570,7 @@
     for (let obj of taskData) {
       console.log(obj);
     }
-    let url = '';
+    let url = '<?=$request_uri?>';
     let obj = {
       method: "POST", 
       body: taskData,
