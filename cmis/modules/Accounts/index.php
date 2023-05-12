@@ -1,5 +1,5 @@
 <?php 
-$children = ["Payroll","Salary",'Expenses','Debts',"Revenues","Business_partners","Banks"];
+$children = ["Payroll","Salary",'Expenses','Debts',"Revenues","Business_partners","Banks","Loan"];
 $req = storage::init()->request;
 
 $db = db::get_connection(storage::init()->system_config->database);

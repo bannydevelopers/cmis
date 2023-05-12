@@ -4,9 +4,10 @@
     "nav":[
         {"name":"Expenses","href":"Expenses/","permission":"can_view_expenses"},
         {"name":"Debts","href":"Debts/","permission":"can_view_debts"},
+        {"name":"Loan","href":"Loan/","permission":"can_view_debts"},
         {"name":"Revenues","href":"Revenues/","permission":"can_view_revenues"},
         {"name":"Business partners","href":"Business_partners/","permission":"can_view_business_partner"},
-        {"name":"Banks","href":"Banks/","permission":"can_view_banks"}
+        {"name":"Banks","href":"Banks/","permission":"can_view_banks_x"}
     ],
     "permissions":[
         "can_add_business_partner",
@@ -25,6 +26,7 @@
         "can_delete_debts",
         "can_view_debts",
         "can_clear_debts",
+
         
         "can_add_expenses",
         "can_edit_expenses",
