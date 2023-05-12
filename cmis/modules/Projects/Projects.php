@@ -72,8 +72,8 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         'request_date'=>date('Y-m-d H:i:s')
         ];
         if($_POST['activity_resource_type'] == 'deliverables' or $_POST['activity_resource_type'] == 'tools'){
-            $data['resource_reference'] = json_encode($_POST['resource_name']);
-            $data['resource_quantity'] = json_encode($_POST['resource_quantity']);
+            $data['resource_reference'] = implode(',',$_POST['resource_name']);
+            $data['resource_quantity'] = implode(',',$_POST['resource_quantity']);
         }
         else{
             $data['resource_reference'] = implode(',',$_POST['resources']);
@@ -121,7 +121,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
                 if(!isset($qty[$tool['resource_type']])) $qty[$tool['resource_type']] = 0;
                 if(!isset($child[$tool['resource_type']])) $child['tools'] = [];
                 if($tool['resource_type'] != 'people' && $tool['resource_activity'] == $child['activity_id']){
-                    $qty[$tool['resource_type']] += array_sum(json_decode($tool['resource_quantity'], true));
+                    $qty[$tool['resource_type']] += array_sum(explode(',',$tool['resource_quantity'], true));
                     $child[$tool['resource_type']][] = $tool;
                 }
                 else{
@@ -146,6 +146,36 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         'currency'=>$storage->system_config->system_currency,
         'request_uri'=>$_SERVER['REQUEST_URI']
     ];
+    if(isset($_POST['ajax_view_task'])){
+        $activty_resources = $db->select('project_resources')
+                                ->where(['resource_activity'=>intval($_POST['ajax_view_task'])])
+                                ->fetchAll();
+        
+        $return = ['tools'=>[], 'people'=>[], 'deliverables'=>[], 'money'=>[]];
+        
+        foreach($activty_resources as $res_val){
+            if($res_val['resource_type'] == 'people'){
+                $return['people'][] = $db->select('user', "user_id, concat(first_name,' ', last_name) as full_name")
+                                    ->where("user_id in ({$res_val['resource_reference']})")
+                                    ->fetchAll();
+            }
+            if($res_val['resource_type'] == 'tools'){
+                $return['tools'][] = $db->select('tools','tool_id, tool_name')
+                                    ->where("tool_id IN ({$res_val['resource_reference']})")
+                                    ->fetchAll();
+            }
+            if($res_val['resource_type'] == 'deliverables'){
+                $return['deliverables'][] = $db->select('product','product_id, product_name')
+                                        ->where("product_id IN ({$res_val['resource_reference']})")
+                                        ->fetchAll();
+                
+            }
+            if($res_val['resource_type'] == 'money'){
+                
+            }
+        }
+        die(json_encode($return, JSON_PRETTY_PRINT));
+    }
     die(helper::find_template('project_details', $data));
 }
 
