@@ -116,17 +116,20 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             $activities_tree[$child['activity_id']] = $child;
         }
         else{
+            $qty = [];
             foreach($resources as $tool){
+                if(!isset($qty[$tool['resource_type']])) $qty[$tool['resource_type']] = 0;
                 if(!isset($child[$tool['resource_type']])) $child['tools'] = [];
                 if($tool['resource_type'] != 'people' && $tool['resource_activity'] == $child['activity_id']){
-                    $tool['qty'] = array_sum(json_decode($tool['resource_quantity'], true));
+                    $qty[$tool['resource_type']] += array_sum(json_decode($tool['resource_quantity'], true));
                     $child[$tool['resource_type']][] = $tool;
                 }
                 else{
-                    $tool['qty'] = count(explode(',',$tool['resource_reference'], true)); // needs a fix
+                    $qty[$tool['resource_type']] += count(explode(',',$tool['resource_reference'], true)); // needs a fix
                     $child[$tool['resource_type']][] = $tool;
                 }
             }
+            $child['qty'] = $qty;
             $activities_tree[$child['activity_parent']]['tasks'][] = $child;
         }
 

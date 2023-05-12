@@ -249,9 +249,15 @@
   <div id="myTabContent">
     <div class="px-4 rounded-lg" id="activities" role="tabpanel" aria-labelledby="activities-tab">
       
+      
       <div class="text-right pb-2">
+            
+        <button data-modal-target="add-resources-modal" data-modal-toggle="add-resources-modal" type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+          Add resources
+        </button>
         <button data-modal-target="add-activity-modal" data-modal-toggle="add-activity-modal" class="hidden"></button>
-        <button type="button" onclick="add_activity(0)" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add main activity
+        <button type="button" onclick="add_activity(0)" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+          Add main activity
         </button>
       </div>
       <!-- Activities -->
@@ -308,24 +314,24 @@
                     <a class="underline"><?=$task['activity_name']?></a>
                   </div>
                   <div class="shrink-0 flex flex-row">
-                    <?php if(isset($task['deliverables'])){?>
+                    <?php if(isset($task['qty']['deliverables'])){?>
                     <div class="text-center pr-2">
                       <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
-                        Deliverable (<?=count($task['deliverables'])?>)
+                        Deliverable (<?=$task['qty']['deliverables']?>)
                       </span>
                     </div>
                     <?php }?>
-                    <?php if(isset($task['people'])){?>
+                    <?php if(isset($task['qty']['people'])){?>
                     <div class="text-center pr-2">
                       <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
-                        People (<?=count($task['people'])?>)
+                        People (<?=$task['qty']['people']?>)
                       </span>
                     </div>
                     <?php }?>
-                    <?php if(isset($task['tools'])){?>
+                    <?php if(isset($task['qty']['tools'])){?>
                     <div class="text-center pr-2">
                       <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
-                        Tool (<?=count($task['tools'])?>)
+                        Tool (<?=$task['qty']['tools']?>)
                       </span>
                     </div>
                     <?php }?>
@@ -360,7 +366,8 @@
 
     <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="resources" role="tabpanel" aria-labelledby="resources-tab">
       <div class="text-right pb-2">
-        <button data-modal-target="add-resources-modal" data-modal-toggle="add-resources-modal" type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add resources
+        <button data-modal-target="add-resources-modal" data-modal-toggle="add-resources-modal" type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+          Add resources
         </button>
       </div>
       <!-- Tool -->
