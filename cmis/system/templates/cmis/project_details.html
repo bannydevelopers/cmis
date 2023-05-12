@@ -23,7 +23,7 @@
     </p>
   </div>
 </div>
-
+<pre><?=print_r($activity)?></pre>
 <div class="w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-300">
   <div class="shadow rounded-lg overflow-hidden">
     <?php if(helper::init()->user_can('can_view_project_budget')){?>
@@ -174,7 +174,6 @@
                       </optgroup>
                     <?php }?>
                   </select>
-                
               </div>
             </div>
             <div class="-mx-3 mb-6">
@@ -189,7 +188,6 @@
                 </label>
               </div>
             </div>
-            
             <div id="toggle-resource"></div>
             <div class="text-right">
               <button class="mr-2 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="submit">Save</button>
@@ -263,8 +261,8 @@
       <!-- Activities -->
       <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
 
-        <!-- Main activity -->
         <?php foreach($activity as $act){rsort($act['tasks'])?>
+        <!-- Main activity -->
         <div class="rounded-lg bg-white dark:bg-gray-800">
           <details class="group text-gray-900 dark:text-gray-200">
             <summary class="flex items-center font-medium cursor-pointer list-none p-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
@@ -306,8 +304,8 @@
             </summary>
             <div class="text-gray-800 dark:text-gray-200 divide-y-4 divide-white dark:divide-gray-800 mb-3">
 
-              <!-- Sub activity -->
               <?php foreach($act['tasks'] as $task){?>
+              <!-- Sub activity -->
               <div class="py-1 mx-5 px-5 rounded bg-gray-100 dark:bg-gray-900">
                 <div  onclick="openViewTask(<?=$task['activity_id']?>)" class="flex flex-row content-center cursor-pointer justify-between">
                   <div>
@@ -351,14 +349,14 @@
                   </div>
                 </div>
               </div>
-              <?php }?>
               <!--/ Sub activity -->
+              <?php }?>
               
             </div>
           </details>
         </div>
-        <?php }?>
         <!--/ Main activity -->
+        <?php }?>
 
       </div>
       <!--/ Activities -->
@@ -561,14 +559,38 @@
     document.getElementById(valueId).remove();
   }
 
-
-  function openViewTask(taskId) {
+  async function openViewTask(taskId) {
     btnViewTaskModal = document.getElementById('view-task-modal-id');
     btnViewTaskModal.click();
     taskDetails = document.getElementById('task-details');
     taskDetails.innerHTML = 'wait for it...' + taskId;
-  }
 
+    const taskData = new FormData();
+    taskData.append('ajax_view_task', taskId);
+    for (let obj of taskData) {
+      console.log(obj);
+    }
+    let url = '';
+    let obj = {
+      method: "POST", 
+      body: taskData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      taskDetails.innerHTML = data;
+    })
+    .catch(error => {
+      console.error('Problem:', error);
+    });
+  }
 
   const add_activity = parent_activity=>{
     let modal = document.getElementById('add-activity-modal');
@@ -576,5 +598,7 @@
     btn.click();
     modal.querySelector('form input[name=activity_parent]').value = parent_activity;
   }
+
+
 </script>
 <script src="js/flowbite.min.js"></script>
