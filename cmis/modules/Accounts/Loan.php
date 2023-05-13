@@ -22,13 +22,13 @@ if(isset($_POST['debt_description'])){
     $k = $db->insert('debts', $data);
    
     if(!$db->error() && $k) {
-        $msg = 'debts added successful';
+        $msg = 'loan added successful';
         $ok =true;
     }
-    else $msg = 'Error adding debts';
+    else $msg = 'Error adding loan';
     //var_dump($db->error());
 }
-$debt = $db->select('debts')->order_by('debt_id', 'desc')->fetchAll();
+$debt = $db->select('debts')->where(['debt_type'=>'loan'])->order_by('debt_id', 'desc')->fetchAll();
 //var_dump($db->error());
 $data = ['debt'=>$debt,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
-echo helper::find_template('debts', $data);
+echo helper::find_template('loan', $data);
