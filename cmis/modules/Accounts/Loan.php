@@ -5,14 +5,12 @@ $ok = false;
 $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
-//var_dump($_REQUEST);
 if(isset($_POST['debt_description'])){
     $data = [
         'debt_date'=>$_POST['debt_date'], 
         'debt_description'=>$_POST['debt_description'], 
         'debt_amount'=>$_POST['debt_amount'], 
-        'debt_party_type'
-              =>$_POST['debt_Party_type'],
+        'debt_party_type'=>$_POST['debt_Party_type'],
         'debt_type'=>$_POST['debt_type'],
         'debt_party_id'=>$_POST['debt_party_id'],
         'create_time'=>date('Y-m-d H:i:s')
