@@ -215,10 +215,10 @@
           <span class="sr-only">Close modal</span>
       </button>
       <div class="px-3 py-6 lg:px-8 text-gray-900 dark:text-white">
-        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Task details</h3>
+        <h3 id="taskNameOnModal" class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Task details</h3>
         <div class="mb-4">
           <div id="task-details">
-            ...
+            
           </div>
         </div>
       </div>
@@ -309,7 +309,7 @@
               <div class="py-1 mx-5 px-5 rounded bg-gray-100 dark:bg-gray-900">
                 <div  onclick="openViewTask(<?=$task['activity_id']?>)" class="flex flex-row content-center cursor-pointer justify-between">
                   <div>
-                    <a class="underline"><?=$task['activity_name']?></a>
+                    <a id="taskName-<?=$task['activity_id']?>" class="underline"><?=$task['activity_name']?></a>
                   </div>
                   <div class="shrink-0 flex flex-row">
                     <?php if(isset($task['qty']['deliverables'])){?>
@@ -562,14 +562,13 @@
   async function openViewTask(taskId) {
     btnViewTaskModal = document.getElementById('view-task-modal-id');
     btnViewTaskModal.click();
+    taskName = document.getElementById('taskName-'+taskId).innerHTML;
+    document.getElementById('taskNameOnModal').innerHTML = taskName;
     taskDetails = document.getElementById('task-details');
-    taskDetails.innerHTML = 'wait for it...' + taskId;
+    taskDetails.innerHTML = 'WAIT A MINUTE...';
 
     const taskData = new FormData();
     taskData.append('ajax_view_task', taskId);
-    /*for (let obj of taskData) {
-      console.log(obj);
-    }*/
     let url = '<?=$request_uri?>';
     let obj = {
       method: "POST", 
@@ -584,8 +583,73 @@
       return response.json();
     })
     .then(data => {
-      console.log(data);
-      taskDetails.innerHTML = data;
+      var people = '';
+      if(data['people'][0]) {
+        data['people'].forEach(function (item, index) {
+          data['people'][index].forEach(function (item, index) {
+            people += '<div class="pl-3">'+item.full_name
+              +'</div>';
+          });
+        });
+      }
+      var tools = '';
+      if(data['tools'][0]) {
+        data['tools'].forEach(function (item, index) {
+          data['tools'][index].forEach(function (item, index) {
+            tools += '<div class="pl-3">'+item.tool_name+'</div>';
+          });
+        });
+      }
+      var deliverables = '';
+      if(data['deliverables'][0]) {
+        data['deliverables'].forEach(function (item, index) {
+          data['deliverables'][index].forEach(function (item, index) {
+            deliverables += '<div class="pl-3">'+item.product_name+'</div>';
+          });
+        });
+      }
+      var money = '';
+      if(data['money'][0]) {
+        data['money'].forEach(function (item, index) {
+          data['money'][index].forEach(function (item, index) {
+            money += '';
+          });
+        });
+      }
+      taskDetails.innerHTML = `<div>
+        <div class="flex flex-row pb-2">
+          <div class="font-bold">Assignee: </div>
+          <div class="pl-4">??</div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full mob:w-2/3 px-3 my-2 mob:my-0">
+            <label>Activity description
+              <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">??</textarea>
+            </label>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold">Resources: </div>
+          <div class="pl-4">
+            <div class="pb-2">
+              <div class="font-semibold">Deliverables: </div>
+              <div class="flex flex-wrap">`+deliverables+`</div>
+            </div>
+            <div class="pb-2">
+              <div class="font-semibold">People: </div>
+              <div class="flex flex-wrap">`+people+`</div>
+            </div>
+            <div class="pb-2">
+              <div class="font-semibold">Tools: </div>
+              <div class="flex flex-wrap">`+tools+`</div>
+            </div>
+            <div class="flex flex-row">
+              <div class="font-semibold">Money: </div>
+              <div class="pl-4">??</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
     })
     .catch(error => {
       console.error('Problem:', error);
