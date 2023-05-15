@@ -155,26 +155,39 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
         
         foreach($activty_resources as $res_val){
             if($res_val['resource_type'] == 'people'){
-                $return['people'][] = $db->select('user', "user_id, concat(first_name,' ', last_name) as full_name")
+                $return['people'][] = $db->select('user', "user_id as id, concat(first_name,' ', last_name) as name, '{$res_val['resource_quantity']}' AS qty, '{$res_val['request_date']}' AS date")
                                     ->where("user_id in ({$res_val['resource_reference']})")
                                     ->fetchAll();
             }
-            if($res_val['resource_type'] == 'tools'){
-                $return['tools'][] = $db->select('tools','tool_id, tool_name')
+            elseif($res_val['resource_type'] == 'tools'){
+                $return['tools'][] = $db->select('tools',"tool_id as id, tool_name AS name, '{$res_val['resource_quantity']}' AS qty, '{$res_val['request_date']}' AS date")
                                     ->where("tool_id IN ({$res_val['resource_reference']})")
                                     ->fetchAll();
             }
-            if($res_val['resource_type'] == 'deliverables'){
-                $return['deliverables'][] = $db->select('product','product_id, product_name')
+            elseif($res_val['resource_type'] == 'deliverables'){
+                $return['deliverables'][] = $db->select('product',"product_id AS id, product_name AS name, '{$res_val['resource_quantity']}' AS qty, '{$res_val['request_date']}' AS date")
                                         ->where("product_id IN ({$res_val['resource_reference']})")
                                         ->fetchAll();
                 
             }
-            if($res_val['resource_type'] == 'money'){
+            elseif($res_val['resource_type'] == 'money'){
                 
             }
         }
-        die(json_encode($return, JSON_PRETTY_PRINT));
+        foreach($return as $key=>$val){
+            
+            if($key == 'money' or $key == 'people') continue;
+
+            foreach($val as $k=>$v){
+                $qty = explode(',',$v[0]['qty']);
+                foreach($v as $kx=>$vx){
+                    $return[$key][$k][$kx]['qty'] = $qty[$kx];
+                }
+            }
+        }
+        $html = helper::get_sub_template('activity_resource_detail', $return);
+        die($html);
+        die('<pre>'.json_encode($return, JSON_PRETTY_PRINT).'</pre>');
     }
     die(helper::find_template('project_details', $data));
 }

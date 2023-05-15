@@ -23,7 +23,6 @@
     </p>
   </div>
 </div>
-
 <div class="w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-300">
   <div class="shadow rounded-lg overflow-hidden">
     <?php if(helper::init()->user_can('can_view_project_budget')){?>
@@ -580,7 +579,7 @@
       if (!response.ok) {
         throw new Error('The response is not ok!');
       }
-      return response.json();
+      return response.text();
     })
     .then(data => {
       var people = '';

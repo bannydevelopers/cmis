@@ -18,7 +18,7 @@ if(isset($_POST['invoice_date'])){
         
     ];
     $k = $db->insert('invoice', $data);
-    var_dump($db->error());
+    //var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'invoice added successful';
@@ -28,9 +28,11 @@ if(isset($_POST['invoice_date'])){
     //var_dump($db->error());
 }
  $customer= $db->select('customer','customer_id,customer_name')
-                  ->fetchALL();
+               ->fetchALL();
 
 
-$invoice = $db->select('invoice')->order_by('invoice_id', 'desc')->fetchAll();
+$invoice = $db->select('invoice','invoice.*,customer.customer_name')
+              ->join('customer','invoice.customer_id=customer.customer_id')
+              ->order_by('invoice_id', 'desc')->fetchAll();
 $data = ['invoice'=>$invoice,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
 echo helper::find_template('invoice', $data);
