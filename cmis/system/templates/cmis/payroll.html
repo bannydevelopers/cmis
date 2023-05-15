@@ -26,9 +26,13 @@ Payroll
             <h3 class="mb-4 text-xl font-medium">Add Payroll </h3>
             <form class="space-y-6" method="POST">
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                   <label>Employee name
-                    <input name="employee_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" " name="employee_name" type="employee_name" placeholder="employee_name">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="employee_name">
+                      <?php foreach($employee as $user){?>
+                        <option value="<?=$user['user_id']?>"><?=$user['first_name']?></option>
+                      <?php }?>
+                    </select>
                   </label>
                 </div>
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
@@ -122,12 +126,15 @@ Payroll
       <tbody
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
-      <?php foreach($payroll as $roll){?>
+      <?php 
+      if (is_array($payroll) || is_object($payroll))
+      foreach ($payroll as $roll)
+   {?>
         <tr id="tr-<?=$roll['payroll_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <div class="flex items-center text-sm">
               <div>
-                <p class="font-semibold"><?=$roll['employee_name']?></p>
+                <p class="font-semibold"><?=$roll['first_name']?></p>
               </div>
             </div>
           </td>

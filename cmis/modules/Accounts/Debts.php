@@ -5,7 +5,7 @@ $ok = false;
 $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
-//var_dump($_REQUEST);
+
 if(isset($_POST['debt_description'])){
     $data = [
         'debt_date'=>$_POST['debt_date'], 

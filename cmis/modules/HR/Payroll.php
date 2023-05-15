@@ -1,9 +1,8 @@
 <?php 
 
 $db = db::get_connection(storage::init()->system_config->database);
-$ok = false;
 $msg = '';
-
+$ok = false;
 
 $request = $_SERVER['REQUEST_URI'];
 //var_dump($_REQUEST);
@@ -29,8 +28,16 @@ if(isset($_POST['gross_salary'])){
         $ok =true;
     }
     else $msg = 'Error adding payroll';
-   var_dump($db->error());
+   //var_dump($db->error());
 }
- $payroll = $db->select('payroll')->order_by('payroll_id', 'desc')->fetchAll();
-$data = ['payroll'=>$payroll,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$payroll = $db->select('payroll','payroll.*,user.first_name')
+            ->join('user','payroll.employee_name=user.user_id')
+            ->order_by('payroll_id', 'desc')->fetchAll();
+
+    //var_dump($db->error());
+$employee = $db->select('user')
+            ->where(1)
+            ->fetchAll();
+
+$data = ['payroll'=>$payroll,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,'employee'=>$employee];
 echo helper::find_template('Payroll', $data);
