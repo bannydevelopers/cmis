@@ -6,11 +6,6 @@
             "name": "Projects",
             "href": "Projects\/",
             "permission": "can_view_projects"
-        },
-        {
-            "name": "Project report",
-            "href": "Project_report\/",
-            "permission": "can_view_project_report"
         }
     ],
     "permissions": [
