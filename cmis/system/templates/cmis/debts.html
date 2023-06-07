@@ -2,14 +2,14 @@
 <h2
   class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
 >
-  debts
+  Debts
 </h2>
 <!-- Modal toggle -->
 <div>
   <button 
   data-modal-target="add-deb-modal" data-modal-toggle="add-deb-modal" 
   class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
-  Add debt
+  Add debts
   </button>
 </div>
 
@@ -23,48 +23,53 @@
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="px-6 py-6 lg:px-8">
-              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add debt </h3>
+              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add debts </h3>
               <form class="space-y-6" action="" method="POST">
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label for="date">Date </label>
-                    <input id="date" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="debt_date">
+                    <label>Date 
+                      <input id="date" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="debt_date">
+                    </label>
                   </div>
-                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label for="discription">debt description </label>
-                    <textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt description " name="debt_description" ></textarea>
-                  </div>
+									<div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+										<label>Amount 
+										<input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="debts amount" required name="debt_amount">
+									</label>
+									</div>
                 </div>
                 <div class=" flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label for="amount">Amount 
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt amount" required name="debt_amount">
-                    </label>
-                  </div>
-                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>Party type
-                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_Party_type" required>
-                        <option value="">Choose...</option> 
-                        <option value="business_partner">Business partner</option>
-                        <option value="customer">Customer</option>
-                        <option value="supplier">Supplier</option>
-                        <option value="staff">Staff</option>
-                      </select>
-                    </label>
-                  </div>
+									<div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+										<label>Party type
+											<select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_Party_type" onchange="update_parties()" required>
+												<option value="">Choose...</option> 
+												<option value="business_partiner">Business partner</option>
+												<option value="customer">Customer</option>
+												<option value="supplier">Supplier</option>
+												<option value="user">Staff</option>
+											</select>
+										</label>
+                 	</div>
+                   <input type="hidden" name="debt_type" value="loan">
+                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                     <label>Party
+                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_party_id" required>
+												<option value="">Choose...</option> 
+                        </select>
+                     </label>
+                   </div>
                 </div>
-                <div class=" flex flex-wrap -mx-3 mb-6">
+								<div class=" flex flex-wrap -mx-3 mb-6">
+									<!--div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+										<label>loan type
+											<input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt type" required name="debt type">
+										</label>
+									</div-->
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>debt type 
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt type" required name="debt_type">
-                    </label>
+                    <label>debts description 
+											<textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt description " name="debt_description" ></textarea>
+										</label>
                   </div>
-                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>Party
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt party" required name="debt_party_id">
-                    </label>
-                  </div>
-                </div>
+								</div>
                 <div class="pb-8">
                   <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
                 </div>
@@ -96,10 +101,10 @@
           class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
         >
           <th class="px-4 py-3">date</th>
-          <th class="px-4 py-3">debt description</th>
-          <th class="px-4 py-3">debt amount</th>
-          <th class="px-4 py-3">party type</th>
-          <th class="px-4 py-3">debt type</th>
+          <th class="px-4 py-3">debts description</th>
+          <th class="px-4 py-3">debts amount</th>
+          <th class="px-4 py-3">Party type</th>
+          <!--th class="px-4 py-3">loan type</th-->
           <th class="px-4 py-3">Actions</th>
         </tr>
       </thead>
@@ -123,9 +128,9 @@
           <td class="px-4 py-3 text-sm">
             <?=$deb['debt_party_type']?>
           </td>
-          <td class="px-4 py-3 text-sm">
+          <!--td class="px-4 py-3 text-sm">
             <?=$deb['debt_type']?>
-          </td>
+          </td-->
           
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
@@ -154,22 +159,35 @@
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
-const del = () => swal("Sure! want to delete?", {
-  buttons: {
-    cancel: "Cancel!",
-    catch: {
-      text: "Delete!",
-      value: "delete",
+  var request_uri = '<?=$request_uri?>';
+const update_parties = ()=>{
+  let selected_value = window.event.target.value;
+  if(selected_value == '') return;
+  let form_data = new FormData();
+  form_data.append('load_party_type', selected_value);
+  fetch(
+    request_uri,
+    {
+      method:"POST", 
+      body:form_data
     }
-  },
-})
-.then((value) => {
-  switch (value) {
-    case "delete":
-      swal("Done!", "User deleted!", "success");
-      break;
-  }
-});
+  )
+  .then(response=>{
+    if(response.ok) return response.json();
+  })
+  .then(json_data=>{
+    //console.log(json_data);
+    let targetElem = document.querySelector('select[name=debt_party_id]');
+    let opts = '';
+    json_data.forEach(opt=>{
+      opts += `<option value="${opt.pid}">${opt.pname}</option>`;
+    });
+    targetElem.innerHTML = opts;
+  })
+  .catch(error=>{
+    console.log(error);
+  });
+}
 </script>
 
 
