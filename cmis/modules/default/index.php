@@ -3,6 +3,10 @@
     $activity = "SELECT COUNT(activity_id) FROM activities WHERE activity_status = 'pending'";
     $activity = $db->query($activity);
     $activityCount = $activity->fetchColumn();
+    
+    $leave = "SELECT COUNT(leave_application_id) FROM leave_application WHERE leave_application_status = 'pending'";
+    $leave = $db->query($leave);
+    $leaveCount = $leave->fetchColumn();
 
     $staff = "SELECT COUNT(staff_id) FROM staff";
     $staff = $db->query($staff);
@@ -37,6 +41,7 @@
     //             ->order_by('category_id','asc')
     //             ->fetchAll();
     $invoice = $db->select('invoice','SUM(invoice_amount) as invoiceSum')
+                ->where(['invoice_type'=>'tax'])
                 // ->join('orders','orders.apartment_category=apartment_category.category_id', 'left')
                 // ->group_by('apartment_category.category_id')
                 // ->order_by('category_id','asc')
@@ -61,6 +66,7 @@
         'staffCount' => $staffCount, 
         'customerCount' => $customerCount,
         'projectCount' => $projectCount,
+        'leaveCount' => $leaveCount,
         // 'expensesSum' => $expensesSum,
         'revenueSum' => $invoice,
         // 'expensesAmount' => json_encode($expensesAmount),
