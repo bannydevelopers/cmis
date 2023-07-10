@@ -95,6 +95,8 @@
 <div id="message"></div>
 <div class="w-full overflow-hidden rounded-lg shadow-md">
   <div class="w-full overflow-x-auto">
+    <?php foreach ($dtree as $party_type=>$debt){?>
+      <div><?=$party_type?></div>
     <table class="w-full">
       <thead>
         <tr
@@ -103,7 +105,7 @@
           <th class="px-4 py-3">date</th>
           <th class="px-4 py-3">loan description</th>
           <th class="px-4 py-3">loan amount</th>
-          <th class="px-4 py-3">Party type</th>
+          <!--th class="px-4 py-3">Party type</th-->
           <!--th class="px-4 py-3">loan type</th-->
           <th class="px-4 py-3">Actions</th>
         </tr>
@@ -125,9 +127,9 @@
           <td class="px-4 py-3 text-sm">
             <?=$deb['debt_amount']?>
           </td>
-          <td class="px-4 py-3 text-sm">
+          <!--td class="px-4 py-3 text-sm">
             <?=$deb['debt_party_type']?>
-          </td>
+          </td-->
           <!--td class="px-4 py-3 text-sm">
             <?=$deb['debt_type']?>
           </td-->
@@ -152,6 +154,7 @@
         <?php }?>
       </tbody>
     </table>
+    <?php }?>
   </div>
   
 </div>

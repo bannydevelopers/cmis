@@ -38,6 +38,10 @@ if(isset($_POST['debt_description'])){
     //var_dump($db->error());
 }
 $debt = $db->select('debts')->where(['debt_type'=>'loan'])->order_by('debt_id', 'desc')->fetchAll();
-//var_dump($db->error());
-$data = ['debt'=>$debt,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$dtree = [];
+foreach($debt as $dt){
+    if(!isset($dtree[$dt['debt_party_type']])) $dtree[$dt['debt_party_type']] = [];
+    $dtree[$dt['debt_party_type']][] = $dt;
+}
+$data = ['dtree'=>$dtree,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
 echo helper::find_template('debts', $data);
