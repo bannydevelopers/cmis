@@ -78,7 +78,7 @@ if(isset($_POST['department_name'])){
     }
     else $msg = 'Permission denied';
 }
-if(isset($_POST['branch_name'])){
+if(isset($_POST['branch_name']) && isset($_POST['branch_address'])){
     if($helper->user_can('can_add_branch')){
         $data = [
             'branch_name'=>addslashes($_POST['branch_name']),
@@ -234,6 +234,7 @@ $staff = $db->select('staff')
             ->join('user','user.user_id=staff.user_reference')
             //->join('user as creator', 'creator.user_id=user.created_by')
             ->join('designation', 'designation_id=designation','LEFT')
+            ->join('role', 'role_id=system_role','LEFT')
             ->join('bank', 'bank.bank_id=staff.bank_id','LEFT')
             ->where("user.status != 'deleted'")
             ->order_by('user_id', 'desc')

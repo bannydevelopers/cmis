@@ -7,11 +7,32 @@
     <title><?=$page_title?></title>
     <link rel="stylesheet" href="css/tailwind.output.css" />
     <link rel="stylesheet" href="../../../vendor/fortawesome/font-awesome/css/all.min.css" />
+    
+    <style>
+      textarea:focus, select:focus, input:focus{
+        outline: none;
+      }
+      .mySwal label{
+        display: block;
+        padding: .5em;
+        padding-left: 0;
+        text-align: left;
+      }
+      .mySwal textarea, .mySwal input, .mySwal select{
+        width: calc(100% - 2px);
+        box-shadow: 0 0 1px #999;
+        padding: 8px;
+      }
+      .mySwal [radio], .mySwal [checkbox]{
+        width: auto;
+      }
+    </style>
     <script
       src="plugins/alpine-2.8.2/dist/alpine.js"
       defer
     ></script>
     <script src="js/init-alpine.js"></script>
+    <script src="../../../vendor/sweetalert/sweetalert2@11.js"></script>
   </head>
   <body>
     <div

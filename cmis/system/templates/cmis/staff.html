@@ -381,7 +381,7 @@
         >
           <th class="px-4 py-3">Name</th>
           <th class="px-4 py-3">Phone number</th>
-          <th class="px-4 py-3">Email</th>
+          <th class="px-4 py-3">Role</th>
           <th class="px-4 py-3">Address</th>
           <th class="px-4 py-3">Status</th>
           <th class="px-4 py-3">Actions</th>
@@ -423,10 +423,12 @@
             </div>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$x['phone_number']?>
+            <?=$x['phone_number']?><br>
+            <?=$x['email']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$x['email']?>
+            <?=$x['role_name']?><br>
+            <?=$x['designation_name']?>
           </td>
           <td class="px-4 py-3 text-sm">
             <?=$x['staff_residence_address']?>
@@ -478,7 +480,7 @@
                       <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
                           <label>Full name <span class="text-red-500">*</span>
-                            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Staff's full name" name="full_name"  pattern="([a-zA-Z]+\s){1,2}([a-zA-Z]+)" value="<?=$x['first_name'] . " " . $x['middle_name'] . " " . $x['last_name']?>" required>
+                            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Staff's full name" name="full_name"  value="<?=$x['first_name'] . " " . $x['middle_name'] . " " . $x['last_name']?>" required>
                           </label>
                         </div>
                         <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
