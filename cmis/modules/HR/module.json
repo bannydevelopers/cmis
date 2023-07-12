@@ -1,4 +1,4 @@
-{     
+{
     "name": "Human Resources",
     "icon": "users-cog",
     "nav": [
@@ -60,7 +60,7 @@
     ],
     "modules": {
         "leave": {
-            "approval_flow": "5,3,4",
+            "approval_flow": "3,6,5,4",
             "self_assign": 1
         }
     }

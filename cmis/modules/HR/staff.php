@@ -105,11 +105,12 @@ if(isset($_POST['full_name'])){
             array_shift($names);
             array_pop($names);
             $mn = implode(' ', $names);
+
             $user = [
                 'first_name'=>$fn,
                 'middle_name'=>$mn,
                 'last_name'=>$ln,
-                'system_role'=>$role['role_id'],
+                'system_role'=>$_POST['role'],
                 //'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
                 'email'=>helper::format_email($_POST['email']), //
@@ -129,7 +130,7 @@ if(isset($_POST['full_name'])){
                 $whr = "user_id IN (SELECT user_reference FROM staff WHERE staff_id = '{$_POST['staff_id']}')";
                 $db->update('user', $user)->where($whr)->commit();
 
-                $staff = [
+                /*$staff = [
                     'staff_registration_number'=>addslashes($_POST['registration_number']), //
                     'staff_residence_address'=>addslashes($_POST['residence_address']), //
                     //'work_location'=>addslashes($_POST['work_location']), 
@@ -138,8 +139,22 @@ if(isset($_POST['full_name'])){
                     'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), //
                     //'employment_length'=>2,//addslashes($_POST['employment_length']), 
                     //'employment_status'=>'active'
+                ];*/
+                
+                $staff = [
+                    'bank_id'=>$_POST['bank'], 
+                    'bank_account_number'=>$_POST['bank_account_number'], 
+                    'staff_registration_number'=>$_POST['registration_number'], 
+                    'staff_residence_address'=>$_POST['residence_address'], 
+                    'designation'=>$_POST['designation'], 
+                    'work_location'=>$_POST['branch'], 
+                    'staff_department'=>$_POST['department'], 
+                    'staff_date_employed'=>$_POST['date_employed'], 
+                    //'employment_length'=>$_POST[''], 
+                    //'employment_status'=>$_POST[''], 
+                    //'employment_last_renewal'=>$_POST[''], 
+                    //'employment_termination_date'
                 ];
-
                 $db->update('staff', $staff)->where(['staff_id'=>intval($_POST['staff_id'])])->commit();
                 if(!$db->error()) {
                     $msg = 'Updated successful!';
@@ -234,6 +249,7 @@ $staff = $db->select('staff')
             ->join('user','user.user_id=staff.user_reference')
             //->join('user as creator', 'creator.user_id=user.created_by')
             ->join('designation', 'designation_id=designation','LEFT')
+            ->join('department', 'department_id=staff_department','LEFT')
             ->join('role', 'role_id=system_role','LEFT')
             ->join('bank', 'bank.bank_id=staff.bank_id','LEFT')
             ->where("user.status != 'deleted'")

@@ -19,7 +19,7 @@ if(isset($_POST['leave_type'])){
         'staff_id'=>$me['staff_id'], 
         'leave_application_description'=>addslashes($_POST['leave_application_description']), 
         'leave_start_date'=>helper::format_time($_POST['leave_start'], 'Y-m-d H:i:s'), 
-        'leave_application_type'=>intval($_POST['leave_type']), 
+        'leave_application_type'=>addslashes($_POST['leave_type']), 
         'leave_length'=>intval($_POST['leave_length']), 
         'application_date'=>date('Y-m-d H:i:s'), 
         'responsibility_assignee'=>intval($_POST['responsibility_assignee'])
@@ -54,7 +54,7 @@ if(isset($_POST['leave_remarks'])){
         else{
             if(isset($approval_flow[$key+1])){
                 $nxt = $approval_flow[$key+1];
-                if(end($approval_flow) != $nxt) {
+                if(end($approval_flow) != $approval_flow[$key]) {
                     // got a way to go...
                     $data['next_to_approve'] = $nxt;
                     if($_POST['response'] == 'Approved') $_POST['response'] = 'Progressing';
@@ -81,7 +81,7 @@ if(isset($_POST['leave_remarks'])){
         if(!$db->error()) $msg = 'Leave status updated!';
     }
 }
-$whr = "leave_application.staff_id == {$me['staff_id']}";
+$whr = "leave_application.staff_id = {$me['staff_id']}";
 if(in_array($my['system_role'], explode(',', $mod_conf->modules->leave->approval_flow))){
     $whr = "staff_department IS NULL OR staff_department = '{$me['staff_department']}'";
 }
@@ -93,6 +93,8 @@ $leave = $db->select('leave_application', 'leave_application.*,user.first_name,u
             ->order_by('leave_application_id', 'desc')
             ->fetchAll();
 
+//var_dump('<pre>',$db->error());
+//var_dump('<pre>',$db->getQuery());
 $assignee = $db->select('user')
                ->where("system_role='{$my['system_role']}' AND user_id != '{$my['user_id']}'")
                ->fetchAll();
@@ -102,7 +104,6 @@ $assignee = $db->select('user')
               ->fetchAll();
 
 $user = array_merge($me,$my);
-//var_dump('<pre>',$user);
 echo helper::find_template(
     'leave', 
     [
