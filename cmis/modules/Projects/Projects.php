@@ -185,9 +185,10 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
                 }
             }
         }
-        $html = helper::get_sub_template('activity_resource_detail', $return);
-        die($html);
-        die('<pre>'.json_encode($return, JSON_PRETTY_PRINT).'</pre>');
+        // $html = helper::get_sub_template('activity_resource_detail', $return);
+        // die($html);
+        // die('<pre>'.json_encode($return, JSON_PRETTY_PRINT).'</pre>');
+        die(json_encode($return, JSON_PRETTY_PRINT));
     }
     die(helper::find_template('project_details', $data));
 }

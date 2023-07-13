@@ -338,7 +338,7 @@
                       </span>
                     </div>
                     <div class="text-center pr-2">
-                      <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                      <span id="sub-act-status-<?=$task['activity_id']?>" class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
                         <?=$task['activity_status']?>
                       </span>
                     </div>
@@ -579,14 +579,14 @@
       if (!response.ok) {
         throw new Error('The response is not ok!');
       }
-      return response.text();
+      return response.json();
     })
-    .then(data => {
+    .then(data => {console.log(data);
       var people = '';
       if(data['people'][0]) {
         data['people'].forEach(function (item, index) {
           data['people'][index].forEach(function (item, index) {
-            people += '<div class="pl-3">'+item.full_name
+            people += '<div class="pl-3">'+item.name
               +'</div>';
           });
         });
@@ -595,7 +595,7 @@
       if(data['tools'][0]) {
         data['tools'].forEach(function (item, index) {
           data['tools'][index].forEach(function (item, index) {
-            tools += '<div class="pl-3">'+item.tool_name+'</div>';
+            tools += '<div class="pl-3">'+item.name+'</div>';
           });
         });
       }
@@ -603,7 +603,7 @@
       if(data['deliverables'][0]) {
         data['deliverables'].forEach(function (item, index) {
           data['deliverables'][index].forEach(function (item, index) {
-            deliverables += '<div class="pl-3">'+item.product_name+'</div>';
+            deliverables += '<div class="pl-3">'+item.name+'</div>';
           });
         });
       }
@@ -615,15 +615,23 @@
           });
         });
       }
+      subTaskStatus = document.getElementById('sub-act-status-' + taskId);
       taskDetails.innerHTML = `<div>
-        <div class="flex flex-row pb-2">
-          <div class="font-bold">Assignee: </div>
-          <div class="pl-4">??</div>
+        <div class="flex flex-col md:flex-row pb-2">
+          <div class="font-bold">Assignee: <span class="pl-4"> - </span></div>
+          <div class="ml-auto text-right"><span class="uppercase" id="stId-`+taskId+`-hold">`+subTaskStatus.innerHTML+`</span>
+              <select id="stId-`+taskId+`" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="sub-activity-status" onchange="changeStatus(this)">
+                <option selected="true" disabled="disabled">Choose...</option> 
+                <option value="pending">Panding</option>
+                <option value="done">Done</option>
+                <option value="in_progress">In progress</option>
+              </select>
+          </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full mob:w-2/3 px-3 my-2 mob:my-0">
             <label>Activity description
-              <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity">??</textarea>
+              <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity"></textarea>
             </label>
           </div>
         </div>
@@ -653,6 +661,9 @@
     .catch(error => {
       console.error('Problem:', error);
     });
+  }
+  function changeStatus(values){
+    document.getElementById(values.id+'-hold').innerHTML = values.value;
   }
 
   const add_activity = parent_activity=>{
