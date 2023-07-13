@@ -63,6 +63,10 @@
                       <lable>Quantity</lable>
                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_quantity[]" min="1" value="1" required>
                     </div>
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <lable>Price per item</lable>
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_price[]" value="0" required readonly>
+                    </div>
                   </div>
                   <div class="pb-8">
                     <button type="button" class="float-right text-white bg-purple-700 hover:bg-purple-800 foinv:ring-4 foinv:outline-none foinv:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foinv:ring-purple-800" onclick="replicate_items()">Add item</button>
