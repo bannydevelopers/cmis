@@ -3366,6 +3366,14 @@ video {
     padding-left: 6rem;
     padding-right: 6rem;
   }
+
+  .md\:pl-4 {
+    padding-left: 1rem;
+  }
+
+  .md\:text-right {
+    text-align: right;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -3383,6 +3391,14 @@ video {
 
   .lg\:w-1\/4 {
     width: 25%;
+  }
+
+  .lg\:w-3\/4 {
+    width: 75%;
+  }
+
+  .lg\:w-2\/4 {
+    width: 50%;
   }
 
   .lg\:flex-row {
