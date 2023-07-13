@@ -1,38 +1,61 @@
 {
-    "name":"Settings",
-    "icon":"cog",
-    "nav":[
-        {"name":"System config","href":"System_config/","permission":"can_view_system_configuration"},
-        {"name":"User permission","href":"User_permission/","permission":"can_view_user_permission"},
-        {"name":"System backup","href":"System_backup/","permission":"can_view_system_backup"},
-        {"name":"Payment gateway","href":"Payment_gateway/","permission":"can_view_payment_gateway"},
-        {"name":"Company details","href":"Company_details/","permission":"can_edit_company_details"}
-       
-      
+    "name": "Settings",
+    "icon": "cog",
+    "nav": [
+        {
+            "name": "System config",
+            "href": "System_config\/",
+            "permission": "can_view_system_configuration"
+        },
+        {
+            "name": "User permission",
+            "href": "User_permission\/",
+            "permission": "can_view_user_permission"
+        },
+        {
+            "name": "System backup",
+            "href": "System_backup\/",
+            "permission": "can_view_system_backup"
+        },
+        {
+            "name": "Payment gateway",
+            "href": "Payment_gateway\/",
+            "permission": "can_view_payment_gateway"
+        },
+        {
+            "name": "Company details",
+            "href": "Company_details\/",
+            "permission": "can_edit_company_details"
+        }
     ],
-
-    "permissions":[
-         "can_view_user",
-         "can_activate_user",
-         "can_deactivate_user",
-         
-         "can_add_system_backup",
-         "can_delete_system_backup",
-         "can_view_system_backup",
-         "can_edit_system_backup",
-
-         "can_add_payment_gateway",
-         "can_edit_payment_gateway",
-         "can_delete_payment_gateway",
-         "can_view_system_backup",
-
-         "can_add_system_configuration",
-         "can_edit_system_configuration",
-         "can_view_system_configuration",
-         "can_delete_system_configuration",
-
-         "can_edit_company_details"
- 
-        
-     ]
- }
+    "permissions": [
+        "can_view_user",
+        "can_activate_user",
+        "can_deactivate_user",
+        "can_add_system_backup",
+        "can_delete_system_backup",
+        "can_view_system_backup",
+        "can_edit_system_backup",
+        "can_add_payment_gateway",
+        "can_edit_payment_gateway",
+        "can_delete_payment_gateway",
+        "can_view_system_backup",
+        "can_add_system_configuration",
+        "can_edit_system_configuration",
+        "can_view_system_configuration",
+        "can_delete_system_configuration",
+        "can_edit_company_details"
+    ],
+    "config": {
+        "company_profile": {
+            "company_legal_name": "Banny T Company Ltd",
+            "company_slogan": "Customer and quality is our priority",
+            "phone_number": "255710123456",
+            "email": "info@banny.co.tz",
+            "TIN_number": "127-234-789",
+            "VRN_number": "543257",
+            "company_address": "Posta mpya,\r\nSamora avenue,\r\nNHC House,\r\nP. O. Box 23,\r\nDar es Salaam",
+            "company_logo": "WhatsApp Image 2023-06-22 at 21.13.21.jpg"
+        }
+    }
+}
