@@ -1,7 +1,5 @@
 
-<h2
-  class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
->
+<h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
   Debts
 </h2>
 <!-- Modal toggle -->
@@ -12,7 +10,71 @@
   Add debts
   </button>
 </div>
+<div>
+  <button id="add-customer-modal-id"
+  data-modal-target="add-customer-modal" data-modal-toggle="add-customer-modal" 
+  class="hidden float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
+  Add customer
+  </button>
+</div>
 
+<!-- Add customer modal -->
+<div id="add-customer-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full items-center">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-customer-modal">
+              <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+              <h3 class="mb-4 text-xl font-medium">Add customer </h3>
+              <form class="space-y-6" method="POST">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                    <label>Customer name
+                      <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Name" required>
+                    </label>
+                  </div>
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                    <label>Phone number
+                      <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full mob:w-1/2 px-3"> 
+                    <label>E-mail
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="email" type="email" placeholder="E-mail">
+                    </label>
+                  </div>
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
+                    <label>Residence address
+                      <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                    <label>TIN number
+                      <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
+                    </label>
+                  </div>
+                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                    <label>VRN
+                      <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
+                    </label>
+                  </div>
+                </div>
+                <div class="pb-8">
+                  <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div> 
+<!--/ Add customer modal -->
 <!-- Main modal -->
 <div id="add-deb-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
@@ -52,7 +114,7 @@
                    <input type="hidden" name="debt_type" value="loan">
                    <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                      <label>Party
-                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_party_id" required>
+                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="openModal(this)" name="debt_party_id" required>
 												<option value="">Choose...</option> 
                         </select>
                      </label>
@@ -149,10 +211,9 @@
             
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   
-                <button data-modal-target="add-debt-modal-<?=$deb['debt_id']?>" data-modal-toggle="add-debt-modal-<?=$deb['debt_id']?>" 
+                <button data-modal-target="add-deb-modal-<?=$deb['debt_id']?>" data-modal-toggle="add-deb-modal-<?=$deb['debt_id']?>" 
                   class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fodeb:outline-none fodeb:outline-gray-300"
-                  aria-label="Edit"
-                >
+                  aria-label="Edit">
                 <i class="fa-solid fa-pen-to-square fa-lg"></i>
                 </button>
                 <button id="del-<?=$deb['debt_id']?>" onclick="deldebt(this)" 
@@ -164,6 +225,70 @@
               </div>
             </td>
           </tr>
+          <div id="add-deb-modal-<?=$deb['debt_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+            <div class="relative w-full max-w-4xl max-h-full items-center">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-deb-modal-<?=$deb['debt_id']?>">
+                      <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="px-6 py-6 lg:px-8">
+                      <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add debts </h3>
+                      <form class="space-y-6" action="" method="POST">
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                          <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                            <label>Date 
+                              <input id="date" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="date" min="<?= date('Y-m-d'); ?>" name="debt_date">
+                            </label>
+                          </div>
+                          <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                            <label>Amount 
+                            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="0" placeholder="debts amount" required name="debt_amount">
+                          </label>
+                          </div>
+                        </div>
+                        <div class=" flex flex-wrap -mx-3 mb-6">
+                          <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                            <label>Party type
+                              <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="debt_Party_type" onchange="update_parties()" required>
+                                <option value="">Choose...</option> 
+                                <option value="business_partiner">Business partner</option>
+                                <option value="customer">Customer</option>
+                                <option value="supplier">Supplier</option>
+                                <option value="user">Staff</option>
+                              </select>
+                            </label>
+                           </div>
+                           <input type="hidden" name="debt_type" value="loan">
+                           <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                             <label>Party
+                               <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="openModal(this)" name="debt_party_id" required>
+                                <option value="">Choose...</option> 
+                                </select>
+                             </label>
+                           </div>
+                        </div>
+                        <div class=" flex flex-wrap -mx-3 mb-6">
+                          <!--div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                            <label>loan type
+                              <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt type" required name="debt type">
+                            </label>
+                          </div-->
+                          <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                            <label>debts description 
+                              <textarea id="discription" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="debt description " name="debt_description" ></textarea>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="pb-8">
+                          <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
           <?php }?>
         </tbody>
       </table>
@@ -172,7 +297,6 @@
   </div>
   <!-- Details -->
 </div>
-<!-- <?=var_dump('<pre>',$debt)?> -->
   
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
@@ -200,11 +324,31 @@ const update_parties = ()=>{
     json_data.forEach(opt=>{
       opts += `<option value="${opt.pid}">${opt.pname}</option>`;
     });
+    opts += `<option value="add-`+selected_value+`">Add new `+selected_value+`</option>`;
     targetElem.innerHTML = opts;
   })
   .catch(error=>{
     console.log(error);
   });
+}
+
+function openModal(selVal) {
+  if(selVal.value == "add-customer") {
+    document.getElementById("add-deb-modal").click();
+    document.getElementById("add-customer-modal-id").click();
+  }
+  if(selVal.value == "add-supplier") {
+    document.getElementById("add-deb-modal").click();
+    document.getElementById("add-customer-modal-id").click();
+  }
+  if(selVal.value == "add-business_partiner") {
+    document.getElementById("add-deb-modal").click();
+    document.getElementById("add-customer-modal-id").click();
+  }
+  if(selVal.value == "add-staff") {
+    document.getElementById("add-staff-modal").click();
+    document.getElementById("add-customer-modal-id").click();
+  }
 }
 </script>
 
