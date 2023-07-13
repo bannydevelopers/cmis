@@ -5,22 +5,25 @@ $ok = 'fail';
 $msg = '';
 
 $cps = realpath(__DIR__.'/../Settings');
-$mod_config = json_decode(file_get_contents("{$cps}/module.json"));
+$settings = json_decode(file_get_contents("{$cps}/module.json"));
+$mod_conf = json_decode(file_get_contents(__DIR__.'/module.json'));
 
 $request = $_SERVER['REQUEST_URI'];
-if(isset($_POST['invoice_date'])){
+if(isset($_POST['invoice_type'])){
+    $total = 0;
+    $items = [];
+
     $data = [
-        'invoice_date'=>$_POST['invoice_date'], 
         'invoice_type'=>$_POST['invoice_type'], 
-        'ref_number'=>$_POST['ref_number'],
-        'invoice_amount'=>$_POST['invoice_amount'],
-        'invoice_expire_date'=>$_POST['invoice_expire_date'],
-        'customer_id'=>$_POST['customer_id'],
-        'invoice_items'=>json_encode($_POST['invoice_items']),
+        'due_date'=>$due_date, 
+        'invoice_amount'=>$total,
+        'customer'=>$_POST['customer'],
+        'sale_represantative'=>helper::init()->get_session_user('user_id'),
+        'invoice_items'=>json_encode($items),
         'created_time'=>date('Y-m-d H:i:s')
         
     ];
-    $k = $db->insert('invoice', $data);
+    $k = 0;//$db->insert('invoice', $data);
     //var_dump($db->error());
    
     if(!$db->error() && $k) {
@@ -39,7 +42,7 @@ $invoice = $db->select('invoice','invoice.*,customer.customer_name')
               ->order_by('invoice_id', 'desc')->fetchAll();
 
 $products = $db->select('product')->fetchAll();
-
+//var_dump($products);
 $data = [
     'invoice'=>$invoice,
     'customers'=>$customer,
