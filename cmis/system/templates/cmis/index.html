@@ -33,6 +33,18 @@
     ></script>
     <script src="js/init-alpine.js"></script>
     <script src="../../../vendor/sweetalert/sweetalert2@11.js"></script>
+    <script>
+      function jsprint(html, opts){
+            var printWindow = window.open('', '', 'height=600,width=1200');
+            printWindow.document.write('<html><head><title>Print preview</title>');
+            if(opts != undefined && opts.css != undefined) printWindow.document.write(`<style>${opts.css}</style>`);
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(html);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+      }
+    </script>
   </head>
   <body>
     <div

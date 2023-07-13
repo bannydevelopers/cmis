@@ -182,7 +182,7 @@ if(isset($_POST['full_name'])){
                 'first_name'=>$fn, 
                 'middle_name'=>$mn, 
                 'last_name'=>$ln, 
-                'system_role'=>$role['role_id'], 
+                'system_role'=>$_POST['role'], 
                 'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
                 'email'=>helper::format_email($_POST['email']), 
@@ -205,7 +205,7 @@ if(isset($_POST['full_name'])){
                     $staff = [
                         'staff_registration_number'=>addslashes($_POST['registration_number']), 
                         'staff_residence_address'=>addslashes($_POST['residence_address']), 
-                        'work_location'=>addslashes($_POST['work_location']), 
+                        'work_location'=>addslashes($_POST['branch']), 
                         'designation'=>addslashes($_POST['designation']), 
                         'user_reference'=>$user_id, 
                         'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 

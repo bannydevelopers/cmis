@@ -213,43 +213,50 @@
             <?=$appl['remarks']?>
           </td-->
           <td class="px-4 py-3">
-          <?php if($me_user['staff_id'] != $appl['staff_id']){?>
-            <?php if(
-              (($appl['leave_application_status'] != 'Pending' && $me_user['system_role'] == $appl['next_to_approve']) or
-              ($appl['leave_application_status'] == 'Pending' && $me_user['user_id'] == $appl['next_to_approve'])) && 
-              ($appl['leave_application_status'] == 'Progressing' or $appl['leave_application_status'] == 'Pending')
-              ){?>
             <div class="flex items-center space-x-4 text-sm">  
-              <button  onclick="respond_to_leave(`<?=$appl['leave_application_id']?>`)" class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                aria-label="Approve leave"
-              >
-              <i class="fa-solid fa-check-double fa-lg"></i>&nbsp;Respond
-              </button>
-            </div>
-            <?php }?>
-            <button data-json='<?=$appl['remarks']?>' onclick="view_leave(`<?=$appl['leave_application_id']?>`)" class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-              aria-label="Approve leave"
-            >
-            <i class="fa-solid fa-eye fa-lg"></i>
-            </button>
-          <?php }else{?>
-              <div>
-                <div class="flex items-center space-x-4 text-sm">  
-                  <button onclick="delete_leave(`<?=$appl['leave_application_id']?>`)" 
-                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                    aria-label="Delete"
+              <?php 
+                if($me_user['staff_id'] != $appl['staff_id']){
+                  $status = $appl['leave_application_status'];
+                  $n2a = $appl['next_to_approve'];
+                  //echo "nxt: {$n2a}, status: {$status}, role:{$me_user['system_role']}, id:{$me_user['user_id']}";
+                  if(
+                    ($status == 'Progressing' && $me_user['system_role'] == $n2a) or 
+                    ($status == 'Pending' && $me_user['user_id'] == $n2a)
+                  ){?>
+                  <button  onclick="respond_to_leave(`<?=$appl['leave_application_id']?>`)" class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                    aria-label="Approve leave"
                   >
-                  <i class="fa-solid fa-trash fa-lg"></i>&nbsp;Delete
+                  <i class="fa-solid fa-check-double fa-lg"></i>&nbsp;Respond
                   </button>
-                  <button onclick="cancel_eave(`<?=$appl['leave_application_id']?>`)"
-                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                    aria-label="Reject"
-                  >
-                  <i class="fa-sharp fa-solid fa-times-circle fa-lg"></i>&nbsp;Cancel
-                  </button>
-                </div>
+                <?php }?>
+                <button onclick="view_leave(`<?=$appl['leave_application_id']?>`)" class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                  aria-label="View" data-json='<?=$appl['remarks']?>'
+                >
+                <i class="fa-solid fa-eye fa-lg"></i>
+                </button>
+              <?php }else{?> 
+                <button onclick="delete_leave(`<?=$appl['leave_application_id']?>`)" 
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                  aria-label="Delete"
+                >
+                <i class="fa-solid fa-trash fa-lg"></i>
+                </button>
+                <button onclick="cancel_eave(`<?=$appl['leave_application_id']?>`)"
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                  aria-label="Reject"
+                >
+                <i class="fa-sharp fa-solid fa-times-circle fa-lg"></i>
+                </button>
+              <?php }?>
+              <?php if($appl['leave_application_status'] == 'Approved'){?>
+                <button onclick="print_leave()" data-json='<?=json_encode($appl)?>'
+                  class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                  aria-label="Print"
+                >
+                <i class="fa-sharp fa-solid fa-print fa-lg"></i>
+                </button>
+              <?php }?>
               </div>
-          <?php }?>
           </td>
         </tr>
       <?php }?>
@@ -278,6 +285,69 @@
       </button>
     </div>
   </form>
+</template>
+<template id="leave_print">
+  <div style="padding: 1em;text-align: center;">
+    <h2>Leave application</h2>
+    <div style="text-align: justify;padding: 1em;">
+      <p style="padding: 0;margin: 0;">
+        I, <span style="font-weight: bold;">{{first_name}} {{middle_name}} {{last_name}}</span>, according to company policy, apply for 
+        leave with the following details
+      </p>
+      <br>
+      <p style="padding: 0;margin: 0; line-height: 1.2;">
+        <b>Leave type:</b>&nbsp;<span>{{leave_application_type}}</span><br>
+        <b>Leave length:</b>&nbsp;<span>{{leave_length}} days</span><br>
+        <b>Leave starts:</b>&nbsp;<span>{{leave_start_date}}</span><br>
+      </p>
+      <br>
+      <p style="padding: 0;margin: 0;line-height: 1.2;">
+        <b>Leave description</b><br>
+        <div>{{leave_application_description}}</div>
+      </p>
+      <br>
+      <p style="padding: 0;margin: 0;line-height: 1.2;">
+        <b>Approve remarks</b><br>
+        <ul style="list-style-position: inside;margin: 0;padding: 0;">{{remarks}}</ul>
+      </p>
+      <br>
+      <div style="display: flex;width: 100%;justify-content: space-between;max-height: 1px;overflow: hidden;">
+        <p style="padding: 0;margin: 0;line-height: 1.2; width: 30%;background-color: #000;">&nbsp;</p>
+        <p style="padding: 0;margin: 0;line-height: 1.2; width: 30%;background-color: #000;">&nbsp;</p>
+      </div>
+      <div style="display: flex;width: 100%;justify-content: space-between;padding-top: 4px;">
+        <p style="padding: 0;margin: 0; width: 30%;">Applicant's signature</p>
+        <p style="padding: 0;margin: 0; width: 30%;">Date</p>
+      </div>
+      <br>
+      <hr style="border: 1px dashed #000;">
+      <h3>For office use only</h3>
+      <div>
+        <b>Leave status</b><br>
+        <div>{{leave_application_status}}</div>
+      </div>
+      <br>
+      <br>
+      <div style="display: flex;width: 100%;justify-content: space-between;max-height: 1px;overflow: hidden;">
+        <p style="padding: 0;margin: 0;line-height: 1.2; width: 30%;background-color: #000;">&nbsp;</p>
+        <p style="padding: 0;margin: 0;line-height: 1.2; width: 30%;background-color: #000;">&nbsp;</p>
+      </div>
+      <div style="display: flex;width: 100%;justify-content: space-between;padding-top: 4px;">
+        <p style="padding: 0;margin: 0; width: 30%;">Signed by</p>
+        <p style="padding: 0;margin: 0; width: 30%;">Signature</p>
+      </div>
+      <br>
+      <br>
+      <div style="display: flex;width: 100%;justify-content: space-between;max-height: 1px;overflow: hidden;">
+        <p style="padding: 0;margin: 0;line-height: 1.2; width: 30%;background-color: #000;">&nbsp;</p>
+        <p style="padding: 0;margin: 0;line-height: 1.2; width: 30%;background-color: #000;">&nbsp;</p>
+      </div>
+      <div style="display: flex;width: 100%;justify-content: space-between;padding-top: 4px;">
+        <p style="padding: 0;margin: 0; width: 30%;">Date</p>
+        <p style="padding: 0;margin: 0; width: 30%;">Stamp</p>
+      </div>
+    </div>
+  </div>
 </template>
 <script src="js/flowbite.min.js"></script>
 <script>
@@ -315,104 +385,47 @@
       leaveLength.max = 15;
     }
   }
-function respond_to_leave(lid){
-  let tplx= document.getElementById('response_form').content.cloneNode(true);
-  let form_html = tplx.querySelector('form');
-  form_html.querySelector('input[name=lid]').setAttribute('value', lid);
-  Swal.fire({
-    title:"Some remarks for the choice",
-    html: form_html.outerHTML,
-    customClass:'mySwal',
-    showConfirmButton:false
-  });
-}
-function view_leave(){
-  let evtTag = window.event.target;
-  if(evtTag.tagName == 'I') evtTag = evtTag.parentNode;
-  let li = '',
-      json = JSON.parse(evtTag.getAttribute('data-json'));
-  for(let i in json){
-    li += `<li>&raquo; ${json[i]}</li>`;
-  }
-  Swal.fire({
-    title:'Remarks',
-    html:`<ul style="text-align:left">${li}</ul>`
-  });
-
-}
-  async function delLeave(values) {
-    if (!confirm("Sure you want to delete staff?")) {
-      return false;
-    }
-    
-    delLeaveBtn = document.getElementById(values.id);
-    delLeaveBtn.disabled = true;
-    delLeaveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
-
-    var leaveId = values.id.split('-');
-    const leaveData = new FormData();
-    leaveData.append('ajax_del_leave', leaveId[1]);
-
-    let url = '';
-    let obj = {
-      method: "POST", 
-      body: leaveData,
-    }
-
-    let response = await fetch(url, obj)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('The response side is not ok!');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-info fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
-        document.getElementById('tr-'+leaveId[1]).remove();
-      }
-      if(data.status == 'fail' || data.status == 'not-exist' || data.status == 'denied'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
-        delLeaveBtn.disabled = false;
-        delLeaveBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
-      }
-    })
-    .catch(error => {
-      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
-        <span>
-          <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-        </span>
-        <div class="ml-3 text-sm font-medium">
-          An error occured! Please try again later.
-        </div> 
-        <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
-          <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-        </button>
-      </div>`;
-      //console.error('Problem:', error);
-      delLeaveBtn.disabled = false;
-      delLeaveBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+  function respond_to_leave(lid){
+    let tplx= document.getElementById('response_form').content.cloneNode(true);
+    let form_html = tplx.querySelector('form');
+    form_html.querySelector('input[name=lid]').setAttribute('value', lid);
+    Swal.fire({
+      title:"Some remarks for the choice",
+      html: form_html.outerHTML,
+      customClass:'mySwal',
+      showConfirmButton:false
     });
+  }
+  function view_leave(){
+    let evtTag = window.event.target;
+    if(evtTag.tagName == 'I') evtTag = evtTag.parentNode;
+    let li = '',
+        json = JSON.parse(evtTag.getAttribute('data-json'));
+    for(let i in json){
+      li += `<li>&raquo; ${json[i]}</li>`;
+    }
+    Swal.fire({
+      title:'Remarks',
+      html:`<ul style="text-align:left">${li}</ul>`
+    });
+
+  }
+  function print_leave(){
+    let evtTag = window.event.target;
+    if(evtTag.tagName == 'I') evtTag = evtTag.parentNode;
+
+    let tpl = document.getElementById('leave_print').content.cloneNode(true).firstElementChild;
+
+    let html = tpl.outerHTML;
+    let json = JSON.parse(evtTag.getAttribute('data-json'));
+    let reli = JSON.parse(json.remarks);
+    console.log(json);
+    let tmp = '';
+    for(x in reli) tmp += `<li>${reli[x]}</li>`;
+    json.remarks = tmp;
+    htmlContent = html.replace(/\{\{(.+?)\}\}/g,  (match, tag) => json[tag.trim()]);
+
+    jsprint(htmlContent);
   }
 </script>
 

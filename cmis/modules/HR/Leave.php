@@ -6,12 +6,32 @@ $me = $db->select('staff')->where(['user_reference'=>$my['user_id']])->fetch();
 $mod_conf = json_decode(file_get_contents(__DIR__.'/module.json'));
 
 $msg = '';
+if(isset($_POST['cancel_leave'])){
+    $db->update('leave_application',['leave_application_status'=>'Cancelled'])
+       ->where(['leave_application_id'=>intval($_POST['cancel_leave'])])
+       ->commit();
+    if(!$db->error()) $k = 'ok';
+    else $k = 'fail';
+    die($k);
+}
+if(isset($_POST['delete_leave'])){
+    $db->delete('leave_application')
+       ->where(['leave_application_id'=>intval($_POST['delete_leave'])])
+       ->commit();
+    if(!$db->error()) $k = 'ok';
+    else $k = 'fail';
+    die($k);
+}
 if(isset($_POST['leave_flow'])){
     $ls = implode(',',array_values($_POST['leave_flow']));
     $mod_conf->modules->leave->approval_flow = $ls;
     file_put_contents(__DIR__.'/module.json', json_encode($mod_conf, JSON_PRETTY_PRINT));
     $mod_conf = json_decode(file_get_contents(__DIR__.'/module.json')); // refresh values...
     $msg = 'Leave approval flow updated';
+    $db->update('leave_application',['leave_application_status'=>'Invalid'])
+       ->where(['leave_application_status'=>'Pending'])
+       ->or(['leave_application_status'=>'Progressing'])
+       ->commit();
 }
 $approval_flow = explode(',', $mod_conf->modules->leave->approval_flow);
 if(isset($_POST['leave_type'])){
@@ -26,7 +46,7 @@ if(isset($_POST['leave_type'])){
     ];
     if(!$data['responsibility_assignee']){
         $data['next_to_approve'] = $approval_flow[0];
-        $data['remarks'] = json_encode(['Auto assigned']);
+        $data['remarks'] = json_encode(['<b>System&nbsp;</b>No responsibility assignee']);
         $data['response_date'] = json_encode([date('Y-m-d H:i:s')]);
         $data['leave_application_status'] = 'Progressing';
     }
@@ -46,28 +66,47 @@ if(isset($_POST['leave_remarks'])){
              ->where(['leave_application_id'=>intval($_POST['lid'])])
              ->fetch();
     if(!$db->error() && $lv){
-        //var_dump($_POST);
-        
-        $key = array_search($lv['next_to_approve'], $approval_flow);
         $data = [];
-        if($lv['next_to_approve'] == 0) $data['next_to_approve'] = $approval_flow[0];
+        if($lv['remarks'] == NULL) {
+            $data['next_to_approve'] = $approval_flow[0];
+            $_POST['response'] = 'Progressing';
+        }
         else{
-            if(isset($approval_flow[$key+1])){
-                $nxt = $approval_flow[$key+1];
-                if(end($approval_flow) != $approval_flow[$key]) {
+            $key = array_search($lv['next_to_approve'], $approval_flow);
+            if(end($approval_flow) != $approval_flow[$key]) {
+                if(isset($approval_flow[$key+1])){
                     // got a way to go...
-                    $data['next_to_approve'] = $nxt;
+                    $data['next_to_approve'] = $approval_flow[$key+1];
                     if($_POST['response'] == 'Approved') $_POST['response'] = 'Progressing';
                 }
-                else{
-                    // last in flow, hence should end here
+                else {
+                    die('Config changed unexpectedly');
                 }
             }
-            $data['leave_application_status'] = $_POST['response'];
+            else {
+                $_POST['response'] = 'Approved';
+                $data['approval_date'] = date('Y-m-d H:i:s');
+                //var_dump($data);die('else2');
+            }
+            
         }
+        $data['leave_application_status'] = $_POST['response'];
         $lv['remarks'] = $lv['remarks'] ? $lv['remarks'] :'[]';
         $remarks = json_decode($lv['remarks'], true);
-        array_push($remarks, $_POST['leave_remarks']);
+        if(intval($lv['responsibility_assignee']) && count($remarks) < 1){
+            $nxp = $db->select('user', 'first_name, middle_name, last_name')
+                      ->where(['user_id'=>intval($lv['responsibility_assignee'])])
+                      ->fetch();
+            $name = "{$nxp['first_name']} {$nxp['middle_name']} {$nxp['last_name']}";
+        }
+        else{
+            $nxp = $db->select('role','role_name as name')
+                      ->where(['role_id'=>intval($lv['next_to_approve'])])
+                      ->fetch();
+            $name = $nxp['name'];
+        }
+        //var_dump($db->error(), $name);die;
+        array_push($remarks, "<b>{$name}&nbsp;</b>{$_POST['leave_remarks']}");
         $data['remarks'] = json_encode($remarks);
 
         $lv['response_date'] = $lv['response_date'] ? $lv['response_date'] :'[]';
@@ -90,6 +129,7 @@ $leave = $db->select('leave_application', 'leave_application.*,user.first_name,u
             ->join('staff','staff.staff_id=leave_application.staff_id','left')
             ->join('user','user_id=user_reference','left')
             ->where($whr)
+            ->or(['responsibility_assignee'=>$my['user_id']])
             ->order_by('leave_application_id', 'desc')
             ->fetchAll();
 
