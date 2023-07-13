@@ -581,7 +581,7 @@
       }
       return response.json();
     })
-    .then(data => {console.log(data);
+    .then(data => {
       var people = '';
       if(data['people'][0]) {
         data['people'].forEach(function (item, index) {
