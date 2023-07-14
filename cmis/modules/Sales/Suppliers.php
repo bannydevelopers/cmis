@@ -17,7 +17,7 @@ if(isset($_POST['supplier_name'])){
         
     ];
     $k = $db->insert('supplier', $data);
-    //var_dump($db->error());
+    var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'supplier added successful';

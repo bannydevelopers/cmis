@@ -316,7 +316,7 @@
             </table>
           </td>
         </tr>
-        <tr>
+        <tr style="margin-top: 4em;">
           <td style="text-align: left;">
             <span style="text-align: center;display: inline-block;">
               <span>___________________</span><br>
@@ -395,13 +395,14 @@
     json.total = 0;
     json.grand_total = 0;
 
-    let tmp = '';
+    let tmp = '', sn = 0;
     let reli = json.invoice_items;
     for(x in reli) {
       let item_total = parseInt(reli[x].qty) * parseInt(reli[x].price),
           itotal = item_total.toLocaleString('en-US'),
           price = reli[x].price.toLocaleString('en-US');
-      tmp += `<tr><td>${x}</td>
+      
+      tmp += `<tr><td>${++sn}</td>
         <td>${reli[x].name}</td>
         <td>${reli[x].qty}</td>
         <td>${price}</td>
