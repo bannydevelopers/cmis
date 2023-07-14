@@ -111,9 +111,7 @@
     <div class="px-4 rounded-lg" id="t-<?=$party_type?>" role="tabpanel" aria-labelledby="t-<?=$party_type?>-tab">
       <table class="w-full">
         <thead>
-          <tr
-            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-          >
+          <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3">Date</th>
             <th class="px-4 py-3">Loan description</th>
             <th class="px-4 py-3">Loan amount</th>
@@ -125,10 +123,8 @@
         <tbody
           class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
         >
-        <?php 
-          if (is_array($debt) || is_object($debt))
-          foreach ($debt as $deb)
-       {?>
+        <?php if (is_array($debt) || is_object($debt))
+          foreach ($debt as $deb) {?>
           
             <td class="px-4 py-3">
               <?=$deb['debt_date']?>
@@ -139,12 +135,6 @@
             <td class="px-4 py-3 text-sm">
               <?=$deb['debt_amount']?>
             </td>
-            <!--td class="px-4 py-3 text-sm">
-              <?=$deb['debt_party_type']?>
-            </td-->
-            <!--td class="px-4 py-3 text-sm">
-              <?=$deb['debt_type']?>
-            </td-->
             
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">   

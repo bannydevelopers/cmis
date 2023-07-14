@@ -37,7 +37,7 @@ if(isset($_POST['debt_description'])){
     else $msg = 'Error adding loan';
     //var_dump($db->error());
 }
-$debt = $db->select('debts')->where(['debt_type'=>'loan'])->order_by('debt_id', 'desc')->fetchAll();
+$debt = $db->select('debts')->where(['debt_type'=>'lend'])->order_by('debt_id', 'desc')->fetchAll();
 $dtree = [];
 foreach($debt as $dt){
     if(!isset($dtree[$dt['debt_party_type']])) $dtree[$dt['debt_party_type']] = [];
