@@ -28,16 +28,16 @@
                 <form class="space-y-6" method="POST">
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                      <lable>Invoice type
+                      <label>Invoice type
                         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="invoice_type">
                             <option value="proforma">Proforma invoice</option>
                             <option value="tax">Tax invoice</option>
                         </select>
-                      </lable>
+                      </label>
                     </div>
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                      <lable>Customer</lable>
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="customer" onchange="add_customer()">
+                      <label>Customer</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="customer" onchange="add_customer()" required>
                           <option value="">Choose customer</option>
                           <?php foreach($customers as $c){?>
                           <option value="<?=$c['customer_id']?>"><?=$c['customer_name']?></option>
@@ -46,12 +46,15 @@
                       </select>
                     </div>
                   </div>
-                  <h3 class="mb-4 text-xl font-medium">Items</h3>
+                    <div class="w-full">
+                      <div class="float-right" id="grand-total"></div>
+                      <h3 class="mb-4 text-xl font-medium">Items</h3>
+                    </div>
                   <hr>
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/3 px-3"> 
-                      <lable>Item</lable>
-                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="item_name[]" onchange="add_product()">
+                      <label>Item</label>
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="item_name[]" onchange="process_product()">
                         <option value="">Choose product...</option>
                         <?php foreach($products as $p){?>
                         <option value="<?=$p['product_id']?>" data-price="<?=$p['product_price']?>"><?=$p['product_name']?></option>
@@ -61,26 +64,18 @@
                     </div>
                     <div class="flex w-full mob:w-2/3 -mx-3 mb-6">
                       <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                        <lable>Quantity</lable>
-                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_quantity[]" min="1" value="1" required>
+                        <label>Quantity</label>
+                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_quantity[]" min="1" value="1" onchange="update_price()" onkeyup="update_price()" required>
                       </div>
                       <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                        <lable>Price per item</lable>
-                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number">
+                        <label>Price per item</label>
+                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" value="0" readonly>
                       </div>
                       <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                        <lable>Total price</lable>
-                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number">
+                        <label>Total price</label>
+                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white total-prices" type="number" value="0" readonly>
                       </div>
                     </div>
-                    <!--div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                      <lable>Quantity</lable>
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_quantity[]" min="1" value="1" required>
-                    </div>
-                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                      <lable>Price per item</lable>
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_price[]" value="0" required readonly>
-                    </div-->
                   </div>
                   <div class="pb-8">
                     <button type="button" class="float-right text-white bg-purple-700 hover:bg-purple-800 foinv:ring-4 foinv:outline-none foinv:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foinv:ring-purple-800" onclick="replicate_items()">Add item</button>
@@ -118,12 +113,13 @@
           <tr
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
           >
-            <th class="px-4 py-3">Date</th>
+            <th class="px-4 py-3">Customer</th>
             <th class="px-4 py-3">Invoice Type</th>
             <th class="px-4 py-3">Ref Number</th>
             <th class="px-4 py-3">Amount</th>
+            <th class="px-4 py-3">Crete date</th>
             <th class="px-4 py-3">Overdue Date</th>
-            <th class="px-4 py-3">Customer</th>
+            <th class="px-4 py-3">Sales personel</th>
             <th class="px-4 py-3">Actions</th>
           </tr>
         </thead>
@@ -132,36 +128,35 @@
         >
         <?php foreach($invoice as $inv){?>
         <tr id="tr-<?=$inv['invoice_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-          <td class="px-4 py-3">
-            <div class="flex items-center text-sm">
-              <div>
-                <p class="font-semibold"><?=$inv['invoice_date']?></p>
-              </div>
-            </div>
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['customer_name']?>
           </td>
           <td class="px-4 py-3 text-sm">
             <?=$inv['invoice_type']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$inv['ref_number']?>
+            <?=(6891+$inv['invoice_id'])?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$inv['invoice_amount']?>
+            <?=number_format($inv['invoice_amount'])?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$inv['invoice_expire_date']?>
+            <?=helper::format_time($inv['created_time'], 'M d, Y @ H:i')?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$inv['customer_name']?>
+            <?=helper::format_time($inv['due_date'], 'M d, Y @ H:i')?>
           </td>
-        
+          <td class="px-4 py-3 text-sm">
+            <?=$inv['first_name']?> <?=$inv['middle_name']?> <?=$inv['last_name']?>
+          </td>        
           <td class="px-4 py-3">
+            <?php $inv['invoice_items'] = json_decode($inv['invoice_items']);?>
             <div class="flex items-center space-x-4 text-sm">   
-              <button data-modal-target="add-invoice-modal-<?=$inv['invoice_id']?>" data-modal-toggle="add-invoice-modal-<?=$inv['invoice_id']?>" 
+              <button onclick="preview_invoice()"  data-json='<?=stripslashes(json_encode($inv))?>'
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
-                aria-label="Edit"
+                aria-label="View"
               >
-              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              <i class="fa-solid fa-eye fa-lg"></i>
               </button>
               <button id="del-<?=$inv['invoice_id']?>" onclick="delinvoice(this)" 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
@@ -178,12 +173,191 @@
     </div>
     
   </div>
-    
+    <!-- Print Template -->
+  <template id="invoice-tpl">
+    <div>
+      <table style="width: 100%;font-family: Arial, Helvetica, sans-serif;line-height: 1.4;font-size: 16px;">
+        <tr>
+          <th style="text-align: left;">
+            <b style="text-transform: uppercase;">{{invoice_type}} INVOICE</b><br>
+            <small>{{created_time}}</small>
+          </th>
+          <th>
+            <div style="text-align: right;" class="text-right">
+              <img src="https://cmis.biz/cmis/system/assets/img/<?=($company->company_logo)?>" style="height: 80px;float: right;">
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td style="text-align: left;">
+            <div style="text-transform: capitalize;">{{customer_name}}</div>
+            <pre style="font-family: inherit;">{{customer_physical_adress}}</pre>
+            <div>TIN: {{tin_number}}</div>
+            <div>VRN: {{vrn_number}}</div>
+          </td>
+          <td style="text-align: right;">
+            <div><?=$company->company_legal_name?></div>
+            <pre style="font-family: inherit;"><?=$company->company_address?></pre>
+            <div><?=$company->email?></div>
+            <div><?=$company->phone_number?></div>
+            <div>TIN: <?=$company->TIN_number?></div>
+            <div>VRN: <?=$company->VRN_number?></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table style="min-width: 60%;text-align: left;">
+              <tr>
+                <td>Order No.</td>
+                <td>{{order_id}}</td>
+              </tr>
+              <tr>
+                <td>Due date</td>
+                <td>{{due_date}}</td>
+              </tr>
+              <tr>
+                <td>Sales represantantive</td>
+                <td>{{first_name}} {{middle_name}} {{last_name}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table style="width: 100%;text-align: left;margin-top: 1em;">
+              <tr style="border-bottom: 1px solid #000;">
+                <th>S/N</th>
+                <th>Item name</th>
+                <th>Quantity</th>
+                <th>Unit price</th>
+                <th style="text-align: right;">Total amount</th>
+              </tr>
+              <tr id="items_list">
+              </tr>
+              <tr style="border-top: 1px solid #000;">
+                <td colspan="3">&nbsp;</td>
+                <th style="text-align: right;">Total</th>
+                <th style="text-align: right;">{{total}}</th>
+              </tr>
+              <tr>
+                <td colspan="3">&nbsp;</td>
+                <th style="text-align: right;">VAT (18%)</th>
+                <th style="text-align: right;">{{VAT}}</th>
+              </tr>
+              <tr>
+                <td colspan="3">&nbsp;</td>
+                <th style="text-align: right;border-top: 1px solid #000;">Total including VAT</th>
+                <th style="text-align: right;border-top: 1px solid #000;">{{grand_total}}</th>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">
+            <span style="text-align: center;display: inline-block;">
+              <span>___________________</span><br>
+              <span>Client's signature</span>
+            </span>
+          </td>
+          <td style="text-align: right;">
+            <span style="text-align: center;display: inline-block;">
+              <span>___________________</span><br>
+              <span>Seller's signature</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <div style="position: absolute;top: 1em;right: 1em; padding: .4em .6em;box-shadow: 0 0 4px #999;border-radius: 4em;background-color: #fff;">
+        <button onclick="jsprint(this.parentNode.previousElementSibling.outerHTML)" class="fa fa-print"></button>
+      </div>
+      <style>
+        td,th{
+          vertical-align: top;
+          padding: 4px;
+        }
+      </style>
+    </div>
+  </template>
+		<!-- /Print Template -->
+  <style>
+    .wideSwal{
+      min-width: 80%;
+    }
+  </style>
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
   function replicate_items(){
     let evtTag = window.event.target;
     evtTag.parentNode.previousElementSibling.insertAdjacentHTML('afterEnd',evtTag.parentNode.previousElementSibling.outerHTML);
+  }
+
+  function process_product(){
+    let evtTag = window.event.target;
+    if(parseInt(evtTag.value) > 0){
+      let price = evtTag.options[evtTag.selectedIndex].getAttribute('data-price');
+      let qty = evtTag.parentNode.nextElementSibling.children[0].querySelector('input').value;
+      let priceTag = evtTag.parentNode.nextElementSibling.children[1].querySelector('input');
+      let totalPrice = evtTag.parentNode.nextElementSibling.children[2].querySelector('input');
+      priceTag.value = price;
+      totalPrice.value = parseInt(price) * parseInt(qty);
+      sumAll();
+    }
+  }
+
+  function update_price(){
+    let evtTag = window.event.target,
+        priceOpts = evtTag.parentNode.parentNode.previousElementSibling.querySelector('select'),
+        price = parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
+    evtTag.parentNode.nextElementSibling.nextElementSibling.querySelector('input').value =  price;
+    sumAll();
+  }
+
+  function sumAll(){
+    let grandTotal = document.getElementById('grand-total'),
+        totals = document.querySelectorAll('.total-prices'),
+        grandPrice = 0;
+    [...totals].forEach(elem=>{
+      if(elem.value != '') grandPrice += parseInt(elem.value);
+    });
+    grandTotal.innerHTML = `<span><b>Invoice total:&nbsp;</b>${grandPrice}</span>`;
+  }
+
+  function preview_invoice(){
+    let elem = window.event.target.tagName == 'I' ? window.event.target.parentNode : window.event.target;
+
+    let json = JSON.parse(elem.getAttribute('data-json'));
+
+    json.total = 0;
+    json.grand_total = 0;
+
+    let tmp = '';
+    let reli = json.invoice_items;
+    for(x in reli) {
+      let item_total = parseInt(reli[x].qty) * parseInt(reli[x].price),
+          itotal = item_total.toLocaleString('en-US'),
+          price = reli[x].price.toLocaleString('en-US');
+      tmp += `<tr><td>${x}</td>
+        <td>${reli[x].name}</td>
+        <td>${reli[x].qty}</td>
+        <td>${price}</td>
+        <td style="text-align: right;">${itotal}</td></tr>`;
+      json.total += item_total;
+    }
+    json.VAT = (json.total * 0.18);
+    json.grand_total = (json.total + json.VAT).toLocaleString('en-US');
+    json.VAT = json.VAT.toLocaleString('en-US');
+    json.total = json.total.toLocaleString('en-US');
+    json.order_id = 6891+parseInt(json.invoice_id);
+    let tpl = document.getElementById('invoice-tpl').content.cloneNode(true);
+    tpl.getElementById('items_list').outerHTML = tmp;
+    
+    htmlContent = tpl.firstElementChild.outerHTML.replace(/\{\{(.+?)\}\}/g,  (match, tag) => json[tag.trim()]);
+
+    Swal.fire({
+      html:htmlContent,
+      customClass:'wideSwal',
+      showConfirmButton:false
+    });
   }
 </script>
