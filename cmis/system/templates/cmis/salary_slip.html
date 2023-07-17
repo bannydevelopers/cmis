@@ -1,27 +1,22 @@
 
+<h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    Salary slip
+</h2>
 
-<div class="flex flex-wrap">
-    <h2 class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-        Salary slip
-    </h2>
-    <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-        <button 
-        data-modal-target="add-payroll-modal" data-modal-toggle="add-payroll-modal" 
-        class="float-right text-white bg-purple-700 hover:bg-purple-800 foroll:ring-4 foroll:outline-none foroll:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foroll:ring-purple-800" type="button">
-        Add pay slip
-        </button>
-    </div>
-  </div>
 <!-- Modal toggle -->
 <div>
+    <button data-modal-target="add-slip-modal" data-modal-toggle="add-slip-modal" 
+    class="float-right text-white bg-purple-700 hover:bg-purple-800 foroll:ring-4 foroll:outline-none foroll:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foroll:ring-purple-800" type="button">
+    Add pay slip
+    </button>
 </div>
 
-<!-- Add Payroll modal -->
-<div id="add-payroll-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
+<!-- Add slip modal -->
+<div id="add-slip-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
   <div class="relative w-full max-w-4xl max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
-          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-payroll-modal">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-slip-modal">
             <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
               <span class="sr-only"></span></span>
           </button>
@@ -40,58 +35,58 @@
                 </div>
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                   <label>Basic salary
-                    <input name="basic_salary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="gross_salary" type="gross_salary" placeholder="gross_salary"> 
+                    <input name="basic_salary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="basic_salary" type="number" placeholder="basic_salary"> 
                   </label>
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                     <label>Allowance
-                    <input name="allowance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="net_salary" type="net_salary" placeholder="net_salary">
+                    <input name="allowance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="net_salary" type="number" placeholder="net_salary">
                 </div>
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                     <label>Bonus
-                    <input name="bonus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="payroll_bonus" type="payroll_bonus" placeholder="payroll_bonus">
+                    <input name="bonus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="slip_bonus" type="number" placeholder="slip_bonus">
                     </label>
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full mob:w-1/2 px-3"> 
                   <label>Payee
-                    <input  name="payee" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="payee" type="payee" placeholder="payee">
+                    <input  name="payee" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="payee" type="number" placeholder="payee">
                   </label>
                 </div>
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
                   <label>Health insurance fund
-                    <input name="health_insurance_fund" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="health_insurance_fund" type="health_insurance_fund" placeholder="health_insurance_fund">
+                    <input name="health_insurance_fund" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="health_insurance_fund" type="number" placeholder="health_insurance_fund">
                   </label>
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                   <label>Social security fund
-                    <input name="social_security_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="social_security_fund" type="social_security_fund" placeholder="social_security_fund">
+                    <input name="social_security_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="social_security_fund" type="number" placeholder="social_security_fund">
                   </label>
                 </div>
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                   <label>Worker compasion fund
-                    <input name="worker_compasion_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="worker_compasion_fund" type="worker_compasion_fund" placeholder="worker_compasion_fund">
+                    <input name="worker_compasion_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="worker_compasion_fund" type="number" placeholder="worker_compasion_fund">
                   </label>
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                   <label>Education fund
-                    <input name="education_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="education_fund" type="education_fund" placeholder="education_fund">
+                    <input name="education_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="education_fund" type="number" placeholder="education_fund">
                   </label>
                 </div>
                 <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                   <label>Other deductions
-                    <input name="other_deduction" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="net_salary" type="net_salary" placeholder="net_salary">
+                    <input name="other_deduction" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="net_salary" type="number" placeholder="net_salary">
                 </div>
               </div>
               <div class="pb-8">
-                <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 foroll:ring-4 foroll:outline-none foroll:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foroll:ring-purple-800">Create</button>
+                <button name="add-slip" type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 foroll:ring-4 foroll:outline-none foroll:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foroll:ring-purple-800">Create</button>
               </div>
             </form>
           </div>
@@ -179,24 +174,111 @@
          
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
-              <button  
+              <button data-modal-target="edit-slip-modal-<?=$roll['slip_id']?>" data-modal-toggle="edit-slip-modal-<?=$roll['slip_id']?>" 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foroll:outline-none foroll:outline-gray-300"
-                aria-label="Edit"
-              >
+                aria-label="Edit">
               <i class="fa-solid fa-pen-to-square fa-lg"></i>
-              </button>
-              <button id="del-<?=$roll['slip_id']?>" onclick="delpayroll(this)" 
+              <!-- </button>
+              <button id="del-<?=$roll['slip_id']?>" onclick="delslip(this)" 
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foroll:outline-none foroll:outline-gray-300"
                 aria-label="Delete"
               >
               <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-              </button>
+              </button> -->
             </div>
           </td>
         </tr>
-      <!-- Edit payroll modal -->
-      
-      <!--/ Edit payroll modal -->
+      <!-- Edit slip modal -->
+      <div id="edit-slip-modal-<?=$roll['slip_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full items-center">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-slip-modal-<?=$roll['slip_id']?>">
+                  <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                    <span class="sr-only"></span></span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                  <h3 class="mb-4 text-xl font-medium">Create salary slip</h3>
+                  <form class="space-y-6" method="POST">
+                    <input type="number" name="slip_id" value="<?=$roll['slip_id']?>">
+                    <input type="text" value="<?=$roll['first_name']?>" name="full_name">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                        <label>Employee name
+                          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="employee">
+                            <option value="<?=$roll['employee']?>"><?=ucwords($roll['first_name'])?> <?=ucwords($roll['middle_name'])?> <?=ucwords($roll['last_name'])?></option>>
+                            <?php foreach($employees as $user){?>
+                              <option value="<?=$user['user_id']?>"><?=$user['first_name']?> <?=$user['middle_name']?> <?=$user['last_name']?></option>
+                            <?php }?>
+                          </select>
+                        </label>
+                      </div>
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                        <label>Basic salary
+                          <input name="basic_salary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$roll['basic_salary']?>" name="basic_salary" type="number" placeholder="basic_salary"> 
+                        </label>
+                      </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                          <label>Allowance
+                          <input name="allowance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$roll['allowance']?>" name="net_salary" type="number" placeholder="net_salary">
+                      </div>
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                          <label>Bonus
+                          <input name="bonus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$roll['bonus']?>" name="slip_bonus" type="number" placeholder="Bonus">
+                          </label>
+                      </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full mob:w-1/2 px-3"> 
+                        <label>Payee
+                          <input  name="payee" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$roll['payee']?>" name="payee" type="number" placeholder="payee">
+                        </label>
+                      </div>
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
+                        <label>Health insurance fund
+                          <input name="health_insurance_fund" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=
+                          $roll['health_insurance_fund']?>" name="health_insurance_fund" type="number" placeholder="health_insurance_fund">
+                        </label>
+                      </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                        <label>Social security fund
+                          <input name="social_security_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=
+                          $roll['social_security_fund']?>" name="social_security_fund" type="number" placeholder="social_security_fund">
+                        </label>
+                      </div>
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                        <label>Worker compasion fund
+                          <input name="worker_compasion_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=
+                          $roll['worker_compasion_fund']?>" name="worker_compasion_fund" type="number" placeholder="worker_compasion_fund">
+                        </label>
+                      </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                        <label>Education fund
+                          <input name="education_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=
+                          $roll['education_fund']?>" name="education_fund" type="number" placeholder="education_fund">
+                        </label>
+                      </div>
+                      <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                        <label>Other deductions
+                          <input name="other_deduction" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=
+                          $roll['other_deduction']?>" name="net_salary" type="number" placeholder="net_salary">
+                      </div>
+                    </div>
+                    <div class="pb-8">
+                      <button type="submit" name="update-slip" class="float-right text-white bg-purple-700 hover:bg-purple-800 foroll:ring-4 foroll:outline-none foroll:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foroll:ring-purple-800">Update</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+      </div> 
+      <!--/ Edit slip modal -->
     <?php }?>
     </tbody>
   </table>
