@@ -1123,6 +1123,10 @@ video {
   max-width: 36rem;
 }
 
+.max-w-full {
+  max-width: 100%;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1219,6 +1223,10 @@ video {
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -1424,6 +1432,10 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
 }
 
 .rounded-l-lg {
@@ -1689,6 +1701,10 @@ video {
 
 .bg-cover {
   background-size: cover;
+}
+
+.bg-clip-border {
+  background-clip: border-box;
 }
 
 .bg-center {
@@ -1990,6 +2006,10 @@ video {
 
 .lowercase {
   text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 .leading-5 {
@@ -3055,11 +3075,6 @@ video {
   border-color: rgb(59 130 246 / var(--tw-border-opacity));
 }
 
-.dark .dark\:focus\:border-purple-500:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(168 85 247 / var(--tw-border-opacity));
-}
-
 .dark .dark\:focus\:placeholder-gray-600:focus::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(75 85 99 / var(--tw-placeholder-opacity));
@@ -3078,11 +3093,6 @@ video {
 .dark .dark\:focus\:ring-blue-600:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(37 99 235 / var(--tw-ring-opacity));
-}
-
-.dark .dark\:focus\:ring-purple-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(168 85 247 / var(--tw-ring-opacity));
 }
 
 .dark .dark\:focus\:ring-purple-800:focus {
@@ -3221,6 +3231,10 @@ video {
 
   .sm\:max-w-xl {
     max-width: 36rem;
+  }
+
+  .sm\:flex-none {
+    flex: none;
   }
 
   .sm\:grid-cols-9 {
@@ -3366,14 +3380,6 @@ video {
     padding-left: 6rem;
     padding-right: 6rem;
   }
-
-  .md\:pl-4 {
-    padding-left: 1rem;
-  }
-
-  .md\:text-right {
-    text-align: right;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -3393,14 +3399,6 @@ video {
     width: 25%;
   }
 
-  .lg\:w-3\/4 {
-    width: 75%;
-  }
-
-  .lg\:w-2\/4 {
-    width: 50%;
-  }
-
   .lg\:flex-row {
     flex-direction: row;
   }
@@ -3416,6 +3414,10 @@ video {
 }
 
 @media (min-width: 1280px) {
+  .xl\:w-1\/4 {
+    width: 25%;
+  }
+
   .xl\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }

@@ -144,19 +144,19 @@ Payroll
 <?php } ?>
 <div id="message"></div>
 
-<div class="w-full overflow-hidden rounded-lg">
-    <div class="flex flex-wrap -mx-3 mb-6 space-between">
+<div class="flex flex-wrap -mx-3">
     <?php foreach ($payroll as $roll){?>
-      <div class="w-full sm:w-1/3 px-3 my-2 mob:my-3 rounded-lg shadow-md">
-        <div class="text-l font-semibold"><?=$roll['payroll_name']?></div>
-        <div><?=$roll['create_date']?></div>
-        <div>
-          <button onclick="view_roll()" class="fa fa-eye" data-json='<?=stripslashes(json_encode($roll))?>'></button>
-          <button class="fa fa-trash"></button>
+      <div class="w-full max-w-full px-2 sm:w-1/2 sm:flex-none xl:w-1/4">
+        <div class="relative p-2 flex flex-col min-w-0 break-words bg-white shadow-xl rounded-xl bg-clip-border">
+          <div class="font-semibold pb-2"><?=$roll['payroll_name']?></div>
+          <div class="pb-2"><?=helper::format_time($roll['create_date'], 'd M, Y @ H:i')?></div>
+          <div class="text-right">
+            <button onclick="view_roll()" class="fa fa-eye p-2 text-blue-500" data-json='<?=stripslashes(json_encode($roll))?>'></button>
+            <button class="fa fa-trash p-2 text-red-500"></button>
+          </div>
         </div>
       </div>
     <?php }?>
-    </div>
 </div>
 
 </div>
