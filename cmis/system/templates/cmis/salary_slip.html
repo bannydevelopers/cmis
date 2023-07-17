@@ -162,12 +162,11 @@
             <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']]))?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=number_format(array_sum([$roll['health_insurance_fund'],$roll['payee'],
-            $roll['health_insurance_fund'],$roll['social_security_fund'],
-            $roll['worker_compasion_fund'],$roll['education_fund']]))?>
+            <?=number_format(array_sum([$roll['health_insurance_fund'],$roll['payee'] 
+            ,$roll['social_security_fund'],$roll['worker_compasion_fund'],$roll['education_fund']]))?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']])-array_sum([$roll['health_insurance_fund'],$roll['payee'],
+            <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']])-array_sum([$roll['payee'],
             $roll['health_insurance_fund'],$roll['social_security_fund'],
             $roll['worker_compasion_fund'],$roll['education_fund']]))?>
           </td>
@@ -178,13 +177,12 @@
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foroll:outline-none foroll:outline-gray-300"
                 aria-label="Edit">
               <i class="fa-solid fa-pen-to-square fa-lg"></i>
-              <!-- </button>
-              <button id="del-<?=$roll['slip_id']?>" onclick="delslip(this)" 
+              </button>
+              <button id="view-<?=$roll['slip_id']?>"
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foroll:outline-none foroll:outline-gray-300"
-                aria-label="Delete"
-              >
-              <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-              </button> -->
+                aria-label="Delete">
+              <i class="fa-sharp fa-solid fa-eye fa-lg"></i>
+              </button>
             </div>
           </td>
         </tr>

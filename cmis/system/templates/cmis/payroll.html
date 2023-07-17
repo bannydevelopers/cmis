@@ -151,7 +151,7 @@ Payroll
           <div class="font-semibold pb-2"><?=$roll['payroll_name']?></div>
           <div class="pb-2"><?=helper::format_time($roll['create_date'], 'd M, Y @ H:i')?></div>
           <div class="text-right">
-            <button onclick="view_roll()" class="fa fa-eye p-2 text-blue-500" data-json='<?=stripslashes(json_encode($roll))?>'></button>
+            <button onclick="view_roll()" class="fa fa-eye p-2 text-blue-500" data-json='<?=$roll['payment_slips']?>'></button>
             <button class="fa fa-trash p-2 text-red-500"></button>
           </div>
         </div>
@@ -160,9 +160,65 @@ Payroll
 </div>
 
 </div>
+<template id="slip_table">
+  <table class="w-full" style="width: 100%;text-align: left;">
+    <thead>
+      <tr>
+        <th colspan="7" style="text-align: center;">
+          <h1>Payroll of {{pname}}</h1>
+        </th>
+      </tr>
+      <tr
+        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+      >
+        <th class="px-4 py-3">Employee</th>
+        <th class="px-4 py-3">Basic salary</th>
+        <th class="px-4 py-3">Allowance</th>
+        <th class="px-4 py-3">Bonus</th>
+        <th class="px-4 py-3">Gross Salary</th>
+        <th class="px-4 py-3">Deductions</th>
+        <th class="px-4 py-3">Net Salary</th>
+      </tr>
+    </thead>
+    <tbody
+      class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+    >
+    <tr class="data-row text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <td class="px-4 py-3">
+          <div class="flex items-center text-sm">
+            <div>
+              <p class="font-semibold">{{full_name}}</p>
+            </div>
+          </div>
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {{basic_salary}}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {{allowance}}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {{bonus}}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {{gross_salary}}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {{deductions}}
+        </td>
+        <td class="px-4 py-3 text-sm">
+          {{net_salary}}
+        </td>
+      </tr>
+  </tbody>
+</table>
+</template>
 <style>
   .wideSwal{
     min-width: 80%;
+  }
+  .wideSwal .swal2-html-container{
+    text-align: left;
   }
 </style>
 <script src="js/sweetalert.min.js"></script>
@@ -177,10 +233,31 @@ Payroll
   function view_roll(){
     let evtTag = window.event.target;
     if(evtTag.tagName == 'I') evtTag = evtTag.parentNode;
-    let json = evtTag.getAttribute('data-json');
+    let pname = evtTag.parentNode.previousElementSibling.previousElementSibling.innerHTML;
+    let json = evtTag.getAttribute('data-json'),
+        txt = '';
+    let tpl = document.getElementById('slip_table').content.cloneNode(true).firstElementChild;
+    //console.log(tpl);
+    let tr = tpl.querySelector('.data-row');
+    JSON.parse(json).forEach(slip=>{
+      slip.gross_salary = (slip.basic_salary + slip.allowance + slip.bonus);
+      slip.deductions = (slip.health_insurance_fund + slip.payee + slip.social_security_fund + slip.worker_compasion_fund + slip.education_fund);
+      slip.net_salary = (slip.gross_salary - slip.deductions);
+      txt += tr.outerHTML.replace(/\{\{(.+?)\}\}/g,  (match, tag) => slip[tag.trim()]);
+    });
+    tpl.innerHTML = tpl.innerHTML.replace(/\{\{(.+?)\}\}/g,  (match, tag) => pname);
+    tpl.querySelector('.data-row').outerHTML = txt;
+    tpl.setAttribute('id', 'printable_payroll')
     Swal.fire({
-      html:json,
-      customClass:'wideSwal'
+      html:tpl.outerHTML,
+      customClass:'wideSwal',
+      confirmButtonText:'Print',
+      showCancelButton: true
+    })
+    .then(response=>{
+      if(response.isConfirmed){
+        jsprint(document.getElementById('printable_payroll').outerHTML);
+      }
     });
   }
 </script>
