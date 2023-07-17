@@ -23,15 +23,15 @@ if(isset($_POST['customer_name'])){
 if(isset($_POST['stock_batch'])){
     $data = [
         'stock_ref'=>0, 
-        'product'=>$_POST['product'], 
-        'store'=>$_POST['store'], 
-        'stock_quantity'=>$_POST['product_quantity'], 
+        'product'=>intval($_POST['product']), 
+        'store'=>intval($_POST['store']), 
+        'stock_quantity'=>intval($_POST['product_quantity']), 
         'stock_batch'=>$_POST['stock_batch'], 
-        'buying_price'=>$_POST['buying_price'],  
-        'selling_price'=>$_POST['selling_price'], 
-        'stock_expenses'=>$_POST['stock_expenses'], 
+        'buying_price'=>intval($_POST['buying_price']),  
+        'selling_price'=>intval($_POST['selling_price']), 
+        'stock_expenses'=>intval($_POST['stock_expenses']), 
         'create_date'=>date('Y-m-d H:i:s'), 
-        'stock_supplier'=>$_POST['supplier'], 
+        'stock_supplier'=>intval($_POST['supplier']), 
         'stock_receiver'=>helper::init()->get_session_user('user_id')
     ];
     $k = $db->insert('stock', $data);
@@ -47,7 +47,7 @@ $data['supplier'] = $db->select('supplier')->fetchAll();
 $data['store'] = $db->select('store')->fetchAll();
 
 //$fields = "*, (SELECT sum(stock_quantity) from stock WHERE stock_type='out' AND stock_batch='') as stock_out";
-$data['stock'] = $db->select('stock', 'stock.*,product.*,store.*,store.*,supplier.*,user.*,sum(outgoing.stock_quantity) as stock_out')
+$data['stock'] = $db->select('stock', 'stock.*,product.*,store.*,supplier.*,user.*,sum(outgoing.stock_quantity) as stock_out')
                     ->join('product', 'product_id=stock.product')
                     ->join('stock as outgoing', 'outgoing.stock_ref=stock.stock_id', 'left')
                     ->join('store', 'store.store_id=stock.store')
@@ -56,5 +56,5 @@ $data['stock'] = $db->select('stock', 'stock.*,product.*,store.*,store.*,supplie
                     ->where('stock.stock_ref < 1')
                     ->group_by('stock_id')
                     ->fetchAll();
-var_dump($db->error());
+//var_dump($db->error());
 echo helper::find_template('Stock', $data);

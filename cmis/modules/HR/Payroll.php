@@ -6,17 +6,16 @@ $ok = false;
 
 $request = $_SERVER['REQUEST_URI'];
 //var_dump($_REQUEST);
-if(isset($_POST['gross_salary'])){
+if(isset($_POST['p_slips'])){
+    $slist = implode(',', array_values($_POST['p_slips']));
+    $slips = $db->select('salary_slip', "salary_slip.*, CONCAT_WS(' ',first_name, middle_name, last_name) AS full_name")
+                ->join('user','salary_slip.employee=user.user_id')
+                ->where("slip_id IN ({$slist})")
+                ->order_by('slip_id', 'desc')->fetchAll();
     $data = [
-        'employee_name'=>$_POST['employee_name'], 
-        'gross_salary'=>$_POST['gross_salary'], 
-        'payee'=>$_POST['payee'],
-        'health_insurance_fund'=>$_POST['health_insurance_fund'],
-        'social_security_fund'=>$_POST['social_security_fund'],
-        'worker_compasion_fund'=>$_POST['social_security_fund'],
-        'education_fund'=>$_POST['education_fund'],
-        'payroll_bonus'=>$_POST['payroll_bonus'],
-        'net_salary'=>$_POST['net_salary'],
+        'payment_slips'=>json_encode($slips), 
+        'payroll_name'=>"{$_POST['payroll_month']}, {$_POST['payroll_year']}", 
+        'created_by'=>helper::init()->get_session_user('user_id'),
         'create_date'=>date('Y-m-d H:i:s')
         
     ];
@@ -24,20 +23,23 @@ if(isset($_POST['gross_salary'])){
     //var_dump($db->error());
    
     if(!$db->error() && $k) {
-        $msg = 'payroll added successful';
+        $msg = 'Payroll added successful';
         $ok =true;
     }
     else $msg = 'Error adding payroll';
    //var_dump($db->error());
 }
-$payroll = $db->select('payroll','payroll.*,user.first_name')
-            ->join('user','payroll.employee_name=user.user_id')
-            ->order_by('payroll_id', 'desc')->fetchAll();
+$payroll = $db->select('payroll')
+              ->order_by('payroll_id', 'desc')->fetchAll();
 
     //var_dump($db->error());
 $employee = $db->select('user')
-            ->where(1)
-            ->fetchAll();
+               ->where(1)
+               ->fetchAll();
 
-$data = ['payroll'=>$payroll,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,'employee'=>$employee];
+$slips = $db->select('salary_slip')
+            ->join('user','salary_slip.employee=user.user_id')
+            ->order_by('slip_id', 'desc')->fetchAll();
+
+$data = ['payroll'=>$payroll,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,'employee'=>$employee,'slips'=>$slips];
 echo helper::find_template('Payroll', $data);

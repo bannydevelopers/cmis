@@ -23,62 +23,102 @@ Payroll
               <span class="sr-only"></span></span>
           </button>
           <div class="px-6 py-6 lg:px-8">
-            <h3 class="mb-4 text-xl font-medium">Add Payroll </h3>
+            <h3 class="mb-4 text-xl font-medium">Create payroll </h3>
             <form class="space-y-6" method="POST">
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                  <label>Employee name
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="employee_name">
-                      <?php foreach($employee as $user){?>
-                        <option value="<?=$user['user_id']?>"><?=$user['first_name']?></option>
-                      <?php }?>
+                  <label>Month
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="payroll_month">
+                      <option>January</option>
+                      <option>February</option>
+                      <option>March</option>
+                      <option>April</option>
+                      <option>May</option>
+                      <option>June</option>
+                      <option>July</option>
+                      <option>August</option>
+                      <option>September</option>
+                      <option>October</option>
+                      <option>November</option>
+                      <option>December</option>
                     </select>
                   </label>
                 </div>
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                  <label>Gross salary
-                    <input name="gross_salary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="gross_salary" type="gross_salary" placeholder="gross_salary"> 
+                <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                  <label>Year
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="payroll_year">
+                      <option><?=date('Y')-1?></option>
+                      <option selected><?=date('Y')?></option>
+                      <option><?=date('Y')+1?></option>
+                    </select>
                   </label>
                 </div>
               </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full mob:w-1/2 px-3"> 
-                  <label>Payee
-                    <input  name="payee" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="payee" type="payee" placeholder="payee">
-                  </label>
-                </div>
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                  <label>Health insurance fund
-                    <input name="health_insurance_fund" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="health_insurance_fund" type="health_insurance_fund" placeholder="health_insurance_fund">
-                  </label>
+
+              <div class="w-full overflow-hidden rounded-lg shadow-md">
+                <div class="w-full overflow-x-auto">
+                  <h3 class="mb-4 text-l font-small">Salary slips</h3>
+                  <table class="w-full">
+                    <thead>
+                      <tr
+                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                      >
+                        <th class="px-4 py-3"><input type="checkbox" onchange="update_checks()"></th>
+                        <th class="px-4 py-3">Employee</th>
+                        <th class="px-4 py-3">Basic salary</th>
+                        <th class="px-4 py-3">Allowance</th>
+                        <th class="px-4 py-3">Bonus</th>
+                        <th class="px-4 py-3">Gross Salary</th>
+                        <th class="px-4 py-3">Deductions</th>
+                        <th class="px-4 py-3">Net Salary</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                    >
+                    <?php 
+                    if (is_array($slips) || is_object($slips))
+                    foreach ($slips as $roll){?>
+                      <tr id="tr-<?=$roll['slip_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <td class="px-4 py-3">
+                          <input type="checkbox" name="p_slips[]" value="<?=$roll['slip_id']?>" class="slips-check">
+                        </td>
+                        <td class="px-4 py-3">
+                          <div class="flex items-center text-sm">
+                            <div>
+                              <p class="font-semibold"><?=ucwords($roll['first_name'])?> <?=ucwords($roll['middle_name'])?> <?=ucwords($roll['last_name'])?></p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <?=number_format($roll['basic_salary'])?>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <?=number_format($roll['allowance'])?>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <?=number_format($roll['bonus'])?>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']]))?>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <?=number_format(array_sum([$roll['health_insurance_fund'],$roll['payee'],
+                          $roll['health_insurance_fund'],$roll['social_security_fund'],
+                          $roll['worker_compasion_fund'],$roll['education_fund']]))?>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']])-array_sum([$roll['health_insurance_fund'],$roll['payee'],
+                          $roll['health_insurance_fund'],$roll['social_security_fund'],
+                          $roll['worker_compasion_fund'],$roll['education_fund']]))?>
+                        </td>
+                      </tr>
+                  <?php }?>
+                    </tbody>
+                </table>
                 </div>
               </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                  <label>Social security fund
-                    <input name="social_security_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="social_security_fund" type="social_security_fund" placeholder="social_security_fund">
-                  </label>
-                </div>
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                  <label>Worker compasion fund
-                    <input name="worker_compasion_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="worker_compasion_fund" type="worker_compasion_fund" placeholder="worker_compasion_fund">
-                  </label>
-                </div>
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                  <label>Education fund
-                    <input name="education_fund" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="education_fund" type="education_fund" placeholder="education_fund">
-                  </label>
-                </div>
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                  <label>Bonus
-                    <input name="payroll_bonus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="payroll_bonus" type="payroll_bonus" placeholder="payroll_bonus">
-                  </label>
-                </div>
-                <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                  <label>Net salary
-                    <input name="net_salary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foroll:ring-purple-500 foroll:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="net_salary" type="net_salary" placeholder="net_salary">
-                </div>
-              </div>
+
               <div class="pb-8">
                 <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 foroll:ring-4 foroll:outline-none foroll:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:foroll:ring-purple-800">Create</button>
               </div>
@@ -104,111 +144,45 @@ Payroll
 <?php } ?>
 <div id="message"></div>
 
-<div class="w-full overflow-hidden rounded-lg shadow-md">
-  <div class="w-full overflow-x-auto">
-    <table class="w-full">
-      <thead>
-        <tr
-          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-        >
-          <th class="px-4 py-3">Employee Name</th>
-          <th class="px-4 py-3">Gross Salary</th>
-          <th class="px-4 py-3">Payee</th>
-          <th class="px-4 py-3">Health insurance fund</th>
-          <th class="px-4 py-3">Social security fund</th>
-          <th class="px-4 py-3">Worker compasion fund</th>
-          <th class="px-4 py-3">Education fund</th>
-          <th class="px-4 py-3">Bonus</th>
-          <th class="px-4 py-3">Net Salary</th>
-          <th class="px-4 py-3">Actions</th>
-        </tr>
-      </thead>
-      <tbody
-        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-      >
-      <?php 
-      if (is_array($payroll) || is_object($payroll))
-      foreach ($payroll as $roll)
-   {?>
-        <tr id="tr-<?=$roll['payroll_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-          <td class="px-4 py-3">
-            <div class="flex items-center text-sm">
-              <div>
-                <p class="font-semibold"><?=$roll['first_name']?></p>
-              </div>
-            </div>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['gross_salary']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['payee']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['health_insurance_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['social_security_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['worker_compasion_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['education_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['payroll_bonus']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['net_salary']?>
-          </td>
-         
-          <td class="px-4 py-3">
-            <div class="flex items-center space-x-4 text-sm">   
-              <button  
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foroll:outline-none foroll:outline-gray-300"
-                aria-label="Edit"
-              >
-              <i class="fa-solid fa-pen-to-square fa-lg"></i>
-              </button>
-              <button id="del-<?=$roll['payroll_id']?>" onclick="delpayroll(this)" 
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foroll:outline-none foroll:outline-gray-300"
-                aria-label="Delete"
-              >
-              <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      <!-- Edit payroll modal -->
-      
-      <!--/ Edit payroll modal -->
+<div class="w-full overflow-hidden rounded-lg">
+    <div class="flex flex-wrap -mx-3 mb-6 space-between">
+    <?php foreach ($payroll as $roll){?>
+      <div class="w-full sm:w-1/3 px-3 my-2 mob:my-3 rounded-lg shadow-md">
+        <div class="text-l font-semibold"><?=$roll['payroll_name']?></div>
+        <div><?=$roll['create_date']?></div>
+        <div>
+          <button onclick="view_roll()" class="fa fa-eye" data-json='<?=stripslashes(json_encode($roll))?>'></button>
+          <button class="fa fa-trash"></button>
+        </div>
+      </div>
     <?php }?>
-    </tbody>
-  </table>
+    </div>
 </div>
 
 </div>
-
+<style>
+  .wideSwal{
+    min-width: 80%;
+  }
+</style>
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
-const del = () => swal("Sure! want to delete?", {
-  buttons: {
-    cancel: "Cancel!",
-    catch: {
-      text: "Delete!",
-      value: "delete",
-    }
-  },
-})
-.then((value) => {
-  switch (value) {
-    case "delete":
-      swal("Done!", "User deleted!", "success");
-      break;
+  function update_checks(){
+    let cs = window.event.target.checked;
+    [...document.querySelectorAll('.slips-check')].forEach(elem=>{
+      elem.checked = cs;
+    });
   }
-});
+  function view_roll(){
+    let evtTag = window.event.target;
+    if(evtTag.tagName == 'I') evtTag = evtTag.parentNode;
+    let json = evtTag.getAttribute('data-json');
+    Swal.fire({
+      html:json,
+      customClass:'wideSwal'
+    });
+  }
 </script>
 
 

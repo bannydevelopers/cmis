@@ -171,21 +171,6 @@
             $roll['health_insurance_fund'],$roll['social_security_fund'],
             $roll['worker_compasion_fund'],$roll['education_fund']]))?>
           </td>
-          <!--td class="px-4 py-3 text-sm">
-            <?=$roll['payee']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['health_insurance_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['social_security_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['worker_compasion_fund']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$roll['education_fund']?>
-          </td-->
           <td class="px-4 py-3 text-sm">
             <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']])-array_sum([$roll['health_insurance_fund'],$roll['payee'],
             $roll['health_insurance_fund'],$roll['social_security_fund'],
