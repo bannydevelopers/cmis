@@ -167,12 +167,11 @@
             <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']]))?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=number_format(array_sum([$roll['health_insurance_fund'],$roll['payee'],
-            $roll['health_insurance_fund'],$roll['social_security_fund'],
-            $roll['worker_compasion_fund'],$roll['education_fund']]))?>
+            <?=number_format(array_sum([$roll['health_insurance_fund'],$roll['payee'] 
+            ,$roll['social_security_fund'],$roll['worker_compasion_fund'],$roll['education_fund']]))?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']])-array_sum([$roll['health_insurance_fund'],$roll['payee'],
+            <?=number_format(array_sum([$roll['basic_salary'],$roll['allowance'],$roll['bonus']])-array_sum([$roll['payee'],
             $roll['health_insurance_fund'],$roll['social_security_fund'],
             $roll['worker_compasion_fund'],$roll['education_fund']]))?>
           </td>
@@ -194,9 +193,6 @@
             </div>
           </td>
         </tr>
-      <!-- Edit payroll modal -->
-      
-      <!--/ Edit payroll modal -->
     <?php }?>
     </tbody>
   </table>
