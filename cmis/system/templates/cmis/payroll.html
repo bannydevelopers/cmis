@@ -146,7 +146,7 @@ Payroll
 
 <div class="flex flex-wrap -mx-3">
     <?php foreach ($payroll as $roll){?>
-      <div class="w-full max-w-full px-2 sm:w-1/2 sm:flex-none xl:w-1/4">
+      <div class="w-full max-w-full px-2 sm:w-1/2 sm:flex-none xl:w-1/4 pb-3">
         <div class="relative p-2 flex flex-col min-w-0 break-words bg-white shadow-xl rounded-xl bg-clip-border">
           <div class="font-semibold pb-2"><?=$roll['payroll_name']?></div>
           <div class="pb-2"><?=helper::format_time($roll['create_date'], 'd M, Y @ H:i')?></div>
@@ -180,9 +180,7 @@ Payroll
         <th class="px-4 py-3">Net Salary</th>
       </tr>
     </thead>
-    <tbody
-      class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-    >
+    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
     <tr class="data-row text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
         <td class="px-4 py-3">
           <div class="flex items-center text-sm">
