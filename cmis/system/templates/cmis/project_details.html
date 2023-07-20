@@ -236,9 +236,9 @@
       <!--<li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="resources-tab" data-tabs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
       </li>-->
-      <li class="mr-2" role="presentation">
+      <!-- <li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Reports</button>
-      </li>
+      </li> -->
     </ul>
   </div>
   <!-- Tabs -->
@@ -616,9 +616,9 @@
         });
       }
       subTaskStatus = document.getElementById('sub-act-status-' + taskId);
-      taskDetails.innerHTML = `<div>
+      taskDetails.innerHTML = `<div class="px-4">
         <div class="flex flex-col md:flex-row pb-2">
-          <div class="font-bold">Assignee: <span class="pl-4"> - </span></div>
+          <div class="font-bold">Assignee: <span class="pl-4"> Baraka Mghumba </span></div>
           <div class="ml-auto text-right"><span class="uppercase" id="stId-`+taskId+`-hold">`+subTaskStatus.innerHTML+`</span>
               <select id="stId-`+taskId+`" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="sub-activity-status" onchange="changeStatus(this)">
                 <option selected="true" disabled="disabled">Change status...</option> 
@@ -630,7 +630,7 @@
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full mob:w-2/3 px-3 my-2 mob:my-0">
-            <label>Activity description
+            <label>Activity report
               <textarea required name="activity_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-1.5 dark:bg-gray-800 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Add new activity"></textarea>
             </label>
           </div>
@@ -638,10 +638,10 @@
         <div>
           <div class="font-bold">Resources: </div>
           <div class="pl-4">
-            <div class="pb-2">
+            <!--<div class="pb-2">
               <div class="font-semibold">Deliverables: </div>
               <div class="flex flex-wrap">`+deliverables+`</div>
-            </div>
+            </div>-->
             <div class="pb-2">
               <div class="font-semibold">People: </div>
               <div class="flex flex-wrap">`+people+`</div>
@@ -650,10 +650,10 @@
               <div class="font-semibold">Tools: </div>
               <div class="flex flex-wrap">`+tools+`</div>
             </div>
-            <div class="flex flex-row">
+            <!--<div class="flex flex-row">
               <div class="font-semibold">Money: </div>
               <div class="pl-4">??</div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>`;
@@ -664,6 +664,7 @@
   }
   function changeStatus(values){
     document.getElementById(values.id+'-hold').innerHTML = values.value;
+    document.getElementById('sub-act-status-' + values.id.split('-')[1]).innerHTML = values.value;
   }
 
   const add_activity = parent_activity=>{

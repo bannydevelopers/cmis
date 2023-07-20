@@ -27,13 +27,14 @@
         width: auto;
       }
     </style>
-    <script
-      src="plugins/alpine-2.8.2/dist/alpine.js"
-      defer
-    ></script>
+    <script src="plugins/alpine-2.8.2/dist/alpine.js" defer></script>
     <script src="js/init-alpine.js"></script>
     <script src="../../../vendor/sweetalert/sweetalert2@11.js"></script>
     <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }  
+      
       function jsprint(html, opts){
             var printWindow = window.open('', '', 'height=600,width=1200');
             printWindow.document.write('<html><head><title>Print preview</title>');
