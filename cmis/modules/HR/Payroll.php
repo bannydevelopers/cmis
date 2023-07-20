@@ -24,7 +24,7 @@ if(isset($_POST['p_slips'])){
    
     if(!$db->error() && $k) {
         $msg = 'Payroll added successful';
-        $ok =true;
+        $ok = true;
     }
     else $msg = 'Error adding payroll';
    //var_dump($db->error());

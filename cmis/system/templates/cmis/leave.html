@@ -99,8 +99,8 @@
                     <label>Leave type 
                       <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="leave_type" onchange="updateLeaveLength(this)">
                         <option selected="true" disabled="disabled">Choose...</option> 
-                        <option value="bereavement">Bereavement leave</option>
-                        <option value="casual">Casual leave</option>
+                        <option value="emergency">Emergency leave</option>
+                        <option value="annual">Annual leave</option>
                         <option value="maternity">Maternity leave</option>
                         <option value="sick">Sick leave</option>
                         <option value="paternity">Paternity leave</option>
@@ -363,7 +363,11 @@
     evtTag.parentNode.removeChild(evtTag);
   }
   function updateLeaveLength(leaveTypeValue){
-    leaveLength = document.getElementById('leaveLength')
+    leaveLength = document.getElementById('leaveLength');
+    if(leaveTypeValue.value == 'annual') {
+      leaveLength.value = 14;
+      leaveLength.max = 28;
+    }
     if(leaveTypeValue.value == 'sick') {
       leaveLength.value = 1;
       leaveLength.max = 15;
@@ -376,11 +380,7 @@
       leaveLength.value = 60;
       leaveLength.max = 90;
     }
-    if(leaveTypeValue.value == 'bereavement') {
-      leaveLength.value = 3;
-      leaveLength.max = 7;
-    }
-    if(leaveTypeValue.value == 'casual') {
+    if(leaveTypeValue.value == 'emergency') {
       leaveLength.value = 8;
       leaveLength.max = 15;
     }
