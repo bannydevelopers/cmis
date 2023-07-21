@@ -9,9 +9,9 @@ if(isset($_POST['tool_name'])){
     $data = [
         'tool_name'=>$_POST['tool_name'], 
         'tool_description'=>$_POST['tool_description'], 
-        'tool_quantity'=>$_POST['tool_quantity'], 
+        //'tool_quantity'=>$_POST['tool_quantity'], 
         'create_time'=>date('Y-m-d H:i:s')
-        
+        //`tool_name`, `tool_description`, `tool_status`, `tool_date_purchased`, `create_time`
     ];
     
     $k = $db->insert('tools', $data);

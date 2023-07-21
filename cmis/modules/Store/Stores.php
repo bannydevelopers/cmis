@@ -24,10 +24,11 @@ if(isset($_POST['store_name'])){
     else $msg = 'Error adding store';
     //var_dump($db->error());
 }
-$staff= $db->select('staff','staff_id,staff_name')
-                  ->fetchALL();
+$staff= $db->select('staff','staff_id,staff_name')->fetchALL();
 
 
-$store = $db->select('store')->order_by('store_id', 'desc')->fetchAll();
+$store = $db->select('store')
+            ->join('user','staff_id=user_id')
+            ->order_by('store_id', 'desc')->fetchAll();
 $data = ['store'=>$store,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
 echo helper::find_template('stores', $data);
