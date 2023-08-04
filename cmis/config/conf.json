@@ -21,10 +21,10 @@
         "Settings"
     ],
     "phpmailer": {
-        "sender": "noreply@cmis.co",
-        "host": "mail.jamboexpedition.com",
-        "username": "mailsender@jamboexpedition.com",
-        "password": "MS@jambo.1"
+        "sender": "baraka.mghumba@banny.co.tz",
+        "host": "smtp.zoho.com",
+        "username": "baraka.mghumba@banny.co.tz",
+        "password": "Password.01"
     },
     "nextsms": {
         "sender": "NEXTSMS",

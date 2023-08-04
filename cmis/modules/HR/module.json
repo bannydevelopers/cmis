@@ -56,7 +56,8 @@
         "can_add_branch",
         "can_edit_branch",
         "can_view_branch",
-        "can_delete_branch"
+        "can_delete_branch",
+        "can_add_salary_slip"
     ],
     "modules": {
         "leave": {

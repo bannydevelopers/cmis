@@ -42,4 +42,4 @@ $slips = $db->select('salary_slip')
             ->order_by('slip_id', 'desc')->fetchAll();
 
 $data = ['payroll'=>$payroll,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request,'employee'=>$employee,'slips'=>$slips];
-echo helper::find_template('Payroll', $data);
+echo helper::find_template('payroll', $data);

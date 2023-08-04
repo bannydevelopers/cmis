@@ -26,4 +26,4 @@ if(isset($_POST['customer_name'])){
 }
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
 $data = ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
-echo helper::find_template('Customers', $data);
+echo helper::find_template('customers', $data);

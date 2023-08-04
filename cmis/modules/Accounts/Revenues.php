@@ -1,3 +1,3 @@
 <?php 
 
-echo helper::find_template('Revenues', []);
+echo helper::find_template('revenues', []);

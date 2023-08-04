@@ -57,4 +57,4 @@ $data['stock'] = $db->select('stock', 'stock.*,product.*,store.*,supplier.*,user
                     ->group_by('stock_id')
                     ->fetchAll();
 //var_dump($db->error());
-echo helper::find_template('Stock', $data);
+echo helper::find_template('stock', $data);

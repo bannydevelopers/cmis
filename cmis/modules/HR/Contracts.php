@@ -42,4 +42,4 @@ if($act == 'Edit'){
     $data['content'] = file_get_contents("{$cdir}/{$registry->request[4]}.html");
     $data['name'] = str_replace('_',' ',$registry->request[4]);
 }
-echo helper::find_template('Contracts', $data);
+echo helper::find_template('contracts', $data);

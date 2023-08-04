@@ -13,7 +13,7 @@
     </a>
   </div>
   <div>
-    <a href="<?=$home?>/HR/Leave/" class="flex flex-row mx-2 mb-2 lg:mb-6 shadow text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+    <a href="<?=$home?>/HR/Leave/me" class="flex flex-row mx-2 mb-2 lg:mb-6 shadow text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
       <i class="fa-regular fa-user mt-1"></i>
       <div class="px-2">My Leave</div>
     </a>
@@ -44,14 +44,14 @@
   <div class="w-full sm:w-1/3 p-6 shadow rounded-lg border border-gray-200  bg-white dark:bg-gray-800 dark:border-gray-700 tracking-tight text-gray-900 dark:text-white">
     <div class="py-8">
         <div class="photo-wrapper p-2">
-            <img class="w-32 h-32 rounded-full mx-auto" loading="lazy" src="img/no-profile.jpg" alt="">
+            <img class="w-32 h-32 rounded-full mx-auto" loading="lazy" src="<?=helper::get_user_avatar($user['user_id'])?>" alt="">
         </div>
         <div class="p-2">
             <h3 class="text-center text-xl font-medium leading-8">
-              <?=$user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name']?>
+              <?=implode(' ', [$user['first_name'], $user['middle_name'],$user['last_name']])?>
             </h3>
             <div class="text-center text-gray-400 text-lg font-semibold">
-                <p>Designation ---</p>
+                <p><?=$user['designation_name']?></p>
             </div>
         </div>
     </div>
@@ -61,15 +61,7 @@
     <div>
       <h5 class="mb-2 text-2xl font-semibold">About</h5>
     </div>
-    <form class="w-full max-w-lg text-lg">
-      <div class="flex flex-wrap -mx-3 mb-3">
-        <div class="px-3 font-semibold">
-          Role:
-        </div>
-        <div class="px-3">
-          <?=$user['system_role']?>
-        </div>
-      </div>
+    <div class="w-full max-w-lg text-lg">
       <div class="flex flex-wrap -mx-3 mb-3">
         <div class="px-3 font-semibold">
           Email:
@@ -88,10 +80,18 @@
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
         <div class="px-3 font-semibold">
-          Box number:
+          Address:
         </div>
         <div class="px-3">
-          ---
+          <?=$user['staff_residence_address']?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Role:
+        </div>
+        <div class="px-3">
+          <?=$user['role_name']?>
         </div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
@@ -99,12 +99,115 @@
           Registered on:
         </div>
         <div class="px-3">
-          <?=$user['created_time']?>
+          <?=helper::format_time($user['created_time'], 'd M, Y @ H:i')?>
         </div>
       </div>
-    </form>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Department:
+        </div>
+        <div class="px-3">
+          <?=$user['department_name']?>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <!-- Basic user info -->
-
-
+<br>
+<div class="flex flex-col sm:flex-row gap-4">
+  <div class="w-full sm:w-1/2 p-6 shadow rounded-lg border border-gray-200  bg-white dark:bg-gray-800 dark:border-gray-700 tracking-tight text-gray-900 dark:text-white">
+    <div>
+      <h5 class="mb-2 text-2xl font-semibold">Employment</h5>
+    </div>
+    <div class="w-full max-w-lg text-lg">
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Employment registration:
+        </div>
+        <div class="px-3">
+          <?=$user['staff_registration_number']?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Employment date:
+        </div>
+        <div class="px-3">
+          <?=helper::format_time($user['staff_date_employed'], 'd M, Y')?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Employment length:
+        </div>
+        <div class="px-3">
+          <?=intval($user['employment_length'])?> years
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Employment status:
+        </div>
+        <div class="px-3">
+          <?=$user['employment_status']?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Employment last renewal:
+        </div>
+        <div class="px-3">
+          <?=$user['employment_last_renewal']?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full sm:w-1/2 p-6 shadow rounded-lg border border-gray-200  bg-white dark:bg-gray-800 dark:border-gray-700 tracking-tight text-gray-900 dark:text-white">
+    <div>
+      <h5 class="mb-2 text-2xl font-semibold">More</h5>
+    </div>
+    <div class="w-full max-w-lg text-lg">
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Work location:
+        </div>
+        <div class="px-3">
+          <?=$user['work_location']?$user['branch_name']:'Headquarters'?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Payment bank:
+        </div>
+        <div class="px-3">
+          <?=$user['bank_name']?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Account number:
+        </div>
+        <div class="px-3">
+          <?=$user['bank_account_number']?>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Profile:
+        </div>
+        <div class="px-3">
+          <button onclick="change_avatar(`<?=$user['user_id']?>`)">Change avatar</button>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="px-3 font-semibold">
+          Security:
+        </div>
+        <div class="px-3">
+          <button onclick="change_password(`<?=$user['user_id']?>`)">Change password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,3 @@
 <?php 
 
-echo helper::find_template('Resources', []);
+echo helper::find_template('resources', []);

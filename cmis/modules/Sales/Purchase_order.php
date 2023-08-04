@@ -106,4 +106,4 @@ $data['products'] = $db ->select('stock', 'product.*, stock.stock_quantity, stoc
                         ->group_by('stock.stock_id')
                         ->fetchAll();
 
-echo helper::find_template('Purchase_order', $data);
+echo helper::find_template('purchase_order', $data);

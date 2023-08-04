@@ -120,19 +120,30 @@ if(isset($_POST['leave_remarks'])){
         if(!$db->error()) $msg = 'Leave status updated!';
     }
 }
-$whr = "leave_application.staff_id = {$me['staff_id']}";
-if(in_array($my['system_role'], explode(',', $mod_conf->modules->leave->approval_flow))){
-    $whr = "staff_department IS NULL OR staff_department = '{$me['staff_department']}'";
+if(isset($req[3])){
+    $leave = $db->select('leave_application', 'leave_application.*,user.first_name,user.last_name,user.middle_name')
+                ->join('staff','staff.staff_id=leave_application.staff_id','left')
+                ->join('user','user_id=user_reference','left')
+                //->where(['staff_id'=>$me['staff_id']])
+                ->where("leave_application.staff_id={$me['staff_id']}")
+                ->order_by('leave_application_id', 'desc')
+                ->fetchAll();
 }
+else{
+    $whr = "leave_application.staff_id = {$me['staff_id']}";
+    if(in_array($my['system_role'], explode(',', $mod_conf->modules->leave->approval_flow))){
+        $whr = "staff_department IS NULL OR staff_department = '{$me['staff_department']}'";
+    }
 
-$leave = $db->select('leave_application', 'leave_application.*,user.first_name,user.last_name,user.middle_name')
-            ->join('staff','staff.staff_id=leave_application.staff_id','left')
-            ->join('user','user_id=user_reference','left')
-            ->where($whr)
-            ->or(['responsibility_assignee'=>$my['user_id']])
-            ->order_by('leave_application_id', 'desc')
-            ->fetchAll();
+    $leave = $db->select('leave_application', 'leave_application.*,user.first_name,user.last_name,user.middle_name')
+                ->join('staff','staff.staff_id=leave_application.staff_id','left')
+                ->join('user','user_id=user_reference','left')
+                ->where($whr)
+                ->or(['responsibility_assignee'=>$my['user_id']])
+                ->order_by('leave_application_id', 'desc')
+                ->fetchAll();
 
+}
 //var_dump('<pre>',$db->error());
 //var_dump('<pre>',$db->getQuery());
 $assignee = $db->select('user')
