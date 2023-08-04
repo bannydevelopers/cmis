@@ -121,8 +121,9 @@ class helper{
         $timestamp = strtotime($time);
         return date($format, $timestamp);
     }
-    public static function format_phone_number($number){
-        $number = preg_replace('~\D~', '', $number);
+    public static function format_phone_number($raw_number){
+        $number = preg_replace('~\D~', '', $raw_number);
+        if(!$number) return $raw_number;
         if($number[0] == 0 or strlen($number) < 10) $number = '255'.intval($number);
         return $number;
     }

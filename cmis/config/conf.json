@@ -23,8 +23,8 @@
     "phpmailer": {
         "sender": "baraka.mghumba@banny.co.tz",
         "host": "smtp.zoho.com",
-        "username": "baraka.mghumba@banny.co.tz",
-        "password": "Password.01"
+        "username": "noreply@banny.co.tz",
+        "password": "Basea.01"
     },
     "nextsms": {
         "sender": "NEXTSMS",
