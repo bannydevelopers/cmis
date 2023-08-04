@@ -21,7 +21,7 @@
         "Settings"
     ],
     "phpmailer": {
-        "sender": "baraka.mghumba@banny.co.tz",
+        "sender": "noreply@banny.co.tz",
         "host": "smtp.zoho.com",
         "username": "noreply@banny.co.tz",
         "password": "Basea.01"
