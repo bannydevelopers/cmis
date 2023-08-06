@@ -47,9 +47,7 @@
             <img class="w-32 h-32 rounded-full mx-auto" loading="lazy" src="<?=helper::get_user_avatar($user['user_id'])?>" alt="">
         </div>
         <div class="p-2">
-            <h3 class="text-center text-xl font-medium leading-8">
-              <?=implode(' ', [$user['first_name'], $user['middle_name'],$user['last_name']])?>
-            </h3>
+            <h3 id="user-name" class="text-center text-xl font-medium leading-8"><?=implode(' ', [$user['first_name'], $user['middle_name'],$user['last_name']])?></h3>
             <div class="text-center text-gray-400 text-lg font-semibold">
                 <p><?=$user['designation_name']?></p>
             </div>
@@ -66,25 +64,19 @@
         <div class="px-3 font-semibold">
           Email:
         </div>
-        <div class="px-3">
-          <?=$user['email']?>
-        </div>
+        <div class="px-3" id="user-email"><?=$user['email']?></div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
         <div class="px-3 font-semibold">
           Phone:
         </div>
-        <div class="px-3">
-          <?=$user['phone_number']?>
-        </div>
+        <div class="px-3" id="user-phone"><?=$user['phone_number']?></div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
         <div class="px-3 font-semibold">
           Address:
         </div>
-        <div class="px-3">
-          <?=$user['staff_residence_address']?>
-        </div>
+        <div class="px-3" id="user-address"><?=$user['staff_residence_address']?></div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
         <div class="px-3 font-semibold">
@@ -205,38 +197,64 @@
           Security:
         </div>
         <div class="px-3">
-          <button onclick="changePassword(`<?=$user['user_id']?>`)">Change password</button>
+          <button onclick="changePassword(`<?=$user['user_id']?>`)" id="toggle-edit-pass">Change password</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Basic user info -->
+<br>
+<div id="user-info" class="w-full sm:w-1/2"></div>
 
 <script>
   toggleEditPass = document.getElementById("toggle-edit-pass");
-  passInfo = document.getElementById("pass-info");
+  userInfo = document.getElementById("user-info");
+  var prevUserInfo = userInfo.innerHTML;
+  const userName = document.getElementById("user-name");
+  const userPhone = document.getElementById("user-phone");
+  const userEmail = document.getElementById("user-email");
+  const userAddress = document.getElementById("user-address");
 
   function changePassword() {
-    userInfo.innerHTML = `<div class="flex-auto">
-      <form role="form" method="POST">
-        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Full name</label>
-        <div class="mb-4">
-          <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userName.innerHTML+`"/>
-        </div>
-        <div class="text-center">
-          <button type="submit" name="update-my-profile" class="inline-block w-32 px-3 py-2 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Save</button>
-        </div>
-      </form>
+    userInfo.innerHTML = `
+    <div class="w-full sm:w-1/2 p-6 shadow rounded-lg border border-gray-200  bg-white dark:bg-gray-800 dark:border-gray-700 tracking-tight text-gray-900 dark:text-white">
+      <div>
+        <h5 class="mb-2 text-2xl font-semibold">Change your Info</h5>
+      </div>
+      <div class="flex-auto">
+        <form role="form" method="POST">
+          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Full name</label>
+          <div class="mb-4">
+            <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userName.innerHTML+`"/>
+          </div>
+          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone</label>
+          <div class="mb-4">
+            <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userPhone.innerHTML+`"/>
+          </div>
+          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
+          <div class="mb-4">
+            <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userEmail.innerHTML+`"/>
+          </div>
+          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Address</label>
+          <div class="mb-4">
+            <textarea type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name">`+userAddress.innerHTML+`</textarea>
+          </div>
+          <div class="text-center"> 
+            <button type="submit" name="update-my-profile" class="inline-block w-32 px-3 py-2 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Save</button>
+          </div>
+        </form>
+      </div>
     </div>`;
-    toggleUserEdit.innerHTML = `<button type="button" onclick="cancelEditUserInfo()">
+    toggleEditPass.innerHTML = `<button type="button" onclick="cancelEditUserInfo()">
       <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
       <span class="pl-1">Cancel</span>
     </button>`;
   }
 
   function cancelChangePass() {
-    userInfo.innerHTML = prevUserInfo;
-    toggleUserEdit.innerHTML = `<button type="button" onclick="editUserInfo()">
+    //userInfo.innerHTML = prevUserInfo;
+    toggleEditPass.innerHTML = `<button type="button" onclick="editUserInfo()">
       <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
       <span class="pl-1">Edit</span>
     </button>`;
