@@ -41,7 +41,7 @@ if(isset($_POST['ajax_activate_user'])){
                 ->where(['user_id'=>intval($_POST['ajax_activate_user'])])
                 ->commit();
         if(!$db->error() && $k){
-            $msg = 'Status updated';
+            $msg = 'Status updated'; 
             $status = 'success';
         }
     }
@@ -157,7 +157,7 @@ if(isset($_POST['full_name'])){
                 ];
                 $db->update('staff', $staff)->where(['staff_id'=>intval($_POST['staff_id'])])->commit();
                 if(!$db->error()) {
-                    $msg = 'Updated successful!';
+                    $msg = 'Updated successful!'; $status = 'success';
                 }
                 else $msg = 'Something went wrong!';
             }
@@ -218,7 +218,7 @@ if(isset($_POST['full_name'])){
                     // var_dump('<pre>',$db->error());
                     if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
                     else {
-                        $msg = 'Staff created'; 
+                        $msg = 'Staff created'; $status = 'success';
                     }
                 }
                 else $msg = 'Fatal error occured';
