@@ -15,7 +15,7 @@ const pieConfig = {
         label: 'Dataset 1',
       },
     ],
-    labels: ['Cameras', 'Access points', 'Switches'],
+    labels: ['Access points', 'Cameras', 'Switches'],
   },
   options: {
     responsive: true,
