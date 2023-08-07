@@ -201,12 +201,14 @@ if(isset($_POST['full_name'])){
             else {
                 $user_id = $db->insert('user',$user);
                 //var_dump('<pre>',$db->error());
+                //var_dump($_POST);die;
                 if(intval($user_id)){
                     $staff = [
                         'staff_registration_number'=>addslashes($_POST['registration_number']), 
                         'staff_residence_address'=>addslashes($_POST['residence_address']), 
                         'work_location'=>addslashes($_POST['work_location']), 
-                        'designation'=>addslashes($_POST['designation']), 
+                        'designation'=>addslashes($_POST['designation']),
+                        'staff_department'=>$_POST['department'], 
                         'user_reference'=>$user_id, 
                         'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 
                         'employment_length'=>2,//addslashes($_POST['employment_length']), 
