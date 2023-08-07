@@ -205,7 +205,7 @@ if(isset($_POST['full_name'])){
                     $staff = [
                         'staff_registration_number'=>addslashes($_POST['registration_number']), 
                         'staff_residence_address'=>addslashes($_POST['residence_address']), 
-                        'work_location'=>addslashes($_POST['branch']), 
+                        'work_location'=>addslashes($_POST['work_location']), 
                         'designation'=>addslashes($_POST['designation']), 
                         'user_reference'=>$user_id, 
                         'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 
