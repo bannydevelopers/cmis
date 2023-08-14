@@ -22,6 +22,15 @@ if(isset($_POST['product_name'])){
     }
     else $msg = 'Error adding product';
     //var_dump($db->error());
+    if(isset($_POST['ajax']) && $_POST['ajax']) {
+        die(
+            json_encode([
+                'id'=>$k,
+                'name'=>$_POST['product_name'],
+                'status'=>$ok
+            ])
+        );
+    }
 }
 $product = $db->select('product')->order_by('product_id', 'desc')->fetchAll();
 $data = ['product'=>$product,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];

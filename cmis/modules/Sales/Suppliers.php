@@ -17,7 +17,6 @@ if(isset($_POST['supplier_name'])){
         
     ];
     $k = $db->insert('supplier', $data);
-    var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'supplier added successful';
@@ -25,6 +24,16 @@ if(isset($_POST['supplier_name'])){
     }
     else $msg = 'Error adding supplier';
     //var_dump($db->error());
+    
+    if(isset($_POST['ajax']) && $_POST['ajax']) {
+        die(
+            json_encode([
+                'id'=>$k,
+                'name'=>$_POST['supplier_name'],
+                'status'=>$ok
+            ])
+        );
+    }
 }
  $supplier = $db->select('supplier')->order_by('supplier_id', 'desc')->fetchAll();
 $data = ['supplier'=>$supplier,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];

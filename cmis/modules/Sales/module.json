@@ -7,7 +7,8 @@
         {"name":"Invoice","href":"Invoice/","permission":"can_view_invoice"},
         {"name":"Purchase order","href":"Purchase_order/","permission":"can_view_purchase_order"},
         {"name":"Products","href":"Products/","permission":"can_view_products"},
-        {"name":"Suppliers","href":"Suppliers/","permission":"can_view_suppliers"}
+        {"name":"Suppliers","href":"Suppliers/","permission":"can_view_suppliers"},
+        {"name":"Reports","href":"Reports/","permission":"can_view_reports"}
     ],
 
    "permissions":[

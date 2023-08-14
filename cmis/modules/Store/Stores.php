@@ -23,6 +23,15 @@ if(isset($_POST['store_name'])){
     }
     else $msg = 'Error adding store';
     //var_dump($db->error());
+    if(isset($_POST['ajax']) && $_POST['ajax']) {
+        die(
+            json_encode([
+                'id'=>$k,
+                'name'=>$_POST['store_name'],
+                'status'=>$ok
+            ])
+        );
+    }
 }
 $staff= $db->select('staff','staff_id,staff_name')->fetchALL();
 

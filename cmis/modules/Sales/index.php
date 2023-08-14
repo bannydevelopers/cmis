@@ -1,5 +1,5 @@
 <?php 
-$children = ["Stock","Customers","Invoice","Purchase_order","Products","Suppliers"];
+$children = ["Stock","Customers","Invoice","Purchase_order","Products","Suppliers","Reports"];
 $req = storage::init()->request;
 if(!isset($req[2])){
     echo helper::find_template('Sales', []);

@@ -26,23 +26,23 @@
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="mob:w-1/2 w-full px-3">
                   <label>Product name
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="product" required>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="product" onchange="pop_add_modal(`product`)" required>
                       <option value="">Choose product..</option>
                       <?php foreach($product as $prd){?>
                       <option value="<?=$prd['product_id']?>"><?=$prd['product_name']?></option>
                       <?php }?>
-                      <option value="add_stock">Add stock</option>
+                      <option value="">Add product</option>
                     </select>
                   </label>
                 </div>
                 <div class="mob:w-1/2 w-full px-3">
                   <label>Store
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="store">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="store" onchange="pop_add_modal(`store`)">
                       <option value="">Choose store..</option>
                       <?php foreach($store as $st){?>
                       <option value="<?=$st['store_id']?>"><?=$st['store_name']?></option>
                       <?php }?>
-                      <option value="add_store">Add store</option>
+                      <option value="">Add store</option>
                     </select>
                 </div>
                 <div class="mob:w-1/2 w-full px-3 mt-2 mob:mt-0">
@@ -70,12 +70,12 @@
                 </div>
                 <div class="mob:w-1/2 w-full px-3">
                   <label>Supplier
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="supplier">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="supplier" onchange="pop_add_modal(`supplier`)">
                       <option value="">Choose supplier..</option>
                       <?php foreach($supplier as $sp){?>
                       <option value="<?=$sp['supplier_id']?>"><?=$sp['supplier_name']?></option>
                       <?php }?>
-                      <option value="add_supplier">Add supplier</option>
+                      <option value="">Add supplier</option>
                     </select>
                 </div>
               </div> 
@@ -155,9 +155,101 @@
   </div>
   
 </div>
+<template id="add-forms">
+  <form method="post">
+    <label>Product name</label>
+    <input type="text" name="product_name" placeholder="Product name">
+    <label>Product description</label>
+    <textarea name="product_description" placeholder="Product description"></textarea>
+    <label>Product unit</label>
+    <input type="text" name="product_unit" placeholder="Product unit">
+    <input type="hidden" name="ajax" value="1">
+  </form>
+  <form method="post">
+    <label>Store name</label>
+    <input type="text" name="store_name" placeholder="Store name">
+    <label>Store location</label>
+    <input type="text" name="store_location" placeholder="Store location">
+    <input type="hidden" name="ajax" value="1">
+  </form>
+  <form method="post">
+    <label>Supplier name</label>
+    <input type="text" name="supplier_name" placeholder="Store name">
+    <label>Phone number</label>
+    <input type="tel" name="supplier_phone_number" placeholder="supplier phone number">
+    <label>E-mail</label>
+    <input type="email" name="supplier_email" placeholder="supplier e-mail">
+    <label>Supplier physical address</label>
+    <textarea name="supplier_physical_address" placeholder="Supplier's physical address"></textarea>
+    <label>Supplier details</label>
+    <textarea name="supplier_details" placeholder="Supplier details"></textarea>
+    <input type="hidden" name="ajax" value="1">
+  </form>
+</template>
     
 <script src="js/flowbite.min.js"></script>
 <script>
+function pop_add_modal(name){
+  let evtTarget = window.event.target;
+  if(evtTarget.options[evtTarget.selectedIndex].innerText == `Add ${name}`){
+    // reset options
+    evtTarget.selectedIndex = 0;
+    let tpl_forms = ['product','store', 'supplier'];
+    let tpl = document.querySelector(`template#add-forms`).content.cloneNode(true);
+    let html = tpl.children[tpl_forms.indexOf(name)];
 
+    Swal.fire({
+      html: html,
+      title: `Add ${name}`,
+      customClass: 'mySwal',
+      confirmButtonText: 'Save',
+      showCancelButton: true
+    })
+    .then(val=>{
+      if(val.isConfirmed){
+        let myform = document.querySelector('.mySwal form'), uri = window.location.href;
+        let fd = new FormData(myform);
+        if(name == 'product') uri += '../Products';
+        else if(name == 'store') uri += '../../Store/Stores';
+        else if(name == 'supplier') uri += '../../Sales/Suppliers';
+        ajax(
+          uri,
+          response=>{
+            let msg, icon;
+            _json = JSON.parse(response);
+            console.log(_json);
+            if(_json.status){
+              msg = `${name} added successful`;
+              icon= 'success';
+              evtTarget.options[0].insertAdjacentHTML('afterEnd', `<option value="${_json.id}">${_json.name}</option>`);
+              evtTarget.selectedIndex = 1;
+            }
+            else{
+              msg = `${name} adding failed`;
+              icon = 'error';
+            }
+            Swal.fire({
+              title: msg,
+              icon: icon
+            });
+          },
+          error=>{
+            Swal.fire({
+              html:error
+            });
+          },
+          fd
+        );
+      }
+    });
+  }
+}
 </script>
+<style>
+  .mySwal label{
+    display: block;
+    text-align: left;
+    font-weight: bold;
+  }
+</style>
 
