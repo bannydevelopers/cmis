@@ -56,6 +56,7 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
 //if(isset($_POST['get_permission'])){
     $permission = $db->select('permission')
                     ->fetchAll();
+    
     $perm_tree = [];
     foreach($permission as $perm){
         if(!isset($perm_tree[$perm['legend']])) {
