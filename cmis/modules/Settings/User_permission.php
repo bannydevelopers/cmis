@@ -82,7 +82,7 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
 //}
 //var_dump('<pre>',$perm_tree);
 echo helper::find_template(
-    'User_permission', 
+    'user_permission', 
     [
         'roles' => $role_tree,
         'designations'=>$designations,
