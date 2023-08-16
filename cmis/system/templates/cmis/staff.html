@@ -534,6 +534,7 @@
                         <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0"> 
                           <label>Work location
                             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="branch" onchange="openWorkLocModal(this);">
+                              <option value="">Choose...</option> 
                               <?php foreach($branches as $br) { ?>
                               <option value="<?=$br['branch_id']?>" <?=$br['branch_id']==$x['work_location']?'selected':''?>><?=$br['branch_name']?></option>
                               <?php } ?>
@@ -751,6 +752,7 @@
   function openDesModal(selDesVal) {
     if(selDesVal.value == "") {
       let btn = selDesVal.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+      if(btn.children[0].tagName != 'BUTTON') btn = btn.parentNode;
       btn.children[0].click();
       //document.getElementById("close-staff-modal-id").click();
       document.getElementById("add-designation-modal-id").click();
@@ -759,6 +761,7 @@
   function openRoleModal(selRoleVal) {
     if(selRoleVal.value == "") {
       let btn = selRoleVal.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+      if(btn.children[0].tagName != 'BUTTON') btn = btn.parentNode;
       btn.children[0].click();
       //document.getElementById("close-staff-modal-id").click();
       document.getElementById("add-role-modal-id").click();
@@ -767,6 +770,7 @@
   function openBankModal(selBankVal) {
     if(selBankVal.value == "") {
       let btn = selBankVal.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+      if(btn.children[0].tagName != 'BUTTON') btn = btn.parentNode;
       btn.children[0].click();
       //document.getElementById("close-staff-modal-id").click();
       document.getElementById("add-bank-modal-id").click();
@@ -775,6 +779,7 @@
   function openDepModal(selDepVal) {
     if(selDepVal.value == "") {
       let btn = selDepVal.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+      if(btn.children[0].tagName != 'BUTTON') btn = btn.parentNode;
       btn.children[0].click();
       //document.getElementById("close-staff-modal-id").click();
       document.getElementById("add-dep-modal-id").click();
@@ -783,6 +788,7 @@
   function openWorkLocModal(selDepVal) {
     if(selDepVal.value == "") {
       let btn = selDepVal.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+      if(btn.children[0].tagName != 'BUTTON') btn = btn.parentNode;
       btn.children[0].click();
       //document.getElementById("close-staff-modal-id").click();
       document.getElementById("add-work-loc-modal-id").click();
@@ -972,7 +978,7 @@
     userData.append('ajax_activate_user', userId[1]);
     userData.append('status', status);
     
-    let url = '<?=$request_uri?>';
+    let url = window.location.href;
     let obj = {
       method: "POST", 
       body: userData,

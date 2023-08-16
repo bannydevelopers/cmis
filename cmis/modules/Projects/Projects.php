@@ -37,7 +37,7 @@ if(isset($_POST['project_name'])){
         $ok =true;
     }
     else $msg = 'Error adding project';
-    //var_dump($db->error());
+    var_dump($db->error());
 }
 
 $users = $db->select('user',"user_id,concat(first_name,' ', last_name) as full_name")
@@ -57,7 +57,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
             'created_by'=>helper::init()->get_session_user('user_id'), 
             'activity_parent'=>$_POST['activity_parent'], 
         ];
-        $k = $db->insert('activities', $data);
+        $k = $db->insert('project_activities', $data);
         if(intval($k)) $msg = 'Activity created successful';
         else $msg = 'Activity creation fail';
     }
@@ -89,7 +89,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
                  ->where(['project_id'=>$storage->request[3]])
                  ->order_by('project_id', 'desc')->fetch();
 
-    $activities = $db->select('activities', "activities.*, concat(first_name,' ', last_name) as assignee")
+    $activities = $db->select('project_activities', "project_activities.*, concat(first_name,' ', last_name) as assignee")
                      ->join('user', 'assignee_id=user_id')
                      ->where(['project_ref'=>$storage->request[3]])
                      ->order_by('activity_id','ASC')
@@ -103,7 +103,7 @@ if(isset($storage->request[3]) && intval($storage->request[3])){
     $deliverables  = $db->select('product','product_id, product_name')
                         ->fetchAll();
     
-    $whr = "resource_activity IN (SELECT activity_id FROM activities WHERE project_ref = {$storage->request[3]})";
+    $whr = "resource_activity IN (SELECT activity_id FROM project_activities WHERE project_ref = {$storage->request[3]})";
     $resources = $db->select('project_resources')
                     ->where($whr)
                     ->fetchAll();
