@@ -8,6 +8,9 @@ if(isset($_POST['company_legal_name'])){
     $mod_config->config->company_profile->TIN_number = $_POST['TIN_number'];
     $mod_config->config->company_profile->VRN_number = $_POST['VRN_number'];
     $mod_config->config->company_profile->company_address = $_POST['company_address'];
+    $mod_config->config->company_profile->payment_terms = $_POST['payment_terms'];
+    $mod_config->config->company_profile->primary_payment_account = $_POST['primary_payment_account'];
+    $mod_config->config->company_profile->aux_payment_account = $_POST['aux_payment_account'];
     if(isset($_FILES['company_logo']) && is_readable($_FILES['company_logo']['tmp_name']))
     {
         $fname = $_FILES['company_logo']['name'];
