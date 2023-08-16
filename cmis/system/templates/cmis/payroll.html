@@ -152,7 +152,7 @@ Payroll
           <div class="pb-2"><?=helper::format_time($roll['create_date'], 'd M, Y @ H:i')?></div>
           <div class="text-right">
             <button onclick="view_roll()" class="fa fa-eye p-2 text-blue-500" data-json='<?=$roll['payment_slips']?>'></button>
-            <button onclick="delete_roll()" class="fa fa-trash p-2 text-red-500"></button>
+            <button onclick="delete_roll(`<?=$roll['payroll_id']?>`)" class="fa fa-trash p-2 text-red-500"></button>
           </div>
         </div>
       </div>
@@ -353,7 +353,7 @@ Payroll
       }
     });
   }
-  function delete_roll(){
+  function delete_roll(id){
     Swal.fire({
       title: 'Sure? No UNDO when deleted!',
       icon:'question',
@@ -364,14 +364,18 @@ Payroll
     .then(response=>{
       if(response.isConfirmed){
         let fd = new FormData();
-
+        fd.append('ajax_delete_payroll', id);
         ajax(
           window.location.href,
           res=>{
-            if(res == 'ok') {
+            console.log(res);
+            if(res.trim() == 'ok') {
               Swal.fire({
                 icon:'success',
                 title:'Deletion succeded!'
+              })
+              .then(val=>{
+                window.location.reload();
               });
             }
             else{

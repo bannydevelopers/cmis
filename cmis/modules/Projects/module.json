@@ -4,12 +4,12 @@
     "nav": [
         {
             "name": "Projects",
-            "href": "Projects/",
+            "href": "Projects\/",
             "permission": "can_view_projects"
         },
         {
             "name": "Resources",
-            "href": "Resources/",
+            "href": "Resources\/",
             "permission": "can_view_resources"
         }
     ],

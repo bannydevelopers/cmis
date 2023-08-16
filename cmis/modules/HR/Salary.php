@@ -35,7 +35,7 @@ if(isset($_POST['update-slip'])){
     if($helper->user_can('can_edit_salary_slip')){
         $upData = [
             'slip_id'=>$_POST['slip_id'],
-            'employee'=>$_POST['employee'],  
+            //'employee'=>$_POST['employee'], 
             'basic_salary'=>$_POST['basic_salary'], 
             'payee'=>$_POST['payee'], 
             'health_insurance_fund'=>$_POST['health_insurance_fund'], 

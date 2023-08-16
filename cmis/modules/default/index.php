@@ -1,6 +1,6 @@
 <?php 
 
-    $activity = "SELECT COUNT(activity_id) FROM activities WHERE activity_status = 'pending'";
+    $activity = "SELECT COUNT(activity_id) FROM project_activities WHERE activity_status = 'pending'";
     $activity = $db->query($activity);
     $activityCount = $activity->fetchColumn();
     
