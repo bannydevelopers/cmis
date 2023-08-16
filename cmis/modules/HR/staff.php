@@ -14,7 +14,7 @@ if(isset($_POST['ajax_del_staff'])){
             $k = $db->delete('staff')->where(['staff_id'=>$staff_id])->commit();
             if(!$db->error() && $k) {
                 $k = $db->delete('user')->where(['user_id'=>$staff['user_id']])->commit();
-                $msg = 'Deletion succesfully';
+                $msg = 'Deletion succesfully';  $status = 'success';
                 $status = 'success';
             }
             else {

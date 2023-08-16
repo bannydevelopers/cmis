@@ -23,10 +23,10 @@ if(isset($_POST['add-slip'])){
         $k = $db->insert('salary_slip', $addData);
     
         if(!$db->error() && $k) {
-            $msg = 'Salary slip added successful';
+            $msg = 'Salary slip added successful';  $status = 'success';
             $ok =true;
         }
-        else $msg = 'Error adding salary slip';
+        else $msg = 'Error adding salary slip';  $status = 'fail';
     }
     else $msg = 'Sorry, permission denied!';
 }
@@ -35,7 +35,7 @@ if(isset($_POST['update-slip'])){
     if($helper->user_can('can_edit_salary_slip')){
         $upData = [
             'slip_id'=>$_POST['slip_id'],
-            'employee'=>$_POST['employee'], 
+            'employee'=>$_POST['employee'],  
             'basic_salary'=>$_POST['basic_salary'], 
             'payee'=>$_POST['payee'], 
             'health_insurance_fund'=>$_POST['health_insurance_fund'], 
@@ -53,7 +53,8 @@ if(isset($_POST['update-slip'])){
             $msg = "Salary slip updated successful for {$_POST['full_name']}";
             $ok =true;
         }
-        else $msg = 'Error updating salary slip';
+        else $msg = 'Error updating salary slip'; 
+             $status = 'fail';
     }
     else $msg = 'Sorry, permission denied!';
 }
