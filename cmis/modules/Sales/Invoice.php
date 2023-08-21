@@ -11,7 +11,7 @@ $mod_conf = json_decode(file_get_contents(__DIR__.'/module.json'));
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['invoice_type'])){
     $ilist = trim(implode(',', array_values($_POST['item_name'])),',');
-    $prods = $db->select('product', 'product_id, product_name, stock.selling_price as product_price')
+    $prods = $db->select('product', 'product_id, product_name, stock.selling_price as product_price,product_description,product_unit')
                 ->join('stock','stock.product=product.product_id')
                 ->where("product_id IN ({$ilist})")->fetchAll();
     
@@ -20,12 +20,15 @@ if(isset($_POST['invoice_type'])){
     $qty = [];
     foreach($_POST['item_name'] as $k=>$id){
         if(empty($id) or empty($_POST['item_quantity'][$k])) continue;
+
         $key = array_search($id, array_column($prods, 'product_id'));
         $total += intval($_POST['item_quantity'][$k]) * $prods[$key]['product_price'];
         $items[] = [
             'id'=>$id, 
             'name'=>$prods[$key]['product_name'],
             'qty'=>$_POST['item_quantity'][$k], 
+            'unit'=>$prods[$k]['product_unit'], 
+            'desc'=>$prods[$k]['product_description'], 
             'price'=>$prods[$key]['product_price']
         ];
         $qty[$id] = $_POST['item_quantity'][$k];

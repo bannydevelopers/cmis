@@ -300,6 +300,7 @@
               <tr style="border-bottom: 1px solid #222;">
                 <th>S/N</th>
                 <th>Item name</th>
+                <th>Description</th>
                 <th>Quantity</th>
                 <th>Unit price</th>
                 <th style="text-align: right;">Total amount</th>
@@ -307,17 +308,17 @@
               <tr id="items_list">
               </tr>
               <tr style="border-top: 1px solid #222;">
-                <td colspan="3">&nbsp;</td>
+                <td colspan="4">&nbsp;</td>
                 <th style="text-align: right;">Total</th>
                 <th style="text-align: right;">{{total}}</th>
               </tr>
               <tr>
-                <td colspan="3">&nbsp;</td>
+                <td colspan="4">&nbsp;</td>
                 <th style="text-align: right;">VAT (18%)</th>
                 <th style="text-align: right;"><span>{{VAT}}</span></th>
               </tr>
               <tr>
-                <td colspan="3">&nbsp;</td>
+                <td colspan="4">&nbsp;</td>
                 <th style="text-align: right;">Total including VAT</th>
                 <th style="text-align: right;padding: 0;">
                   <span style="border-top: 1px solid #222;padding:10px">{{grand_total}}</span>
@@ -359,8 +360,11 @@
           </td>
         </tr>
         <style>
-          tr,td{
+          th,td{
             padding: 10px;
+          }
+          th{
+            white-space: nowrap;
           }
         </style>
       </table>
@@ -437,7 +441,8 @@
       
       tmp += `<tr style="border-bottom:1px solid #222"><td>${++sn}</td>
         <td>${reli[x].name}</td>
-        <td>${reli[x].qty}</td>
+        <td>${reli[x].desc}</td>
+        <td>${reli[x].qty} ${reli[x].unit}</td>
         <td>${price}</td>
         <td style="text-align: right;">${itotal}</td></tr>`;
       json.total += item_total;

@@ -4,6 +4,7 @@ $mod_config = json_decode(file_get_contents(__DIR__.'/module.json'));
 if(isset($_POST['company_legal_name'])){
     $mod_config->config->company_profile->company_legal_name = $_POST['company_legal_name'];
     $mod_config->config->company_profile->company_slogan = $_POST['company_slogan'];
+    $mod_config->config->company_profile->phone_number = $_POST['phone_number'];
     $mod_config->config->company_profile->email = $_POST['email'];
     $mod_config->config->company_profile->TIN_number = $_POST['TIN_number'];
     $mod_config->config->company_profile->VRN_number = $_POST['VRN_number'];
