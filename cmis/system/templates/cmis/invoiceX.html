@@ -93,7 +93,7 @@
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                       <label>Invoice type
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="invoice_type">
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="invoice_type" onchange="switch_selects()">
                             <option value="proforma">Proforma invoice</option>
                             <option value="tax">Tax invoice</option>
                         </select>
@@ -118,13 +118,20 @@
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full mob:w-1/3 px-3"> 
                       <label>Item</label>
-                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="item_name[]" onchange="process_product()">
+                      <select class="antagonistic bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="item_name[]" onchange="process_product()">
+                        <option value="">Choose product...</option>
+                        <?php foreach($all_products as $p){?>
+                        <option value="<?=$p['product_id']?>" data-price="<?=intval(@$p['product_price'])?>"><?=$p['product_name']?></option>
+                        <?php }?>
+                        <option value="add-product">Add product</option>
+                      </select>
+                      <select class="antagonistic bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-blue-500 foinv:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:foinv:ring-blue-500 dark:foinv:border-blue-500" name="item_name[]" onchange="process_product()" disabled>
                         <option value="">Choose product...</option>
                         <?php foreach($products as $p){?>
                         <option value="<?=$p['product_id']?>" data-price="<?=$p['product_price']?>"><?=$p['product_name']?></option>
                         <?php }?>
                         <option value="add-product">Add product</option>
-                    </select>
+                      </select>
                     </div>
                     <div class="flex w-full mob:w-2/3 -mx-3 mb-6">
                       <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
@@ -133,7 +140,7 @@
                       </div>
                       <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
                         <label>Price per item</label>
-                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" value="0" readonly>
+                          <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg foinv:ring-purple-500 foinv:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="sell_price[]" type="number" value="0" onchange="update_price()" onkeyup="update_price()" >
                       </div>
                       <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
                         <label>Total price</label>
@@ -388,6 +395,23 @@
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
+  var sels = document.querySelectorAll('.antagonistic');
+  sels[1].style.display = 'none';
+  function switch_selects(){
+    let evt  = window.event;
+    if(evt.target.value == 'proforma'){
+      sels[0].style.display = 'block';
+      sels[1].style.display = 'none';
+      sels[0].removeAttribute('disabled');
+      sels[1].setAttribute('disabled', true);
+    }
+    if(evt.target.value == 'tax'){
+      sels[1].style.display = 'block';
+      sels[0].style.display = 'none';
+      sels[1].removeAttribute('disabled');
+      sels[0].setAttribute('disabled', true);
+    }
+  }
   function replicate_items(){
     let evtTag = window.event.target;
     evtTag.parentNode.previousElementSibling.insertAdjacentHTML('afterEnd',evtTag.parentNode.previousElementSibling.outerHTML);
@@ -409,8 +433,24 @@
   function update_price(){
     let evtTag = window.event.target,
         priceOpts = evtTag.parentNode.parentNode.previousElementSibling.querySelector('select'),
-        price = parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
-    evtTag.parentNode.nextElementSibling.nextElementSibling.querySelector('input').value =  price;
+        price = 17;//parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
+    if(evtTag.name == 'item_quantity[]'){
+      let qty = evtTag.value,
+          prc = evtTag.parentNode.nextElementSibling.children[1].value;
+      price = parseInt(qty) * parseInt(prc);
+    }
+    else if(evtTag.name == 'sell_price[]'){
+      let prc = evtTag.value,
+          qty = evtTag.parentNode.previousElementSibling.children[1].value;
+      price = parseInt(qty) * parseInt(prc);
+      //console.log(prc,qty);
+    }
+    if(evtTag.parentNode.nextElementSibling.nextElementSibling != null){
+      evtTag.parentNode.nextElementSibling.nextElementSibling.querySelector('input').value =  price;
+    }
+    else{
+      evtTag.parentNode.nextElementSibling.querySelector('input').value =  price;
+    }
     sumAll();
   }
 
