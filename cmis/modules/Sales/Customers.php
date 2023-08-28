@@ -28,6 +28,22 @@ if(isset($_POST['customer_name'])){
     else $msg = 'Error saving customer';
     //var_dump($db->error());
 }
+if(isset($_POST['ajax_del_customer'])){
+    //$db->delete('customer')->where(['customer_id'=>$_POST['ajax_del_customer']])->commit();
+    if(!$db->error()){
+        $json = json_encode([
+            'status'=>'success',
+            'msg'=>'Customer deleted successful'
+        ]);
+    }
+    else{
+        $json = json_encode([
+            'status'=>'fail',
+            'msg'=>'Unexpected error occured while deleting customer'
+        ]);
+    }
+    die($json);
+}
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
 $data = ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
 echo helper::find_template('customers', $data);
