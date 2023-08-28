@@ -16,12 +16,16 @@ if(isset($_POST['customer_name'])){
         'vrn_number'=>$_POST['vrn'], 
         'created_time'=>date('Y-m-d H:i:s')
     ];
-    $k = $db->insert('customer', $data);
+    if(isset($_POST['customer_id']) && intval($_POST['customer_id']) > 0){
+        $k = $db->update('customer', $data)->where(['customer_id'=>$_POST['customer_id']])->commit();
+        $k = intval($_POST['customer_id']);
+    }
+    else $k = $db->insert('customer', $data);
     if(!$db->error() && $k) {
-        $msg = 'Customer added successful';
+        $msg = 'Customer saved successful';
         $ok =true;
     }
-    else $msg = 'Error adding customer';
+    else $msg = 'Error saving customer';
     //var_dump($db->error());
 }
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();

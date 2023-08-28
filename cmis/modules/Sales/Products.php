@@ -14,10 +14,14 @@ if(isset($_POST['product_name'])){
         
     ];
     //var_dump($db->error());
-    $k = $db->insert('product', $data);
+    if(isset($_POST['product_id']) && intval($_POST['product_id']) > 0){
+        $k = $db->update('product', $data)->where(['product_id'=>$_POST['product_id']])->commit();
+        $k = intval($_POST['product_id']);
+    }
+    else $k = $db->insert('product', $data);
    
     if(!$db->error() && $k) {
-        $msg = 'product added successful';
+        $msg = 'Product saved successful';
         $ok =true;
     }
     else $msg = 'Error adding product';
