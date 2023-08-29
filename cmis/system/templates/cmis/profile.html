@@ -189,7 +189,7 @@
           Profile:
         </div>
         <div class="px-3">
-          <button onclick="change_avatar(`<?=$user['user_id']?>`)">Change avatar</button>
+          <button onclick="change_avatar()">Change avatar</button>
         </div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
@@ -208,55 +208,84 @@
 <div id="user-info" class="w-full sm:w-1/2"></div>
 
 <script>
-  toggleEditPass = document.getElementById("toggle-edit-pass");
-  userInfo = document.getElementById("user-info");
-  var prevUserInfo = userInfo.innerHTML;
-  const userName = document.getElementById("user-name");
-  const userPhone = document.getElementById("user-phone");
-  const userEmail = document.getElementById("user-email");
-  const userAddress = document.getElementById("user-address");
 
-  function changePassword() {
-    userInfo.innerHTML = `
-    <div class="w-full sm:w-1/2 p-6 shadow rounded-lg border border-gray-200  bg-white dark:bg-gray-800 dark:border-gray-700 tracking-tight text-gray-900 dark:text-white">
-      <div>
-        <h5 class="mb-2 text-2xl font-semibold">Change your Info</h5>
-      </div>
-      <div class="flex-auto">
-        <form role="form" method="POST">
-          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Full name</label>
-          <div class="mb-4">
-            <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userName.innerHTML+`"/>
-          </div>
-          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone</label>
-          <div class="mb-4">
-            <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userPhone.innerHTML+`"/>
-          </div>
-          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
-          <div class="mb-4">
-            <input type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userEmail.innerHTML+`"/>
-          </div>
-          <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Address</label>
-          <div class="mb-4">
-            <textarea type="text" name="full_name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name">`+userAddress.innerHTML+`</textarea>
-          </div>
-          <div class="text-center"> 
-            <button type="submit" name="update-my-profile" class="inline-block w-32 px-3 py-2 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>`;
-    toggleEditPass.innerHTML = `<button type="button" onclick="cancelEditUserInfo()">
-      <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
-      <span class="pl-1">Cancel</span>
-    </button>`;
+  function changePassword(uid) {
+    let uform = '<form name="passform" style="padding:1em"><label>Current password</label>'
+              + '<input type="password" name="old_pass" placeholder="Current password...">'
+              + '<label>New password</label>'
+              + '<input type="password" name="new_pass" placeholder="...new password">'
+              + '<label>Confirm new password</label>'
+              + `<input type="hidden" name="user" value="${uid}">`
+              + '<input type="password" name="confirm_pass" placeholder="Repeat new password..."></form>';
+    Swal.fire({
+      title: 'Change your password',
+      html: uform,
+      customClass:'mySwal',
+      showCancelButton: true,
+      confirmButtonText: 'Save'
+    })
+    .then(prompt=>{
+      if(prompt.isConfirmed){
+        let userform = document.querySelector('form[name=passform]');
+        let fd = new FormData(userform),
+            pass1 = userform.querySelector('[name=new_pass]').value,
+            pass2 = userform.querySelector('[name=confirm_pass]').value;
+
+        if(pass1 != pass2){
+          Swal.fire({
+            title: "Passwords does not match!",
+            icon: "info"
+          })
+          .then(val=>{
+            changePassword(uid);
+          });
+        }
+        else{
+          ajax(
+            window.location.href,
+            success=>{
+              console.log(success);
+              if(success.trim() == 'ok'){
+                Swal.fire({
+                  title: 'Password changed successful',
+                  icon: 'success'
+                });
+              }
+              else{
+                Swal.fire({
+                  title: 'Password change fail',
+                  icon: 'error'
+                });
+              }
+            },
+            error=>{
+              console.log(error);
+            },
+            fd
+          );
+        }
+      }
+    });
   }
-
-  function cancelChangePass() {
-    //userInfo.innerHTML = prevUserInfo;
-    toggleEditPass.innerHTML = `<button type="button" onclick="editUserInfo()">
-      <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
-      <span class="pl-1">Edit</span>
-    </button>`;
+  function change_avatar(){
+    let src = document.querySelector('.h-8.w-8.rounded-full.object-cover').src;
+    let htz = '<form enctype="multipart/form-data" method="post">'
+            + `<img src="${src}" width="100%">`
+            + '<div style="display:flex;padding:1em">'
+            + '<input type="file" name="profile_photo" accept=".jpg, .jpeg, .png, .gif" style="flex-grow:1" onchange="update_pic()" required>'
+            + '<button style="white-space:nowrap;box-shadow:0 0 3px #999;margin:0 1em;padding:8px">Save</button></div>'
+            + '</form>';
+    
+    Swal.fire({
+      //title: 'Change your avatar',
+      html: htz,
+      customClass:'mySwal',
+      showCancelButton: false,
+      showConfirmButton: false
+    })
+  }
+  function update_pic(){
+    let inpt = window.event.target;
+    inpt.parentNode.previousElementSibling.src = URL.createObjectURL(inpt.files[0]);
   }
 </script>
