@@ -21,6 +21,7 @@ if(isset($_FILES['profile_photo'])){
     $width = 450;
     $height = 450;
     helper::image_upload_resize($src, $dst, $width, $height);
+    header('Clear-Site-Data: "cache"');
     //echo $dst;
 }
 $user = $db->select('staff')
