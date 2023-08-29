@@ -189,7 +189,7 @@
           Profile:
         </div>
         <div class="px-3">
-          <button onclick="change_avatar(`<?=$user['user_id']?>`)">Change avatar</button>
+          <button onclick="change_avatar()">Change avatar</button>
         </div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-3">
@@ -266,5 +266,26 @@
         }
       }
     });
+  }
+  function change_avatar(){
+    let src = document.querySelector('.h-8.w-8.rounded-full.object-cover').src;
+    let htz = '<form enctype="multipart/form-data" method="post">'
+            + `<img src="${src}" width="100%">`
+            + '<div style="display:flex;padding:1em">'
+            + '<input type="file" name="profile_photo" accept=".jpg, .jpeg, .png, .gif" style="flex-grow:1" onchange="update_pic()" required>'
+            + '<button style="white-space:nowrap;box-shadow:0 0 3px #999;margin:0 1em;padding:8px">Save</button></div>'
+            + '</form>';
+    
+    Swal.fire({
+      //title: 'Change your avatar',
+      html: htz,
+      customClass:'mySwal',
+      showCancelButton: false,
+      showConfirmButton: false
+    })
+  }
+  function update_pic(){
+    let inpt = window.event.target;
+    inpt.parentNode.previousElementSibling.src = URL.createObjectURL(inpt.files[0]);
   }
 </script>

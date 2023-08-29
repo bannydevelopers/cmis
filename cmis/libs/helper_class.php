@@ -86,6 +86,125 @@ class helper{
         else
             return $default;
     }
+    public static function upload_image($source, $destination, $sizes = ['width'=>600, 'height'=>300]){
+       list($width, $height, $type) = getimagesize($source);
+       $finaldst = $destination;
+
+       if( $type == IMAGETYPE_JPEG ) $src = imagecreatefromjpeg($source);
+       elseif( $type == IMAGETYPE_GIF ) $src = imagecreatefromgif($source);
+       elseif( $type == IMAGETYPE_PNG ) $src = imagecreatefrompng($source);
+       else return 'Unsupported image format';
+
+       $w = $sizes['width'];
+       $h = $sizes['height'];
+       $ir = $width/$height; // Source ratio
+       $fir = $w/$h; // Destination ratio
+       if($ir >= $fir){
+           $newheight = $h; 
+           $newwidth = round($w * ($width / $height));
+       }
+       else {
+           $newheight = round($w / ($width/$height));
+           $newwidth = $w;
+       }   
+       $xcor = round(0 - ($newwidth - $w) / 2);
+       $ycor = round(0 - ($newheight - $h) / 2);
+       
+       /*
+        def crop_4_3_image(image_path):
+            image = Image.open(image_path)
+            width, height = image.size
+
+            $target_width = int(($w/$h) * height)
+
+            if width > target_width:
+                crop_pixels = int((width - target_width) / 2)
+                cropped_image = image.crop((crop_pixels, 0, width - crop_pixels, height))
+                cropped_image.save("cropped_image.jpg")
+                return cropped_image
+            else:
+                return image
+       */
+       $dst = imagecreatetruecolor($w, $h);
+
+       $dest_info = explode('.',$destination);
+       $dest_ext = end($dest_info);
+       $dest_ext = strtolower($dest_ext);
+       $transparent_images = ['gif', 'png'];
+
+       if( in_array($dest_ext, $transparent_images) && ( $type == IMAGETYPE_GIF or $type == IMAGETYPE_PNG) ){
+           $background = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+           imagecolortransparent($dst, $background);
+           imagealphablending($dst, false);
+           imagesavealpha($dst, true);
+       }
+       imagecopyresampled($dst, $src, $xcor, $ycor, 0, 0, $newwidth, $newheight, $width, $height);
+       
+       if($dest_ext == 'jpg' or $dest_ext == 'jpeg') imagejpeg($dst, $finaldst);
+       elseif($dest_ext == 'png') imagepng($dst, $finaldst);
+       elseif($dest_ext == 'gif') imagegif($dst, $finaldst);
+
+       imagedestroy($dst);
+       unlink($source);
+       return $destination;
+    }
+    public static function image_upload_resize($src, $dst, $width, $height, $crop=true){
+        $sizes = getimagesize($src);
+        //return $sizes;
+        //if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
+        $w = $sizes[0];
+        $h = $sizes[1];
+        $type = substr($sizes['mime'], strpos($sizes['mime'], '/')+1);
+        //return $type;
+        //$type = strtolower(substr(strrchr($src,"."), 1));
+        if($type == 'jpeg') $type = 'jpg';
+        switch($type){
+          case 'bmp': $img = imagecreatefromwbmp($src); break;
+          case 'gif': $img = imagecreatefromgif($src); break;
+          case 'jpg': $img = imagecreatefromjpeg($src); break;
+          case 'png': $img = imagecreatefrompng($src); break;
+          default : return "Unsupported picture type {$type}!";
+        }
+      
+        // resize
+        if($crop){
+          //if($w < $width or $h < $height) return "Picture is too small!";
+          $ratio = max($width/$w, $height/$h);
+          $h = $height / $ratio;
+          $x = ($w - $width / $ratio) / 2;
+          $w = $width / $ratio;
+        }
+        else{
+          //if($w < $width and $h < $height) return "Picture is too small!";
+          $ratio = min($width/$w, $height/$h);
+          $width = $w * $ratio;
+          $height = $h * $ratio;
+          $x = 0;
+        }
+      
+        $new = imagecreatetruecolor($width, $height);
+      
+        // preserve transparency
+        if($type == "gif" or $type == "png"){
+          imagecolortransparent($new, imagecolorallocatealpha($new, 0, 0, 0, 127));
+          imagealphablending($new, false);
+          imagesavealpha($new, true);
+        }
+      
+        imagecopyresampled($new, $img, 0, 0, $x, 0, intval($width), intval($height), intval($w), intval($h));
+        $dest_type = explode('.', $dst);
+        $ext = end($dest_type);
+        switch($ext){
+          case 'jpg': imagejpeg($new, $dst); break;
+          case 'jpeg': imagejpeg($new, $dst); break;
+          case 'gif': imagegif($new, $dst); break;
+          case 'png': imagepng($new, $dst); break;
+          case 'bmp': imagewbmp($new, $dst); break;
+        }
+        imagedestroy($new);
+        unlink($src);
+        return $dst;
+    }
     public function login_user($login_info){
         $db = db::get_connection(storage::init()->system_config->database);
         $obj = new static();

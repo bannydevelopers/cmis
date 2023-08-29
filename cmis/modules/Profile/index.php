@@ -13,6 +13,16 @@ if(isset($_POST['new_pass'])){
     }
     die('Old password does not match');
 }
+if(isset($_FILES['profile_photo'])){
+    $dir = realpath(__DIR__.'/../../system/assets/uploads/avatar/');
+    $src = $_FILES['profile_photo']['tmp_name'];
+    $user_id = helper::init()->get_session_user('user_id');
+    $dst = "{$dir}/avatar_{$user_id}.jpg";
+    $width = 450;
+    $height = 450;
+    helper::image_upload_resize($src, $dst, $width, $height);
+    //echo $dst;
+}
 $user = $db->select('staff')
            ->join('user','user_id=user_reference')
            ->where(['user_id'=>helper::init()->get_session_user('user_id')])
