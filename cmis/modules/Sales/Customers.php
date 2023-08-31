@@ -16,13 +16,33 @@ if(isset($_POST['customer_name'])){
         'vrn_number'=>$_POST['vrn'], 
         'created_time'=>date('Y-m-d H:i:s')
     ];
-    $k = $db->insert('customer', $data);
+    if(isset($_POST['customer_id']) && intval($_POST['customer_id']) > 0){
+        $k = $db->update('customer', $data)->where(['customer_id'=>$_POST['customer_id']])->commit();
+        $k = intval($_POST['customer_id']);
+    }
+    else $k = $db->insert('customer', $data);
     if(!$db->error() && $k) {
-        $msg = 'Customer added successful';
+        $msg = 'Customer saved successful';
         $ok =true;
     }
-    else $msg = 'Error adding customer';
+    else $msg = 'Error saving customer';
     //var_dump($db->error());
+}
+if(isset($_POST['ajax_del_customer'])){
+    //$db->delete('customer')->where(['customer_id'=>$_POST['ajax_del_customer']])->commit();
+    if(!$db->error()){
+        $json = json_encode([
+            'status'=>'success',
+            'msg'=>'Customer deleted successful'
+        ]);
+    }
+    else{
+        $json = json_encode([
+            'status'=>'fail',
+            'msg'=>'Unexpected error occured while deleting customer'
+        ]);
+    }
+    die($json);
 }
 $customer = $db->select('customer')->order_by('customer_id', 'desc')->fetchAll();
 $data = ['customer'=>$customer,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];

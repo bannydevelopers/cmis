@@ -238,7 +238,7 @@ $roles = $db->select('role','role_id,role_name')
 $depts = $db->select('department','department_id,department_name')
                   ->order_by('department_name', 'asc')
                   ->fetchAll();
-                  
+
 $branches = $db->select('branches','branch_id,branch_name')
                   ->order_by('branch_name', 'asc')
                   ->fetchAll();

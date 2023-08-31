@@ -1,6 +1,29 @@
 <?php 
 
 $db = db::get_connection(storage::init()->system_config->database);
+if(isset($_POST['new_pass'])){
+    $newpass = helper::create_hash($_POST['new_pass']);
+    $oldpass = helper::create_hash($_POST['old_pass']);
+    $uid = $_POST['user'];
+    $me = $db->select('user', 'password')->where(['user_id'=>$uid])->limit(1)->fetch();
+    if($oldpass == $me['password']){
+        $db->update('user', ['password'=>$newpass])->where(['user_id'=>$uid])->commit();
+        if(!$db->error()) die('ok');
+        else die($db->error()['message']);
+    }
+    die('Old password does not match');
+}
+if(isset($_FILES['profile_photo'])){
+    $dir = realpath(__DIR__.'/../../system/assets/uploads/avatar/');
+    $src = $_FILES['profile_photo']['tmp_name'];
+    $user_id = helper::init()->get_session_user('user_id');
+    $dst = "{$dir}/avatar_{$user_id}.jpg";
+    $width = 450;
+    $height = 450;
+    helper::image_upload_resize($src, $dst, $width, $height);
+    header('Clear-Site-Data: "cache"');
+    //echo $dst;
+}
 $user = $db->select('staff')
            ->join('user','user_id=user_reference')
            ->where(['user_id'=>helper::init()->get_session_user('user_id')])

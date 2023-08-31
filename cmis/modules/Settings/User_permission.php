@@ -56,6 +56,7 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
 //if(isset($_POST['get_permission'])){
     $permission = $db->select('permission')
                     ->fetchAll();
+    
     $perm_tree = [];
     foreach($permission as $perm){
         if(!isset($perm_tree[$perm['legend']])) {
@@ -82,7 +83,7 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
 //}
 //var_dump('<pre>',$perm_tree);
 echo helper::find_template(
-    'User_permission', 
+    'user_permission', 
     [
         'roles' => $role_tree,
         'designations'=>$designations,

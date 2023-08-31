@@ -229,8 +229,8 @@
     var customerId = values.id.split('-');
     const customerData = new FormData();
     customerData.append('ajax_del_customer', customerId[1]);
-
-    let url = '';
+  
+    let url = window.location.href;
     let obj = {
       method: "POST", 
       body: customerData,
@@ -244,16 +244,16 @@
       return response.json();
     })
     .then(data => {
-      if(data.status == 'success'){
-        swal(data.msg, ` For staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name, "success");
+      if(data.status.trim() == 'success'){
+        swal(data.msg, '', "success");
         document.getElementById('tr-'+customerId[1]).remove();
       }
-      if(data.status == 'fail'){
-        swal(data.msg, ` For staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name, "error");
+      else if(data.status == 'fail'){
+        swal(data.msg, '', "error");
         delCustomerBtn.disabled = false;
         delCustomerBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
       }
-      if(data.status == 'not-exist' || data.status == 'denied'){
+      else if(data.status == 'not-exist' || data.status == 'denied'){
         swal(data.msg, '', "error");
       }
     })
