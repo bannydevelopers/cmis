@@ -87,66 +87,7 @@ class helper{
             return $default;
     }
     public static function upload_image($source, $destination, $sizes = ['width'=>600, 'height'=>300]){
-       list($width, $height, $type) = getimagesize($source);
-       $finaldst = $destination;
-
-       if( $type == IMAGETYPE_JPEG ) $src = imagecreatefromjpeg($source);
-       elseif( $type == IMAGETYPE_GIF ) $src = imagecreatefromgif($source);
-       elseif( $type == IMAGETYPE_PNG ) $src = imagecreatefrompng($source);
-       else return 'Unsupported image format';
-
-       $w = $sizes['width'];
-       $h = $sizes['height'];
-       $ir = $width/$height; // Source ratio
-       $fir = $w/$h; // Destination ratio
-       if($ir >= $fir){
-           $newheight = $h; 
-           $newwidth = round($w * ($width / $height));
-       }
-       else {
-           $newheight = round($w / ($width/$height));
-           $newwidth = $w;
-       }   
-       $xcor = round(0 - ($newwidth - $w) / 2);
-       $ycor = round(0 - ($newheight - $h) / 2);
-       
-       /*
-        def crop_4_3_image(image_path):
-            image = Image.open(image_path)
-            width, height = image.size
-
-            $target_width = int(($w/$h) * height)
-
-            if width > target_width:
-                crop_pixels = int((width - target_width) / 2)
-                cropped_image = image.crop((crop_pixels, 0, width - crop_pixels, height))
-                cropped_image.save("cropped_image.jpg")
-                return cropped_image
-            else:
-                return image
-       */
-       $dst = imagecreatetruecolor($w, $h);
-
-       $dest_info = explode('.',$destination);
-       $dest_ext = end($dest_info);
-       $dest_ext = strtolower($dest_ext);
-       $transparent_images = ['gif', 'png'];
-
-       if( in_array($dest_ext, $transparent_images) && ( $type == IMAGETYPE_GIF or $type == IMAGETYPE_PNG) ){
-           $background = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-           imagecolortransparent($dst, $background);
-           imagealphablending($dst, false);
-           imagesavealpha($dst, true);
-       }
-       imagecopyresampled($dst, $src, $xcor, $ycor, 0, 0, $newwidth, $newheight, $width, $height);
-       
-       if($dest_ext == 'jpg' or $dest_ext == 'jpeg') imagejpeg($dst, $finaldst);
-       elseif($dest_ext == 'png') imagepng($dst, $finaldst);
-       elseif($dest_ext == 'gif') imagegif($dst, $finaldst);
-
-       imagedestroy($dst);
-       unlink($source);
-       return $destination;
+       return self::image_upload_resize($source, $destination, $sizes['width'], $sizes['height']);
     }
     public static function image_upload_resize($src, $dst, $width, $height, $crop=true){
         $sizes = getimagesize($src);
