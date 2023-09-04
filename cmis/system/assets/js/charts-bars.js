@@ -7,14 +7,14 @@ const barConfig = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'Shoes',
+        label: 'revenue',
         backgroundColor: '#0694a2',
         // borderColor: window.chartColors.red,
         borderWidth: 1,
         data: [-3, 14, 52, 74, 33, 90, 70],
       },
       {
-        label: 'Bags',
+        label: 'expenses',
         backgroundColor: '#7e3af2',
         // borderColor: window.chartColors.blue,
         borderWidth: 1,

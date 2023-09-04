@@ -1,88 +1,79 @@
 <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
   Sales reports
 </h2>
-<?php if($msg) {?>
-    <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
-      <span>
-        <i class="fa-solid fa-circle-info fa-lg"></i>
-      </span>
-      <div class="ml-3 text-sm font-medium">
-        <?=$msg?>
-      </div> 
-      <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
-        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-      </button>
-    </div>
-  <?php } ?>
-  <div class="flex flex-row p-4g">
-  <div class="grid gap-6 mb-8 md:grid-cols-2">
-    <div
-      class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-    >
-      <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-        Top selling products
-      </h4>
-      <canvas id="pie"></canvas>
-      <div
-        class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-      >
-        <!-- Chart legend -->
-        <div class="flex items-center">
-          <span
-            class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
-          ></span>
-          <span>Cameras</span>
+      <div class="grid gap-6 mb-8 md:grid-cols-2">
+        <div  class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" >
+              <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300"> Common Customers</h4>
+                <!-- Item List -->
+               <div class="dark:text-gray-300">
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
+                  ></span>
+                  <span>Company A</span>
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full "
+                  ></span>
+                  <span>Company B</span>
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full dark:bg-gray-800"
+                  ></span>
+                  <span>Company C</span>
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full dark:bg-gray-800"
+                  ></span>
+                  <span>Company D</span>
+                </div>
+               </div>
+        
         </div>
-        <div class="flex items-center">
-          <span
-            class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-          ></span>
-          <span>Access points</span>
-        </div>
-        <div class="flex items-center">
-          <span
-            class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-          ></span>
-          <span>Switches</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="grid gap-6 mb-8 md:grid-cols-2">
-    <div
-      class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-    >
-      <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-        Common Customers
-      </h4>
-      <canvas id="pie"></canvas>
-      <div
-        class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-      >
-        <!-- Chart legend -->
-        <div class="flex items-center">
-          <span
-            class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
-          ></span>
-          <span>Company B</span>
-        </div>
-        <div class="flex items-center">
-          <span
-            class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-          ></span>
-          <span>Company C</span>
-        </div>
-        <div class="flex items-center">
-          <span
-            class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-          ></span>
-          <span>Company A</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+            <div
+                class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" >
+                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+                  General Sales
+                </h4>
+                <canvas id="bars"></canvas>
+
+            </div>
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+              <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+                Top selling products
+              </h4>
+              <canvas id="pie"></canvas>
+              <div
+                class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
+              >
+                <!-- Chart legend -->
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
+                  ></span>
+                  <span>Cameras</span>
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
+                  ></span>
+                  <span>Access points</span>
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
+                  ></span>
+                  <span>Switches</span>
+                </div>
+              </div>
+            </div>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <!-- <script src="js/charts-lines.js" defer></script> -->
 <script src="js/charts-pie.js" defer></script>
+<script src="js/charts-bars.js" defer></script>
