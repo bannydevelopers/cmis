@@ -112,18 +112,13 @@ $products = $db ->select('stock', 'product.*, stock.stock_quantity, stock.sellin
                 ->where("stock.stock_ref < 1")
                 ->group_by('stock.stock_id')
                 ->fetchAll();
-$products[] = $db->select('product','product.*, 0 as stock_quantity, 0 as product_price, 1 as stock_out')
-                 ->join('stock', 'product_id=stock.product', 'LEFT')
-                 ->where(['product_type'=>'service'])
-                 ->fetch();
-
 $all_prods = $db->select('product','product_id, product_name,stock.selling_price as product_price')
                 ->join('stock', 'product_id=stock.product', 'LEFT')
                 ->fetchAll();
 // I'm not happy with unnecessary loops but it's the only solution I found for now
 $stock = [];
 foreach($products as $prod){
-    if(intval($prod['stock_out']) < intval($prod['stock_quantity']) or $prod['product_type'] =='service') $stock[] = $prod;
+    if(intval($prod['stock_out']) < intval($prod['stock_quantity'])) $stock[] = $prod;
 }
 
 $data = [
