@@ -20,11 +20,11 @@ if(isset($_POST['product_name'])){
         if(isset($_FILES['product_photo'])){ 
             $dir = realpath(__DIR__.'/../../system/assets/uploads/products');
             $src = $_FILES['product_photo']['tmp_name'];
-            $dst = "{$dir}/product_{$k}.jpg";
+            $dst = "{$dir}/product_{$k}.png";
             $width = 450;
             $height = 450;
             helper::image_upload_resize($src, $dst, $width, $height);
-            $l = $db->update('product', ['product_img' => "product_{$k}.jpg"])->where(['product_id'=>$k])->commit();
+            $l = $db->update('product', ['product_img' => "product_{$k}.png"])->where(['product_id'=>$k])->commit();
             header('Clear-Site-Data: "cache"');
         }
     }
