@@ -200,8 +200,35 @@ if(isset($_POST['full_name'])){
             if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
             else {
                 $user_id = $db->insert('user',$user);
-                //var_dump('<pre>',$db->error());
-                //var_dump($_POST);die;
+                // Notify user
+                $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
+                $link = "https://{$_SERVER['HTTP_HOST']}/{$home}/forgot_password?recover={$token}";
+                $site_name = storage::init()->system_config->system_name;
+                
+                $template = file_get_contents(realpath(__DIR__.'/../../').'/config/mails/emails/register_user.html');
+                $name = explode(' ', $_POST['full_name']);
+                $body = str_replace(
+                                    ['{$first_name}','{$last_name}','{$site_name}','{$link}'],
+                                    [$name[0], end($name), $site_name, $link], 
+                                    $template
+                                );
+                
+                if(helper::format_phone_number($_POST['phone_number'])){
+                    $opts = [
+                        'recipients'=>helper::format_phone_number($_POST['phone_number']),
+                        'body'=>strip_tags($body)
+                    ];
+                    helper::send_sms($opts);
+                }
+                if(helper::format_email($_POST['email'])) {
+                    $email_opts = [
+                        'body'=>$body, 
+                        'subject'=>'Account activation instruction',
+                        'recipient'=>helper::format_email($_POST['email'])
+                    ];
+                    helper::send_email($email_opts);
+                }
+
                 if(intval($user_id)){
                     $staff = [
                         'staff_registration_number'=>addslashes($_POST['registration_number']), 
