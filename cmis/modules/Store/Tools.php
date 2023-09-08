@@ -9,7 +9,7 @@ if(isset($_POST['tool_name'])){
     $data = [
         'tool_name'=>$_POST['tool_name'], 
         'tool_description'=>$_POST['tool_description'], 
-        //'tool_quantity'=>$_POST['tool_quantity'], 
+        'tool_quantity'=>$_POST['tool_quantity'], 
         'create_time'=>date('Y-m-d H:i:s')
         //`tool_name`, `tool_description`, `tool_status`, `tool_date_purchased`, `create_time`
     ];
@@ -38,6 +38,22 @@ if(isset($_POST['tool_name'])){
     }
     else $msg = 'Error adding tool';
    //var_dump($db->error());
+}
+if(isset($_POST['ajax_del_tool'])){
+    $db->delete('tools')->where(['tool_id'=>$_POST['ajax_del_tool']])->commit();
+    if(!$db->error()){
+        $json = json_encode([
+            'status'=>'success',
+            'msg'=>'tool deleted successful'
+        ]);
+    }
+    else{
+        $json = json_encode([
+            'status'=>'fail',
+            'msg'=>'Unexpected error occured while deleting tool'
+        ]);
+    }
+    die($json);
 }
 $tool = $db->select('tools')->order_by('tool_id', 'desc')->fetchAll();
 //var_dump($tool);

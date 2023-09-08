@@ -59,6 +59,22 @@ if(isset($_POST['product_name'])){
         );
     }
 }
+if(isset($_POST['ajax_del_product'])){
+    $db->delete('product')->where(['product_id'=>$_POST['ajax_del_product']])->commit();
+    if(!$db->error()){
+        $json = json_encode([
+            'status'=>'success',
+            'msg'=>'product deleted successful'
+        ]);
+    }
+    else{
+        $json = json_encode([
+            'status'=>'fail',
+            'msg'=>'Unexpected error occured while deleting product'
+        ]);
+    }
+    die($json);
+}
 $product = $db->select('product')->order_by('product_id', 'desc')->fetchAll();
 $data = ['product'=>$product,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
 echo helper::find_template('products', $data);

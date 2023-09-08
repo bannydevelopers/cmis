@@ -93,7 +93,7 @@
         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
       >
       <?php foreach($product as $prod){?>
-        <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <tr id="tr-<?=$prod['product_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
           <td class="px-4 py-3">
             <img src="uploads/products/<?=$prod['product_img']?>" class="h-16 w-16 object-cover"/>
           </td>
@@ -179,8 +179,53 @@
   
 </div>
     
+<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
+  async function delproduct(values) {
+    if (!await swal({text: 'Deleting a product can not be undone!', buttons: true})) {
+      return;
+    }
+    delproductBtn = document.getElementById(values.id);
+    delproductBtn.disabled = true;
+    delproductBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
 
+    var productId = values.id.split('-');
+    const productData = new FormData();
+    productData.append('ajax_del_product', productId[1]);
+
+    let url = window.location.href;
+    let obj = {
+      method: "POST", 
+      body: productData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {  
+      if(data.status.trim() == 'success'){
+        swal(data.msg, '', "success");
+        document.getElementById('tr-'+productId[1]).remove();
+      }
+      else if(data.status == 'fail'){
+        swal(data.msg, '', "error");
+        delproductBtn.disabled = false;
+        delproductBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+      }
+      else if(data.status == 'not-exist' || data.status == 'denied'){
+        swal(data.msg, '', "error");
+      }
+    })
+    .catch(error => {
+      swal('There is an error deleting product', '', "error");
+      delproductBtn.disabled = false;
+      delproductBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+    });
+  }
 </script>
 
