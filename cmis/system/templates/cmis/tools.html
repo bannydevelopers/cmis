@@ -32,25 +32,23 @@
                         <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
                       </label>
                     </div>
-                  
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>Name
-                      <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
-                    </label>
+                    <div class="w-full px-3">
+                      <label>Name
+                        <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
+                      </label>
+                    </div>
+                    <div class="w-full px-3">
+                      <label>Asset number
+                        <input name="asset_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="asset number">
+                      </label>
+                    </div>
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label>Description
-                      <input name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="tool_description">
+                      <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="tool_description" rows="4"></textarea>
                     </label>
                   </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>Quantity
-                      <input name="tool_quantity" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" min="1" placeholder="tool_quantity">
-                    </label>
-                  </div>
-                  
                 </div>
                 <div class="pb-8">
                   <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
@@ -105,7 +103,7 @@
                 <th class="px-4 py-3"></th>
                 <th class="px-4 py-3">Name</th>
                 <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Quantity</th>
+                <th class="px-4 py-3">Group</th>
                 <th class="px-4 py-3">Actions</th>
               </tr>
             </thead>
@@ -126,7 +124,7 @@
                   <?=$tol['tool_description']?>
                 </td>
                <td class="px-4 py-3 text-sm">
-                  <?=@$tol['tool_quantity']?>
+                  <?=@$tol['tool_group']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
@@ -184,7 +182,7 @@
                       <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
                           <label>Quantity
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="text" value="<?=$tol['tool_quantity']?>" placeholder="Quantity" name="tool_quantity">
+                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="text" value="<?=$tol['tool_group']?>" placeholder="Quantity" name="tool_group">
                           </label>
                           
                         </div>
@@ -219,10 +217,8 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            <?php 
-            if (is_array($tool) || is_object($tool))
-            foreach ($tool as $tol)
-         {?>
+            <?php if (is_array($tools_available) || is_object($tools_available))
+            foreach ($tools_available as $tol){?>
           <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
                   <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
@@ -234,7 +230,7 @@
                   <?=$tol['tool_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tol['tool_quantity']?>
+                  <?=$tol['tool_group']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
@@ -276,8 +272,8 @@
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             <?php 
-            if (is_array($tool) || is_object($tool))
-            foreach ($tool as $tol)
+            if (is_array($tools_borrowed) || is_object($tools_borrowed))
+            foreach ($tools_borrowed as $tol)
          {?>
           <tr  class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
@@ -290,7 +286,7 @@
                   <?=$tol['tool_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tol['tool_quantity']?>
+                  <?=$tol['tool_group']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   

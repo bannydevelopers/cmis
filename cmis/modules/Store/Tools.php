@@ -20,7 +20,7 @@ if(isset($_POST['tool_name'])){
     else {
         $k = $db->insert('tools', $data);
     }
-    if(isset($_FILES['tool_photo'])){ 
+    if(isset($_FILES['tool_photo']) && is_readable($_FILES['tool_photo']['tmp_name'])){ 
         $dir = realpath(__DIR__.'/../../system/assets/uploads/tools/');
         $src = $_FILES['tool_photo']['tmp_name'];
         $dst = "{$dir}/tool_{$k}.jpg";
@@ -56,6 +56,15 @@ if(isset($_POST['ajax_del_tool'])){
     die($json);
 }
 $tool = $db->select('tools')->order_by('tool_id', 'desc')->fetchAll();
+$tools_available = [];
+$tools_borrowed = [];
 //var_dump($tool);
-$data = ['tool'=>$tool,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$data = [
+    'tool'=>$tool,
+    'tools_available'=>$tools_available,
+    'tools_borrowed'=>$tools_borrowed,
+    'msg'=>$msg, 
+    'status'=>$ok,
+    'request_uri'=>$request
+];
 echo helper::find_template('tools', $data);
