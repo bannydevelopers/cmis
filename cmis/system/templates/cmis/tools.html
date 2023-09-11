@@ -27,11 +27,6 @@
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add tool </h3>
               <form class="space-y-6" method="POST" enctype="multipart/form-data">
                 <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full px-3">
-                      <label>tool Image
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
-                      </label>
-                    </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <div class="w-full px-3">
                       <label>Name
@@ -43,11 +38,27 @@
                         <input name="asset_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="asset number">
                       </label>
                     </div>
+                    
+                    <div class="w-full px-3">
+                      <label>Tool group
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="tool_group">
+                          <option>Default</option>
+                        </select>
+                      </label>
+                    </div>
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                    <div class="w-full px-3">
+                      <label>Tool image
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
+                      </label>
+                    </div>
+                    
+                  <div class="w-full px-3">
                     <label>Description
-                      <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="tool_description" rows="4"></textarea>
+                      <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Tool description..." rows="4"></textarea>
                     </label>
+                  </div>
                   </div>
                 </div>
                 <div class="pb-8">

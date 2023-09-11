@@ -35,13 +35,13 @@ if(isset($_POST['tool_name'])){
         $width = 450;
         $height = 450;
         $dst = helper::image_upload_resize($src, $dst, $width, $height);
-        $l = $db->update('tools', ['tool_img' => "tool_{$k}.jpg"])->where(['tool_id'=>$k])->commit();
+        //$l = $db->update('tools', ['tool_img' => "tool_{$k}.jpg"])->where(['tool_id'=>$k])->commit();
         header('Clear-Site-Data: "cache"');
     }
     
    
     if(!$db->error() && $k) {
-        $msg = 'tool added successful';
+        $msg = 'Tool added successful';
         $ok =true;
     }
     else $msg = 'Error adding tool';
@@ -52,7 +52,7 @@ if(isset($_POST['ajax_del_tool'])){
     if(!$db->error()){
         $json = json_encode([
             'status'=>'success',
-            'msg'=>'tool deleted successful'
+            'msg'=>'Tool deleted successful'
         ]);
     }
     else{
@@ -63,9 +63,24 @@ if(isset($_POST['ajax_del_tool'])){
     }
     die($json);
 }
+/*SELECT c.*,
+FROM client AS c
+LEFT JOIN client_calling_history AS cch ON cch.client_id = c.client_id
+WHERE
+   cch.cchid = (
+      SELECT MAX(cchid)
+      FROM client_calling_history
+      WHERE client_id = c.client_id AND cal_event_id = c.cal_event_id
+   )
+   */
+$whr = 'tools_out.tools_out_id = (SELECT MAX(tools_out_id) FROM tools_out WHERE 1)';
 $tool = $db ->select('tools')
-            ->join('tools_out','tools.tool_id=tools_out.tool_reference')
+            ->join('tools_out', 'tools.tool_id=tools_out.tool_reference', 'LEFT')
+            ->where($whr)
+            ->or('tool_reference IS NULL')
             ->order_by('tool_id', 'desc')->fetchAll();
+
+
 $tools_available = [];
 $tools_borrowed = [];
 $tools_requests = [];
