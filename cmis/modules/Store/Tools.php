@@ -73,17 +73,29 @@ WHERE
       WHERE client_id = c.client_id AND cal_event_id = c.cal_event_id
    )
    */
-$whr = 'tools_out.tools_out_id = (SELECT MAX(tools_out_id) FROM tools_out WHERE 1)';
-$tool = $db ->select('tools')
+/*$tool = $db ->select('tools')
             ->join('tools_out', 'tools.tool_id=tools_out.tool_reference', 'LEFT')
-            ->where($whr)
-            ->or('tool_reference IS NULL')
-            ->order_by('tool_id', 'desc')->fetchAll();
+            ->order_by('tool_id', 'desc')->fetchAll();*/
 
 
-$tools_available = [];
-$tools_borrowed = [];
-$tools_requests = [];
+$tool = [];
+
+$qry = "SELECT * FROM tools LEFT JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
+        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
+        IN ('rejected','returned') ) OR tool_reference is NULL ORDER BY tool_id DESC";
+$tools_available = $db->query($qry)->fetchAll();
+
+
+$qry = "SELECT * FROM tools JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
+        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
+        IN ('approved') ) ORDER BY tool_id DESC";
+$tools_borrowed = $db->query($qry)->fetchAll();
+
+$qry = "SELECT * FROM tools JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
+        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
+        IN ('requested') ) ORDER BY tool_id DESC";
+$tools_requests = $db->query($qry)->fetchAll();
+
 //var_dump($tool);
 $data = [
     'tool'=>$tool,
