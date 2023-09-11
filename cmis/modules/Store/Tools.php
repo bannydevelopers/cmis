@@ -7,12 +7,20 @@ $msg = '';
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['tool_name'])){
     $data = [
+        'asset_number'=>$_POST['asset_number'], 
+        'tool_name'=>$_POST['tool_name'], 
+        'tool_description'=>$_POST['tool_description'], 
+        'tool_group'=>$_POST['tool_group'], 
+        'tool_status'=>'active', 
+        'create_time'=>date('Y-m-d H:i:s')
+    ];
+    /*$data = [
         'tool_name'=>$_POST['tool_name'], 
         'tool_description'=>$_POST['tool_description'], 
         'tool_quantity'=>$_POST['tool_quantity'], 
         'create_time'=>date('Y-m-d H:i:s')
         //`tool_name`, `tool_description`, `tool_status`, `tool_date_purchased`, `create_time`
-    ];
+    ];*/
     if(isset($_POST['tool_id']) && intval($_POST['tool_id']) > 0){
         $k = $db->update('tools', $data)->where(['tool_id'=>$_POST['tool_id']])->commit();
         $k = intval($_POST['tool_id']);
@@ -55,14 +63,18 @@ if(isset($_POST['ajax_del_tool'])){
     }
     die($json);
 }
-$tool = $db->select('tools')->order_by('tool_id', 'desc')->fetchAll();
+$tool = $db ->select('tools')
+            ->join('tools_out','tools.tool_id=tools_out.tool_reference')
+            ->order_by('tool_id', 'desc')->fetchAll();
 $tools_available = [];
 $tools_borrowed = [];
+$tools_requests = [];
 //var_dump($tool);
 $data = [
     'tool'=>$tool,
     'tools_available'=>$tools_available,
     'tools_borrowed'=>$tools_borrowed,
+    'tools_requests'=>$tools_requests,
     'msg'=>$msg, 
     'status'=>$ok,
     'request_uri'=>$request
