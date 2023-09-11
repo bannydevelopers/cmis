@@ -79,10 +79,13 @@
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200 active" id="all-tab" data-tabs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">All</button>
       </li>
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="present-tab" data-tabs-target="#present" type="button" role="tab" aria-controls="present" aria-selected="false">Present</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="present-tab" data-tabs-target="#present" type="button" role="tab" aria-controls="present" aria-selected="false">Available</button>
       </li>
       <li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="borrowed-tab" data-tabs-target="#borrowed" type="button" role="tab" aria-controls="borrowed" aria-selected="false">Borrowed</button>
+      </li>
+      <li class="mr-2" role="presentation">
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="requested-tab" data-tabs-target="#requested" type="button" role="tab" aria-controls="requested" aria-selected="false">Requested</button>
       </li>
     </ul>
   </div>
@@ -201,7 +204,7 @@
       </div>
       
     </div>
-    <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200 hidden" id="borrowed" role="tabpanel" aria-labelledby="borrowed-tab">
+    <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="borrowed" role="tabpanel" aria-labelledby="borrowed-tab">
 
       <div class="w-full overflow-hidden rounded-lg shadow-md">
         <div class="w-full overflow-x-auto">
@@ -232,6 +235,62 @@
                 </td>
                 <td class="px-4 py-3 text-sm">
                   <?=$tol['tool_quantity']?>
+                </td>
+                <td class="px-4 py-3">
+                  <div class="flex items-center space-x-4 text-sm">   
+                    <button data-modal-target="add-tool-modal-<?=$tol['tool_id']?>" data-modal-toggle="add-tool-modal-<?=$tol['tool_id']?>" 
+                      class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
+                      aria-label="Edit"
+                    >
+                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                    </button>
+                    <button id="del-<?=$tol['tool_id']?>" onclick="deltool(this)" 
+                      class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
+                      aria-label="Delete"
+                      >
+                    <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <?php }?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="requested" role="tabpanel" aria-labelledby="requested-tab">
+
+      <div class="w-full overflow-hidden rounded-lg shadow-md">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3"></th>
+                <th class="px-4 py-3">Name</th>
+                <th class="px-4 py-3">Description</th>
+                <th class="px-4 py-3">Quantity</th>
+                <th class="px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <?php 
+            if (is_array($tool) || is_object($tool))
+            foreach ($tool as $tol)
+         {?>
+          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-4 py-3">
+                  <img src="img/cripp.jpg" class="h-16 w-16 object-cover"/>
+                </td>
+                <td class="px-4 py-3">
+                  <?=$tol['tool_name']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tol['tool_description']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <!-- <?=$tol['tool_quantity']?> -->
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   

@@ -13,7 +13,7 @@ if(isset($_POST['product_name'])){
         'created_time'=>date('Y-m-d H:i:s')
         
     ];
-    //var_dump($db->error());
+    // var_dump($db->error());
     if(isset($_POST['product_id']) && intval($_POST['product_id']) > 0){
         $k = $db->update('product', $data)->where(['product_id'=>$_POST['product_id']])->commit();
         $k = intval($_POST['product_id']);
