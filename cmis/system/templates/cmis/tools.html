@@ -14,7 +14,7 @@
   </button>
 </div>
 
-<!-- Add toll modal -->
+<!-- Add tool modal -->
 <div id="add-leave-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
         <!-- Modal content -->
@@ -25,26 +25,30 @@
             </button>
             <div class="px-6 py-6 lg:px-8">
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add tool </h3>
-              <form class="space-y-6" method="POST">
+              <form class="space-y-6" method="POST" enctype="multipart/form-data">
                 <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full px-3">
+                      <label>tool Image
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
+                      </label>
+                    </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>Name
-                      <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
-                    </label>
+                    <div class="w-full px-3">
+                      <label>Name
+                        <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
+                      </label>
+                    </div>
+                    <div class="w-full px-3">
+                      <label>Asset number
+                        <input name="asset_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="asset number">
+                      </label>
+                    </div>
                   </div>
                   <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                     <label>Description
-                      <input name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="tool_description">
+                      <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="tool_description" rows="4"></textarea>
                     </label>
                   </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
-                    <label>Quantity
-                      <input name="tool_quantity" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="tool_quantity">
-                    </label>
-                  </div>
-                  
                 </div>
                 <div class="pb-8">
                   <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
@@ -102,7 +106,7 @@
                 <th class="px-4 py-3"></th>
                 <th class="px-4 py-3">Name</th>
                 <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Quantity</th>
+                <th class="px-4 py-3">Group</th>
                 <th class="px-4 py-3">Actions</th>
               </tr>
             </thead>
@@ -111,9 +115,10 @@
             if (is_array($tool) || is_object($tool))
             foreach ($tool as $tol)
          {?>
-          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <tr id="tr-<?=$tol['tool_id']?>" 
+            class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
-                  <img src="img/cripp.jpg" class="h-16 w-16 object-cover"/>
+                  <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg" class="h-16 w-16 object-cover"/>
                 </td>
                 <td class="px-4 py-3">
                   <?=$tol['tool_name']?>
@@ -122,7 +127,7 @@
                   <?=$tol['tool_description']?>
                 </td>
                <td class="px-4 py-3 text-sm">
-                  <?=@$tol['tool_quantity']?>
+                  <?=@$tol['tool_group']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
@@ -141,6 +146,58 @@
                   </div>
                 </td>
               </tr>
+              
+              <!-- Main modal -->
+        <div id="add-tool-modal-<?=$tol['tool_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+          <div class="relative w-full max-w-md max-h-full">
+              <!-- Modal content -->
+              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
+                  <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-tool-modal-<?=$tol['tool_id']?>">
+                    <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                      <span class="sr-only">Close modal</span>
+                  </button>
+                  <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium">Update tool </h3>
+                    <form class="space-y-6" method="POST" enctype="multipart/form-data">
+                      <input type="hidden" name="tool_id" value="<?=$tol['tool_id']?>">
+                      <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                          <label>tool Image
+                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
+                          </label>
+                        </div>
+                      </div>
+                      <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                          <label>tool name
+                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="text" placeholder="tool name" value="<?=$tol['tool_name']?>" name="tool_name">
+                          </label>
+                        </div>
+                      </div>
+                      <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                          <label>tool Discription
+                            <textarea class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="tool Discription" name="tool_description"><?=$tol['tool_description']?></textarea>
+                          </label>
+                          <input type="hidden" name="tool_description" value="<?=$tol['tool_description']?>" />
+                        </div>
+                      </div>
+                      <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                          <label>Quantity
+                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="text" value="<?=$tol['tool_group']?>" placeholder="Quantity" name="tool_group">
+                          </label>
+                          
+                        </div>
+                      </div> 
+                      <button type="submit" class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Update tool</button>
+                    </form>
+                  </div>
+              </div>
+          </div>
+        </div> 
+        <!--/ Add tool modal -->
+
               <?php }?>
             </tbody>
           </table>
@@ -163,13 +220,11 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            <?php 
-            if (is_array($tool) || is_object($tool))
-            foreach ($tool as $tol)
-         {?>
+            <?php if (is_array($tools_available) || is_object($tools_available))
+            foreach ($tools_available as $tol){?>
           <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
-                  <img src="img/cripp.jpg" class="h-16 w-16 object-cover"/>
+                  <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
                 </td>
                 <td class="px-4 py-3">
                   <?=$tol['tool_name']?>
@@ -178,7 +233,7 @@
                   <?=$tol['tool_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tol['tool_quantity']?>
+                  <?=$tol['tool_group']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
@@ -220,21 +275,21 @@
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             <?php 
-            if (is_array($tool) || is_object($tool))
-            foreach ($tool as $tol)
+            if (is_array($tools_borrowed) || is_object($tools_borrowed))
+            foreach ($tools_borrowed as $tol)
          {?>
-          <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <tr  class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
-                  <img src="img/cripp.jpg" class="h-16 w-16 object-cover"/>
+                  <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
                 </td>
                 <td class="px-4 py-3">
                   <?=$tol['tool_name']?>
-                </td>
+                </td>q1
                 <td class="px-4 py-3 text-sm">
                   <?=$tol['tool_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tol['tool_quantity']?>
+                  <?=$tol['tool_group']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
@@ -320,7 +375,53 @@
   <!-- Details -->
 </div>
 
+<script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>
+  async function deltool(values) {
+    if (!await swal({text: 'Deleting a tool can not be undone!', buttons: true})) {
+      return;
+    }
+    deltoolBtn = document.getElementById(values.id);
+    deltoolBtn.disabled = true;
+    deltoolBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
 
+    var toolId = values.id.split('-');
+    const toolData = new FormData();
+    toolData.append('ajax_del_tool', toolId[1]);
+
+    let url = window.location.href;
+    let obj = {
+      method: "POST", 
+      body: toolData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {  
+      if(data.status.trim() == 'success'){
+        swal(data.msg, '', "success");
+        document.getElementById('tr-'+toolId[1]).remove();
+      }
+      else if(data.status == 'fail'){
+        swal(data.msg, '', "error");
+        deltoolBtn.disabled = false;
+        deltoolBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+      }
+      else if(data.status == 'not-exist' || data.status == 'denied'){
+        swal(data.msg, '', "error");
+      }
+    })
+    .catch(error => {
+      swal('There is an error deleting tool', '', "error");
+      deltoolBtn.disabled = false;
+      deltoolBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+    });
+  }
 </script>
+
