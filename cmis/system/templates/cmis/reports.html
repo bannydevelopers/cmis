@@ -6,31 +6,15 @@
               <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300"> Common Customers</h4>
                 <!-- Item List -->
                <div class="dark:text-gray-300">
-                <div class="flex items-center">
-                  <span
-                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
-                  ></span>
-                  <span>Company A</span>
-                </div>
-                <div class="flex items-center">
-                  <span
-                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full "
-                  ></span>
-                  <span>Company B</span>
-                </div>
+                <?php foreach($customers as $cus){ ?>
                 <div class="flex items-center">
                   <span
                     class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full dark:bg-gray-800"
                   ></span>
-                  <span>Company C</span>
+                  <span><?=$cus['customer_name']?> (<?=$cus['frequence']?> time<?=$cus['frequence'] != 1 ? 's' : ''?>)</span>
                 </div>
-                <div class="flex items-center">
-                  <span
-                    class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full dark:bg-gray-800"
-                  ></span>
-                  <span>Company D</span>
-                </div>
-               </div>
+                <?php } ?>
+              </div>
         
         </div>
 
