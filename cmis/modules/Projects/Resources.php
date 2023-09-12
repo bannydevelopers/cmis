@@ -29,9 +29,10 @@ $qry = "SELECT project_resources.*, details.*,
         UNION SELECT product_id as res_id, product_name as res_name FROM product ) 
         AS details ON details.res_id = project_resources.resource_reference";
         
-$resources = $db->select('project_resources')
-                ->join('project','')
+$resources = $db->select('project_resources','project_resources.*,project.project_name,project_activities.*')
+                ->join('project_activities', 'project_activities.activity_id=project_resources.resource_activity','left')
+                ->join('project','project_activities.project_ref=project.project_id','left')
                 ->fetchAll();
-
-$resources = $db->query($qry)->fetchAll();
+//var_dump($db->error());
+//$resources = $db->query($qry)->fetchAll();
 echo helper::find_template('resources', ['resources'=>$resources]);

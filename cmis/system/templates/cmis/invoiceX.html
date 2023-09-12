@@ -323,18 +323,18 @@
                 <th style="text-align: right;">Total</th>
                 <th style="text-align: right;">{{total}}</th>
               </tr>
-              <!-- <tr>
+              <tr>
                 <td colspan="4">&nbsp;</td>
                 <th style="text-align: right;">VAT (18%)</th>
                 <th style="text-align: right;"><span>{{VAT}}</span></th>
-              </tr> -->
-              <!-- <tr>
+              </tr>
+              <tr>
                 <td colspan="4">&nbsp;</td>
                 <th style="text-align: right;">Total including VAT</th>
                 <th style="text-align: right;padding: 0;">
                   <span style="border-top: 1px solid #222;padding:10px">{{grand_total}}</span>
                 </th>
-              </tr> -->
+              </tr>
             </table>
           </td>
         </tr>
@@ -437,7 +437,7 @@
   function update_price(){
     let evtTag = window.event.target,
         priceOpts = evtTag.parentNode.parentNode.previousElementSibling.querySelector('select'),
-        price = 17;//parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
+        price = 0;//parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
     if(evtTag.name == 'item_quantity[]'){
       let qty = evtTag.value,
           prc = evtTag.parentNode.nextElementSibling.children[1].value;
