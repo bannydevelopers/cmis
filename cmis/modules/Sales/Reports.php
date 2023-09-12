@@ -33,6 +33,7 @@ else{
                 ->order_by('frequence', 'DESC')
                 ->limit(10)
                 ->fetchAll();
+    //SELECT JSON_EXTRACT(invoice_items, '$[*].id') as IDX from invoice;
     $data['customers'] = $customers;
     $template = 'reports';
 }
