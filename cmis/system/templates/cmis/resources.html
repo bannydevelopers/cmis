@@ -13,6 +13,9 @@
       <li class="mr-2" role="presentation">
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="present-tab" data-tabs-target="#present" type="button" role="tab" aria-controls="present" aria-selected="false">Deliverables</button>
       </li>
+      <li class="mr-2" role="presentation">
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="people-tab" data-tabs-target="#people" type="button" role="tab" aria-controls="people" aria-selected="false">People</button>
+      </li>
     </ul>
   </div>
   <!-- Tabs -->
@@ -45,6 +48,31 @@
     </div>
 
     <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="present" role="tabpanel" aria-labelledby="present-tab">
+      <div class="w-full overflow-hidden rounded-lg shadow-md">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <?php foreach(array_keys($resources[0]) as $th){?>
+                  <th class="px-4 py-3"><?=$th?></th>
+                <?php }?>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              <?php foreach($resources as $tr){?>
+                <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <?php foreach($tr as $td){?>
+                    <td class="px-4 py-3"><?=$td?></td>
+                  <?php }?>
+                </tr>
+              <?php }?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="people" role="tabpanel" aria-labelledby="people-tab">
       <div class="w-full overflow-hidden rounded-lg shadow-md">
         <div class="w-full overflow-x-auto">
           <table class="w-full">
