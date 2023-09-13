@@ -17,4 +17,22 @@ if(isset($_POST['system_name'])){
     file_put_contents($fn, $json);
     header("Location: ./");
 }
+
+if(isset($_POST['update-repo'])){
+    $repoDir = './';
+    $branch = 'main';  // or 'master', depending on your setup
+
+    // Navigate to the repo directory
+    chdir($repoDir);
+
+    // Fetch the latest changes from the remote repository
+    //$output = shell_exec('git fetch --all');
+    $output = shell_exec('git pull');
+
+    // Reset to the latest commit on the specified branch
+    //$output .= shell_exec('git reset --hard origin/' . $branch);
+
+    echo nl2br($output);
+}
+
 echo helper::find_template('system_config', $data);
