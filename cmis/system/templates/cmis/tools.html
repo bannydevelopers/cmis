@@ -94,13 +94,16 @@
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="all-tab" data-tabs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false">Overview</button>
       </li-->
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200 active" id="present-tab" data-tabs-target="#present" type="button" role="tab" aria-controls="present" aria-selected="true">Available</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200 active" id="present-tab" data-tabs-target="#present" type="button" role="tab" aria-controls="present" aria-selected="true">Available (<?=intval(count($tools_available))?>)</button>
       </li>
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="borrowed-tab" data-tabs-target="#borrowed" type="button" role="tab" aria-controls="borrowed" aria-selected="false">Borrowed</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="borrowed-tab" data-tabs-target="#borrowed" type="button" role="tab" aria-controls="borrowed" aria-selected="false">Borrowed (<?=intval(count($tools_borrowed))?>)</button>
       </li>
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="requested-tab" data-tabs-target="#requested" type="button" role="tab" aria-controls="requested" aria-selected="false">Requested</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="requested-tab" data-tabs-target="#requested" type="button" role="tab" aria-controls="requested" aria-selected="false">Requested (<?=intval(count($tools_requested))?>)</button>
+      </li>
+      <li class="mr-2" role="presentation">
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="requested-tab" data-tabs-target="#requested" type="button" role="tab" aria-controls="requested" aria-selected="false">Off service (<?=intval(count($tools_offservice))?>)</button>
       </li>
     </ul>
   </div>
@@ -197,17 +200,17 @@
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
-                    <button 
+                    <!--button 
                     data-modal-target="tool-view-modal" data-modal-toggle="tool-view-modal"
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
                       aria-label="View">
                     <i class="fa-solid fa-eye fa-lg"></i>
-                    </button>
+                    </button-->
                     <button data-modal-target="edit-tool-modal-<?=$tol['tool_id']?>" data-modal-toggle="edit-tool-modal-<?=$tol['tool_id']?>" 
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
                       aria-label="Edit"
                     >
-                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                    <i class="fa-solid fa-eye fa-lg"></i>
                     </button>
                     <button id="del-<?=$tol['tool_id']?>" onclick="deltool(this)" 
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
@@ -228,45 +231,62 @@
                             <span class="sr-only">Close modal</span>
                         </button>
                         <div class="px-6 py-6 lg:px-8">
-                          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add tool </h3>
+                          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Tool details</h3>
                           <form class="space-y-6" method="POST" enctype="multipart/form-data">
                             <div class="flex flex-wrap -mx-3 mb-6">
                               <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
                                 <div class="w-full px-3">
                                   <label>Name
-                                    <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
+                                    <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$tol['tool_name']?>" type="text" placeholder="Tool name">
                                   </label>
                                 </div>
                                 <div class="w-full px-3">
                                   <label>Asset number
-                                    <input name="asset_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="asset number">
+                                    <input name="asset_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$tol['asset_number']?>" type="text" placeholder="asset number">
                                   </label>
                                 </div>
                                 
                                 <div class="w-full px-3">
                                   <label>Tool group
                                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="tool_group">
-                                      <option>Default</option>
+                                      <option<?=$tol['tool_group'] == 'Default' ? ' selected':''?>>Default</option>
+                                      <option<?=$tol['tool_group'] == 'Micro_tool' ? ' selected':''?>>Micro_tool</option>
+                                      <option<?=$tol['tool_group'] == 'Hand_tool' ? ' selected':''?>>Hand_tool</option>
+                                      <option<?=$tol['tool_group'] == 'Equipment' ? ' selected':''?>>Equipment</option>
+                                    </select>
+                                  </label>
+                                </div>
+                                <div class="w-full px-3">
+                                  <label>Tool status
+                                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="tool_status">
+                                      <option<?=$tol['tool_status'] == 'active' ? ' selected':''?>>active</option>
+                                      <option<?=$tol['tool_status'] == 'defective' ? ' selected':''?>>defective</option>
+                                      <option<?=$tol['tool_status'] == 'retired' ? ' selected':''?>>retired</option>
                                     </select>
                                   </label>
                                 </div>
                               </div>
                               <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                                    <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
+                                  </div>
+                                  <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                                    <label>Tool image
+                                      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
+                                    </label>
+                                  </div>
+                                </div>
                                 <div class="w-full px-3">
-                                  <label>Tool image
-                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
+                                  <label>Description
+                                    <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Tool description..." rows="4"><?=$tol['tool_description']?></textarea>
                                   </label>
                                 </div>
-                                
-                              <div class="w-full px-3">
-                                <label>Description
-                                  <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Tool description..." rows="4"></textarea>
-                                </label>
-                              </div>
                               </div>
                             </div>
+                            <input type="hidden" name="tool_id" value="<?=$tol['tool_id']?>">
                             <div class="pb-8">
-                              <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
+                              <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Save</button>
                             </div>
                           </form>
                         </div>
@@ -359,8 +379,8 @@
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             <?php 
-            if (is_array($tool) || is_object($tool))
-            foreach ($tool as $tol)
+            if (is_array($tools_requested) || is_object($tools_requested))
+            foreach ($tools_requested as $tol)
          {?>
           <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">

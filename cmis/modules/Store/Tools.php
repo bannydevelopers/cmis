@@ -22,6 +22,7 @@ if(isset($_POST['tool_name'])){
         //`tool_name`, `tool_description`, `tool_status`, `tool_date_purchased`, `create_time`
     ];*/
     if(isset($_POST['tool_id']) && intval($_POST['tool_id']) > 0){
+        $data['tool_status'] = $_POST['tool_status'];
         $k = $db->update('tools', $data)->where(['tool_id'=>$_POST['tool_id']])->commit();
         $k = intval($_POST['tool_id']);
     }
@@ -41,7 +42,7 @@ if(isset($_POST['tool_name'])){
     
    
     if(!$db->error() && $k) {
-        $msg = 'Tool added successful';
+        $msg = 'Tool saved successful';
         $ok =true;
     }
     else $msg = 'Error adding tool';
@@ -81,19 +82,19 @@ WHERE
 $tool = [];
 
 $qry = "SELECT * FROM tools LEFT JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
-        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
-        IN ('rejected','returned') ) OR tool_reference is NULL ORDER BY tool_id DESC";
+        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE (tools_out.borrow_status 
+        IN ('rejected','returned') ) OR tool_reference is NULL) AND tool_status = 'active' ORDER BY tool_id DESC";
 $tools_available = $db->query($qry)->fetchAll();
 
 
 $qry = "SELECT * FROM tools JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
-        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
-        IN ('approved') ) ORDER BY tool_id DESC";
+        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE 
+        tools_out.borrow_status = 'approved' ) ORDER BY tool_id DESC";
 $tools_borrowed = $db->query($qry)->fetchAll();
 
 $qry = "SELECT * FROM tools JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
-        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
-        IN ('requested') ) ORDER BY tool_id DESC";
+        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE 
+        tools_out.borrow_status = 'requested' ) ORDER BY tool_id DESC";
 $tools_requests = $db->query($qry)->fetchAll();
 
 //var_dump($tool);
@@ -101,7 +102,8 @@ $data = [
     'tool'=>$tool,
     'tools_available'=>$tools_available,
     'tools_borrowed'=>$tools_borrowed,
-    'tools_requests'=>$tools_requests,
+    'tools_requested'=>$tools_requests,
+    'tools_offservice'=>[],
     'msg'=>$msg, 
     'status'=>$ok,
     'request_uri'=>$request
