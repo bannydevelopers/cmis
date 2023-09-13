@@ -19,20 +19,25 @@ if(isset($_POST['system_name'])){
 }
 
 if(isset($_POST['update-repo'])){
-    $repoDir = './';
-    $branch = 'main';  // or 'master', depending on your setup
+    if(is_callable('shell_exec') && false === stripos(ini_get('disable_functions'), 'shell_exec')){
+        $repoDir = './';
+        $branch = 'main';  // or 'master', depending on your setup
 
-    // Navigate to the repo directory
-    chdir($repoDir);
+        // Navigate to the repo directory
+        chdir($repoDir);
 
-    // Fetch the latest changes from the remote repository
-    //$output = shell_exec('git fetch --all');
-    $output = shell_exec('git pull');
+        // Fetch the latest changes from the remote repository
+        //$output = shell_exec('git fetch --all');
+        $output = shell_exec('git pull');
 
-    // Reset to the latest commit on the specified branch
-    //$output .= shell_exec('git reset --hard origin/' . $branch);
+        // Reset to the latest commit on the specified branch
+        //$output .= shell_exec('git reset --hard origin/' . $branch);
 
-    $data['msg'] = nl2br($output);
+        $data['msg'] = nl2br($output);
+    }
+    else{
+        $data['msg'] = 'Error: Shell for running command is not available, please enable shell_exec';
+    }
 }
 
 echo helper::find_template('system_config', $data);
