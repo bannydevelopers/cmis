@@ -324,7 +324,7 @@ class helper{
             $mailer->Username = $config['username'];
             $mailer->Password = $config['password'];
             $mailer->SMTPSecure = 'tls';
-            $mailer->Port = 587;
+            $mailer->Port = 80;
             $mailer->setFrom($config['sender'], $config['sender_name']);
             $mailer->addAddress($opts['recipient'], $opts['recipient_name']);
             $mailer->isHTML(true);

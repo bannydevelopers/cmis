@@ -8,18 +8,18 @@
 <!-- Apply leave modal toggle -->
 <div>
   <button 
-  data-modal-target="add-leave-modal" data-modal-toggle="add-leave-modal" 
+  data-modal-target="add-tool-modal" data-modal-toggle="add-tool-modal" 
   class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
   Add tool
   </button>
 </div>
 
 <!-- Add tool modal -->
-<div id="add-leave-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+<div id="add-tool-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-leave-modal">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-tool-modal">
               <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
                 <span class="sr-only">Close modal</span>
             </button>
@@ -108,25 +108,25 @@
   <!-- Details -->
   <div id="myTabContent">
     <div class="px-4 rounded-lg" id="all" role="tabpanel" aria-labelledby="all-tab">
-<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-  <!-- Card -->
-  <div
-    class="flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-    <div class="p-3 mr-4 text-gray-500 bg-gray-100 rounded-full dark:text-teal-100 dark:bg-gray-500">
-      <i class="fa-solid fa-toolbox w-5 h-5 text-center"></i>
-    </div>
-    <div>
-      <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-        Total Tools
-      </p>
-      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">80</p>
-    </div>
-  </div>
-  <!-- Card -->
+      <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+        <!-- Card -->
+        <div
+          class="flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div class="p-3 mr-4 text-gray-500 bg-gray-100 rounded-full dark:text-teal-100 dark:bg-gray-500">
+            <i class="fa-solid fa-toolbox w-5 h-5 text-center"></i>
+          </div>
+          <div>
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+              Total Tools
+            </p>
+            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">80</p>
+          </div>
+        </div>
+        <!-- Card -->
   <div
       class="flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div class="p-3 mr-4 text-green-500 bg-orange-100 rounded-full dark:text-green-100 dark:bg-green-500">
-        <i class="fa-solid fa-toolbox w-5 h-5 text-center"></i>
+        <i class="fa-solid fa-tools w-5 h-5 text-center"></i>
       </div>
       <div>
         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -139,7 +139,7 @@
   <div
       class="flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-        <i class="fa-solid fa-toolbox w-5 h-5 text-center"></i>
+        <i class="fa-solid fa-tools w-5 h-5 text-center"></i>
       </div>
       <div>
         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -152,7 +152,7 @@
   <div
       class="flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div class="p-3 mr-4 text-red-500 bg-orange-100 rounded-full dark:text-red-100 dark:bg-blue-500">
-        <i class="fa-solid fa-toolbox w-5 h-5 text-center"></i>
+        <i class="fa-solid fa-tools w-5 h-5 text-center"></i>
       </div>
       <div>
         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -175,7 +175,7 @@
                 <th class="px-4 py-3"></th>
                 <th class="px-4 py-3">Name</th>
                 <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Group</th>
+                <th class="px-4 py-3">Status</th>
                 <th class="px-4 py-3">Actions</th>
               </tr>
             </thead>
@@ -193,11 +193,17 @@
                   <?=$tol['tool_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tol['tool_group']?>
+                  <?=$tol['tool_status']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
-                    <button data-modal-target="add-tool-modal-<?=$tol['tool_id']?>" data-modal-toggle="add-tool-modal-<?=$tol['tool_id']?>" 
+                    <button 
+                    data-modal-target="tool-view-modal" data-modal-toggle="tool-view-modal"
+                      class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
+                      aria-label="View">
+                    <i class="fa-solid fa-eye fa-lg"></i>
+                    </button>
+                    <button data-modal-target="edit-tool-modal-<?=$tol['tool_id']?>" data-modal-toggle="edit-tool-modal-<?=$tol['tool_id']?>" 
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
                       aria-label="Edit"
                     >
@@ -212,6 +218,62 @@
                   </div>
                 </td>
               </tr>
+              <!-- Edit tool modal -->
+              <div id="edit-tool-modal-<?=$tol['tool_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+                <div class="relative w-full max-w-4xl max-h-full items-center">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
+                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-tool-modal-<?=$tol['tool_id']?>">
+                          <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="px-6 py-6 lg:px-8">
+                          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add tool </h3>
+                          <form class="space-y-6" method="POST" enctype="multipart/form-data">
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                                <div class="w-full px-3">
+                                  <label>Name
+                                    <input name="tool_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Tool name">
+                                  </label>
+                                </div>
+                                <div class="w-full px-3">
+                                  <label>Asset number
+                                    <input name="asset_number" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="asset number">
+                                  </label>
+                                </div>
+                                
+                                <div class="w-full px-3">
+                                  <label>Tool group
+                                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="tool_group">
+                                      <option>Default</option>
+                                    </select>
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+                                <div class="w-full px-3">
+                                  <label>Tool image
+                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  type="file" placeholder="tool image" name="tool_photo">
+                                  </label>
+                                </div>
+                                
+                              <div class="w-full px-3">
+                                <label>Description
+                                  <textarea name="tool_description" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Tool description..." rows="4"></textarea>
+                                </label>
+                              </div>
+                              </div>
+                            </div>
+                            <div class="pb-8">
+                              <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add</button>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+              </div> 
+              <!--/ Edit tool modal -->
               <?php }?>
             </tbody>
           </table>
@@ -229,7 +291,7 @@
                 <th class="px-4 py-3"></th>
                 <th class="px-4 py-3">Name</th>
                 <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Group</th>
+                <th class="px-4 py-3">Status</th>
                 <th class="px-4 py-3">Actions</th>
               </tr>
             </thead>
@@ -249,10 +311,16 @@
                   <?=$tol['tool_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tol['tool_group']?>
+                  <?=$tol['tool_status']?>
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex items-center space-x-4 text-sm">   
+                    <button 
+                    data-modal-target="tool-view-modal" data-modal-toggle="tool-view-modal"
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
+                    aria-label="View">
+                  <i class="fa-solid fa-eye fa-lg"></i>
+                  <!-- </button>
                     <button data-modal-target="add-tool-modal-<?=$tol['tool_id']?>" data-modal-toggle="add-tool-modal-<?=$tol['tool_id']?>" 
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
                       aria-label="Edit"
@@ -264,7 +332,7 @@
                       aria-label="Delete"
                       >
                     <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-                    </button>
+                    </button> -->
                   </div>
                 </td>
               </tr>
@@ -285,7 +353,7 @@
                 <th class="px-4 py-3"></th>
                 <th class="px-4 py-3">Name</th>
                 <th class="px-4 py-3">Description</th>
-                <th class="px-4 py-3">Group</th>
+                <th class="px-4 py-3">Status</th>
                 <th class="px-4 py-3">Actions</th>
               </tr>
             </thead>
@@ -308,7 +376,7 @@
                   <!-- <?=$tol['tool_quantity']?> -->
                 </td>
                 <td class="px-4 py-3">
-                  <div class="flex items-center space-x-4 text-sm">   
+                  <!--div class="flex items-center space-x-4 text-sm">   
                     <button data-modal-target="add-tool-modal-<?=$tol['tool_id']?>" data-modal-toggle="add-tool-modal-<?=$tol['tool_id']?>" 
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 fotol:outline-none fotol:outline-gray-300"
                       aria-label="Edit"
@@ -321,7 +389,7 @@
                       >
                     <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
                     </button>
-                  </div>
+                  </div-->
                 </td>
               </tr>
               <?php }?>
@@ -335,6 +403,40 @@
   <!-- Details -->
 </div>
 
+<div id="tool-view-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+  <div class="relative w-full max-w-4xl max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="tool-view-modal">
+            <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+              <span class="sr-only">Close modal</span>
+          </button>
+          <div class="px-6 py-6 lg:px-8">
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Tool Details </h3>
+            <form class="space-y-6" method="POST" enctype="multipart/form-data">
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3 my-2 mob:my-0">
+                  <div class="w-full px-3">
+                    <p>Name:
+                    </p>
+                    <p>Disctiption:
+                    </p>
+                    <label>Tool Status:
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="tool_group">
+                        <option>Active</option>
+                        <option>Defective</option>
+                      </select>
+                    </label> 
+                  </div>
+                  <div class="pb-8 pt-3">
+                    <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Confirm Return</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flowbite.min.js"></script>
 <script>

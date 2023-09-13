@@ -438,7 +438,7 @@
   function update_price(){
     let evtTag = window.event.target,
         priceOpts = evtTag.parentNode.parentNode.previousElementSibling.querySelector('select'),
-        price = 17;//parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
+        price = 0;//parseInt(priceOpts.options[priceOpts.selectedIndex].getAttribute('data-price')) * parseInt(evtTag.value);
     if(evtTag.name == 'item_quantity[]'){
       let qty = evtTag.value,
           prc = evtTag.parentNode.nextElementSibling.children[1].value;
