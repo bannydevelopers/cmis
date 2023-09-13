@@ -32,7 +32,7 @@ if(isset($_POST['update-repo'])){
     // Reset to the latest commit on the specified branch
     //$output .= shell_exec('git reset --hard origin/' . $branch);
 
-    echo nl2br($output);
+    $data['msg'] = nl2br($output);
 }
 
 echo helper::find_template('system_config', $data);
