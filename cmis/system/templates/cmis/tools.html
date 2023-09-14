@@ -103,7 +103,7 @@
         <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="requested-tab" data-tabs-target="#requested" type="button" role="tab" aria-controls="requested" aria-selected="false">Requested (<?=intval(count($tools_requested))?>)</button>
       </li>
       <li class="mr-2" role="presentation">
-        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="requested-tab" data-tabs-target="#requested" type="button" role="tab" aria-controls="requested" aria-selected="false">Off service (<?=intval(count($tools_offservice))?>)</button>
+        <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="offservice-tab" data-tabs-target="#offservice" type="button" role="tab" aria-controls="offservice" aria-selected="false">Off service (<?=intval(count($tools_offservice))?>)</button>
       </li>
     </ul>
   </div>
@@ -319,8 +319,8 @@
             <?php 
             if (is_array($tools_borrowed) || is_object($tools_borrowed))
             foreach ($tools_borrowed as $tol)
-         {?>
-          <tr  class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+            {?>
+              <tr  class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
                   <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
                 </td>
@@ -371,7 +371,7 @@
          {?>
           <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3">
-                  <img src="img/cripp.jpg" class="h-16 w-16 object-cover"/>
+                  <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
                 </td>
                 <td class="px-4 py-3">
                   <?=$tol['tool_name']?>
@@ -397,6 +397,55 @@
                     <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
                     </button>
                   </div-->
+                </td>
+              </tr>
+              <?php }?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="offservice" role="tabpanel" aria-labelledby="offservice-tab">
+
+      <div class="w-full overflow-hidden rounded-lg shadow-md">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3"></th>
+                <th class="px-4 py-3">Name</th>
+                <th class="px-4 py-3">Description</th>
+                <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <?php 
+            if (is_array($tools_offservice) || is_object($tools_offservice))
+            foreach ($tools_offservice as $tol)
+            {?>
+              <tr  class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-4 py-3">
+                  <img src="uploads/tools/tool_<?=$tol['tool_id']?>.jpg"  class="h-16 w-16 object-cover"/>
+                </td>
+                <td class="px-4 py-3">
+                  <?=$tol['tool_name']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tol['tool_description']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tol['tool_status']?>
+                </td>
+                <td class="px-4 py-3">
+                  <div class="flex items-center space-x-4 text-sm">   
+                    <button 
+                    data-modal-target="tool-view-modal" data-modal-toggle="tool-view-modal"
+                    class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
+                    aria-label="View">
+                  <i class="fa-solid fa-eye fa-lg"></i>
+                  </div>
                 </td>
               </tr>
               <?php }?>

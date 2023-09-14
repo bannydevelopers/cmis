@@ -82,7 +82,7 @@ WHERE
 $tool = [];
 
 $qry = "SELECT * FROM tools LEFT JOIN tools_out ON tools_out.tool_reference = tools.tool_id 
-        WHERE tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE (tools_out.borrow_status 
+        WHERE (tools_out.tool_out_id = ( SELECT MAX(tool_out_id) FROM tools_out WHERE tools_out.borrow_status 
         IN ('rejected','returned') ) OR tool_reference is NULL) AND tool_status = 'active' ORDER BY tool_id DESC";
 $tools_available = $db->query($qry)->fetchAll();
 
@@ -97,13 +97,17 @@ $qry = "SELECT * FROM tools JOIN tools_out ON tools_out.tool_reference = tools.t
         tools_out.borrow_status = 'requested' ) ORDER BY tool_id DESC";
 $tools_requests = $db->query($qry)->fetchAll();
 
+$tools_offservice = $db->select('tools')
+                       ->where(['tool_status'=>'defective'])
+                       ->or(['tool_status'=>'retired'])
+                       ->fetchAll();
 //var_dump($tool);
 $data = [
     'tool'=>$tool,
     'tools_available'=>$tools_available,
     'tools_borrowed'=>$tools_borrowed,
     'tools_requested'=>$tools_requests,
-    'tools_offservice'=>[],
+    'tools_offservice'=>$tools_offservice,
     'msg'=>$msg, 
     'status'=>$ok,
     'request_uri'=>$request
