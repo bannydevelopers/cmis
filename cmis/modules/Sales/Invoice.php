@@ -10,6 +10,7 @@ $mod_conf = json_decode(file_get_contents(__DIR__.'/module.json'));
 
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['invoice_type'])){
+    //var_dump('<pre>', $_POST);
     $ilist = trim(implode(',', array_values($_POST['item_name'])),',');
     $prods = $db->select('product', 'product_id, product_name, stock.selling_price as product_price,product_description,product_unit')
                 ->join('stock','stock.product=product.product_id', 'LEFT')
@@ -19,21 +20,22 @@ if(isset($_POST['invoice_type'])){
     $items = [];
     $qty = [];
     foreach($_POST['item_name'] as $k=>$id){
-        if(empty($id) or empty($_POST['item_quantity'][$k])) continue;
+        if(empty($id) or empty($_POST['item_quantity'][$k])) continue;//skip
 
-        $key = array_search($id, array_column($prods, 'product_id'));
+        $key = array_search($id, array_column($prods, 'product_id')); //from db
         $total += intval($_POST['item_quantity'][$k]) * $prods[$key]['product_price'];
         $items[] = [
             'id'=>$id, 
             'name'=>$prods[$key]['product_name'],
             'qty'=>$_POST['item_quantity'][$k], 
-            'unit'=>$prods[$k]['product_unit'], 
-            'desc'=>$prods[$k]['product_description'], 
+            'unit'=>$prods[$key]['product_unit'], 
+            'desc'=>$prods[$key]['product_description'], 
             'price'=>intval($_POST['sell_price'][$k]), 
             'setPrice'=>intval($prods[$key]['product_price'])
         ];
         $qty[$id] = $_POST['item_quantity'][$k];
     }
+
     $due_date = date('y-m-d H:i:s', (time() + (60*60*24*30)));
     $data = [
         'invoice_type'=>$_POST['invoice_type'], 
@@ -81,6 +83,7 @@ if(isset($_POST['invoice_type'])){
             $save_invoice = false;
         }
     }
+
     if($save_invoice) $k = $db->insert('invoice', $data);
     else $k = false;
    
