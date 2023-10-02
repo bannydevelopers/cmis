@@ -3,6 +3,11 @@
 $db = db::get_connection(storage::init()->system_config->database);
 $ok = false;
 $msg = '';
+$staff = $db->select('staff','work_location, branch_name, store_id, store_name')
+            ->join('branches','branch_id=work_location')
+            ->join('store','store.branch=branches.branch_id')
+            ->where(['user_reference'=>helper::init()->get_session_user('user_id')])
+            ->fetch();
 if(isset($_POST['customer_name'])){
     $data = [
         'customer_name'=>$_POST['customer_name'], 
@@ -44,17 +49,21 @@ if(isset($_POST['stock_batch'])){
 $data = ['msg'=>$msg, 'status'=>$ok];
 $data['product'] = $db->select('product')->fetchAll();
 $data['supplier'] = $db->select('supplier')->fetchAll();
-$data['store'] = $db->select('store')->fetchAll();
+$data['staff'] = $staff;
+$data['store'] = $db->select('store')->where(['branch'=>$staff['work_location']])->fetchAll();
 
 //$fields = "*, (SELECT sum(stock_quantity) from stock WHERE stock_type='out' AND stock_batch='') as stock_out";
+$whr = 'stock.stock_ref < 1';
+if(strtolower($staff['branch_name']) != 'headquarters') $whr .= " and stock.store = {$staff['store_id']}";
+//if(helper::init()->get_session_user('user_id'))
 $data['stock'] = $db->select('stock', 'stock.*,product.*,store.*,supplier.*,user.*,sum(outgoing.stock_quantity) as stock_out')
                     ->join('product', 'product_id=stock.product')
                     ->join('stock as outgoing', 'outgoing.stock_ref=stock.stock_id', 'left')
                     ->join('store', 'store.store_id=stock.store')
                     ->join('supplier', 'supplier.supplier_id=stock.stock_supplier')
                     ->join('user', 'user.user_id=stock.stock_receiver')
-                    ->where('stock.stock_ref < 1')
+                    ->where($whr)
                     ->group_by('stock_id')
                     ->fetchAll();
-//var_dump($db->error());
+
 echo helper::find_template('stock', $data);

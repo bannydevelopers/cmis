@@ -38,9 +38,9 @@
                 <div class="mob:w-1/2 w-full px-3">
                   <label>Store
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="store" onchange="pop_add_modal(`store`)">
-                      <option value="">Choose store..</option>
+                      <option value="">Choose store...</option>
                       <?php foreach($store as $st){?>
-                      <option value="<?=$st['store_id']?>"><?=$st['store_name']?></option>
+                      <option value="<?=$staff['store_id']?>"><?=$st['store_name']?></option>
                       <?php }?>
                       <option value="">Add store</option>
                     </select>
@@ -170,6 +170,8 @@
     <input type="text" name="store_name" placeholder="Store name">
     <label>Store location</label>
     <input type="text" name="store_location" placeholder="Store location">
+    <label>Store branch</label>
+    <input type="text" placeholder="Store location" value="<?=$staff['branch_name']?>" readonly>
     <input type="hidden" name="ajax" value="1">
   </form>
   <form method="post">
@@ -217,7 +219,7 @@ function pop_add_modal(name){
           response=>{
             let msg, icon;
             _json = JSON.parse(response);
-            console.log(_json);
+            //console.log(_json);
             if(_json.status){
               msg = `${name} added successful`;
               icon= 'success';
