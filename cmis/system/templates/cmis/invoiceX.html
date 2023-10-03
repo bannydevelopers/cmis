@@ -225,7 +225,7 @@
             <?php $inv['due_date'] = helper::format_time($inv['due_date'],'d M Y, H:i')?>
             <?php $inv['created_time'] = helper::format_time($inv['created_time'],'d M Y, H:i')?>
             <div class="flex items-center space-x-4 text-sm">   
-              <button onclick="preview_invoice()"  data-json='<?=stripslashes(json_encode($inv))?>'
+              <button onclick="preview_invoice()"  data-json='<?=json_encode($inv)?>'
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 foinv:outline-none foinv:outline-gray-300"
                 aria-label="View"
               >

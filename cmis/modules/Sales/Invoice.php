@@ -123,7 +123,6 @@ $stock = [];
 foreach($products as $prod){
     if(intval($prod['stock_out']) < intval($prod['stock_quantity'])) $stock[] = $prod;
 }
-
 $data = [
     'invoice'=>$invoice,
     'customers'=>$customer,
