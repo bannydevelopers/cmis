@@ -42,22 +42,22 @@
                     <label>E-mail
                       <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="email" type="email" placeholder="E-mail">
                     </label>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <label>TIN number
+                        <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
+                      </label>
+                    </div>
+                    <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                      <label>VRN
+                        <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
+                      </label>
+                    </div>
+                  </div>
                   </div>
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
                     <label>Residence address
-                      <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
-                    </label>
-                  </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>TIN number
-                      <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
-                    </label>
-                  </div>
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>VRN
-                      <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
+                      <textarea name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" placeholder="Residence address"></textarea>
                     </label>
                   </div>
                 </div>
@@ -180,23 +180,24 @@
                           <label>E-mail
                             <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$cus['customer_email']?>" name="email" type="email" placeholder="E-mail">
                           </label>
+                          <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                              <label>TIN number
+                                <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" value="<?=$cus['tin_number']?>" maxlength="12" placeholder="TIN">
+                              </label>
+                            </div>
+                            <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
+                              <label>VRN
+                                <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" value="<?=$cus['vrn_number']?>" maxlength="9" placeholder="VRN">
+                              </label>
+                            </div>
+                          </div>
                         </div>
                         <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
                           <label>Residence address
-                            <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" value="<?=$cus['customer_physical_adress']?>" placeholder="Residence address">
+                            <textarea name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" placeholder="Residence address"><?=$cus['customer_physical_adress']?></textarea>
                           </label>
-                        </div>
-                      </div>
-                      <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                          <label>TIN number
-                            <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" value="<?=$cus['tin_number']?>" maxlength="12" placeholder="TIN">
-                          </label>
-                        </div>
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                          <label>VRN
-                            <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" value="<?=$cus['vrn_number']?>" maxlength="9" placeholder="VRN">
-                          </label>
+                      
                         </div>
                       </div>
                       <div class="pb-8">

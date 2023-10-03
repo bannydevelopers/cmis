@@ -26,10 +26,10 @@ if(isset($_POST['invoice_type'])){
         $total += intval($_POST['item_quantity'][$k]) * $prods[$key]['product_price'];
         $items[] = [
             'id'=>$id, 
-            'name'=>$prods[$key]['product_name'],
-            'qty'=>$_POST['item_quantity'][$k], 
-            'unit'=>$prods[$key]['product_unit'], 
-            'desc'=>$prods[$key]['product_description'], 
+            'name'=>htmlspecialchars($prods[$key]['product_name']),
+            'qty'=>intval($_POST['item_quantity'][$k]), 
+            'unit'=>htmlspecialchars($prods[$key]['product_unit']), 
+            'desc'=>htmlspecialchars($prods[$key]['product_description']), 
             'price'=>intval($_POST['sell_price'][$k]), 
             'setPrice'=>intval($prods[$key]['product_price'])
         ];
