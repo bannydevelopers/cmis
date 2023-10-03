@@ -78,7 +78,7 @@
 <div id="message"></div>
 <div class="w-full overflow-hidden rounded-lg shadow-md">
   <div class="w-full overflow-x-auto">
-    <table class="w-full">
+    <table id="dTable" class="w-full">
       <thead>
         <tr
           class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -228,4 +228,11 @@
     });
   }
 </script>
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script>
+  $(document).ready( function () {
+    $('#dTable').DataTable();
+  } );
+</script>
